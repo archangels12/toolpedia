@@ -59,7 +59,7 @@ const samples: Record<string, string> = {
 		(inner, level) => `{"level${level}":[${inner},${level}]}`,
 		'"core"',
 	),
-	default: '{"name":"delphitools","version":"1.1.0","private":true,"tools":[{"id":"regex-tester","category":"dev","new":false,"shortcuts":["Test pattern"]},{"id":"text-diff","category":"dev","new":true,"shortcuts":[]},{"id":"json-formatter","category":"dev","new":true,"shortcuts":["Format JSON","Minify JSON"],"indent":[2,4,"tab"]}],"platforms":{"ios":{"minimum":"18.0","devices":["iPhone","iPad","iPhone Duo"]},"web":{"url":"https://delphi.tools","offline":true}},"languages":["en","de","fr","es","it","pt","ru","ja","zh-Hans","ar"],"licence":null,"downloads":48213,"rating":4.9}',
+	default: '{"name":"toolpedia","version":"1.1.0","private":true,"tools":[{"id":"regex-tester","category":"dev","new":false,"shortcuts":["Test pattern"]},{"id":"text-diff","category":"dev","new":true,"shortcuts":[]},{"id":"json-formatter","category":"dev","new":true,"shortcuts":["Format JSON","Minify JSON"],"indent":[2,4,"tab"]}],"platforms":{"ios":{"minimum":"18.0","devices":["iPhone","iPad","iPhone Duo"]},"web":{"url":"https://toolpedia.app","offline":true}},"languages":["en","de","fr","es","it","pt","ru","ja","zh-Hans","ar"],"licence":null,"downloads":48213,"rating":4.9}',
 };
 
 const indentIds: IndentId[] = INDENT_OPTIONS.map((option) => option.id);

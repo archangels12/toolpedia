@@ -145,7 +145,7 @@ export async function exportGloss(tokens: GlossToken[]) {
 	ctx.fillStyle = brandColour;
 	ctx.textAlign = 'right';
 	ctx.fillText(
-		'delphi.tools',
+		'toolpedia.app',
 		CANVAS_WIDTH - PADDING,
 		canvas.height - PADDING + 8,
 	);

@@ -3,22 +3,19 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import puppeteer from 'puppeteer-core';
 import { serve } from './static-server.mjs';
-import { renderPng, toolCard, siteCard, canonCard } from './og.mjs';
+import { renderPng, toolCard, siteCard } from './og.mjs';
 
 const CHROME =
 	process.env.CHROME_PATH ??
 	'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-const ORIGIN = 'https://delphi.tools';
+const ORIGIN = 'https://toolpedia.app';
+const SITE = '툴피디아';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = process.argv[2] ?? join(root, 'dist');
 
 // node strips typescript
-const { allTools, CANON_KIT_ID } = await import('../app/lib/tools.ts');
-const { docsPages } = await import('../app/lib/canon-docs.ts');
-
-const canonKit = allTools.find((t) => t.id === CANON_KIT_ID);
-
-const canonCardAlt = "A share card for Delphi's Canon UI Kit on delphitools";
+// 한국어 전용 사이트라 allTools 는 한국어판 도구(이름·설명 한국어)만 담고 있다
+const { allTools } = await import('../app/lib/tools.ts');
 
 const toolRoutes = allTools.filter(
 	(t) => !t.external && t.href.startsWith('/tools/'),
@@ -31,11 +28,13 @@ function headFor({ title, description, url, image, imageAlt }) {
 	return [
 		`<title>${esc(title)}</title>`,
 		`<meta name="description" content="${esc(description)}">`,
+		`<link rel="canonical" href="${ORIGIN}${url}">`,
 		`<meta property="og:type" content="website">`,
-		`<meta property="og:site_name" content="delphitools">`,
+		`<meta property="og:site_name" content="${SITE}">`,
+		`<meta property="og:locale" content="ko_KR">`,
 		`<meta property="og:title" content="${esc(title)}">`,
 		`<meta property="og:description" content="${esc(description)}">`,
-		`<meta property="og:url" content="${ORIGIN}${url === '/' ? '' : url}">`,
+		`<meta property="og:url" content="${ORIGIN}${url}">`,
 		`<meta property="og:image" content="${ORIGIN}${image}">`,
 		`<meta property="og:image:width" content="1200">`,
 		`<meta property="og:image:height" content="630">`,
@@ -54,7 +53,7 @@ function withHead(shell, head) {
 	return shell
 		.replace(/<title>[\s\S]*?<\/title>/, '@@HEAD@@')
 		.replace(
-			/\n\s*<meta (?:name="description"|property="og:|name="twitter:)[^>]*>/g,
+			/\n\s*(?:<meta (?:name="description"|property="og:|name="twitter:)[^>]*>|<link rel="canonical"[^>]*>)/g,
 			'',
 		)
 		.replace('@@HEAD@@', head);
@@ -89,62 +88,43 @@ async function boot(url, evaluate) {
 	return result;
 }
 
+const suiteDescription = (id) =>
+	allTools.find((t) => t.id === id)?.description ?? '';
+
 const routes = [
 	{
 		url: '/',
-		title: 'delphitools — digital indie toolkit',
+		title: `${SITE} — 세상의 모든 도구 | 무료 온라인 도구 모음`,
 		description:
-			'A collection of small, low stakes and low effort tools. No logins, no registration, no data collection. Everything runs locally in your browser.',
+			'이미지 용량 줄이기, PDF 합치기, QR코드 만들기, 글자수 세기까지. 가입·설치 없이 쓰는 무료 온라인 도구 모음. 파일은 내 기기 밖으로 나가지 않아요.',
 		image: '/og.png',
-		imageAlt: 'delphitools hero image',
+		imageAlt: `${SITE} — 세상의 모든 도구`,
 		card: siteCard(),
 	},
 	...toolRoutes.map((t) => ({
 		url: `/tools/${t.id}`,
-		title: `${t.name} - delphitools`,
-		description: t.description,
+		title: `${t.name} - 무료 온라인 도구 | ${SITE}`,
+		description: `${t.description}. 가입·설치 없이 브라우저에서 바로, 무료로 쓸 수 있어요.`,
 		image: `/tools/${t.id}/og.png`,
-		imageAlt: 'A share card for a free tool on delphitools',
+		imageAlt: `${t.name} — ${SITE}`,
 		card: toolCard(t.name),
 	})),
 	{
 		url: '/editor',
-		title: 'Substrata',
-		description:
-			allTools.find((t) => t.id === 'substrata')
-				?.description ?? '',
+		title: `이미지 편집기 - 무료 온라인 도구 | ${SITE}`,
+		description: suiteDescription('substrata'),
 		image: '/editor/og.png',
-		imageAlt: 'A share card for Substrata, the delphitools image editor',
-		card: toolCard('Substrata'),
+		imageAlt: `이미지 편집기 — ${SITE}`,
+		card: toolCard('이미지 편집기'),
 	},
 	{
 		url: '/errata',
-		title: 'Errata',
-		description:
-			allTools.find((t) => t.id === 'errata')?.description ??
-			'',
+		title: `PDF 편집기 - 무료 온라인 도구 | ${SITE}`,
+		description: suiteDescription('errata'),
 		image: '/errata/og.png',
-		imageAlt: 'A share card for Errata, the delphitools PDF editor',
-		card: toolCard('Errata'),
+		imageAlt: `PDF 편집기 — ${SITE}`,
+		card: toolCard('PDF 편집기'),
 	},
-	...docsPages.map((page) => ({
-		url: page.url,
-		title:
-			page.kind === 'overview'
-				? canonKit.name
-				: `${page.heading} - ${canonKit.name}`,
-		description: canonKit.description,
-		image: `${page.url}/og.png`,
-		imageAlt: canonCardAlt,
-		// a pattern or screen title alone ("Tone") needs its kind on the card
-		card: canonCard(
-			page.kind === 'overview'
-				? 'Canon'
-				: ['pattern', 'screen'].includes(page.kind)
-					? `${page.heading} ${page.kind}`
-					: page.heading,
-		),
-	})),
 ];
 
 let written = 0;
@@ -188,15 +168,31 @@ for (const route of routes) {
 		withHead(
 			shell,
 			headFor({
-				title: '404 — delphitools',
-				description: 'File not found',
+				title: `페이지를 찾을 수 없어요 | ${SITE}`,
+				description: '찾는 페이지가 없어요. 툴피디아 홈에서 도구를 검색해 보세요.',
 				url: '/404',
 				image: '/og.png',
-				imageAlt: 'delphitools hero image',
+				imageAlt: `${SITE} — 세상의 모든 도구`,
 			}),
 		),
 	);
 	console.log('  404.html written');
+}
+
+// 검색엔진용 사이트맵 (네이버 서치어드바이저·구글 서치콘솔에 제출)
+{
+	const today = new Date().toISOString().slice(0, 10);
+	const urls = routes
+		.map(
+			(route) =>
+				`  <url><loc>${ORIGIN}${route.url}</loc><lastmod>${today}</lastmod></url>`,
+		)
+		.join('\n');
+	writeFileSync(
+		join(dist, 'sitemap.xml'),
+		`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
+	);
+	console.log(`  sitemap.xml written (${routes.length} urls)`);
 }
 
 await browser?.close();

@@ -1,3 +1,5 @@
 # https://www.robotstxt.org/
 User-agent: *
 Disallow:
+
+Sitemap: https://toolpedia.app/sitemap.xml
