@@ -114,13 +114,6 @@ export default class WorkflowList extends Component<{
 
 	<template>
 		<div class="dt-wf-list" ...attributes>
-			<img
-				src="/art/delphi-alien.webp"
-				width="815"
-				height="1568"
-				alt=""
-				class="dt-wf-art"
-			/>
 			<div class="dt-wf-scroll">
 				<table class="dt-wf">
 					<thead>

@@ -16,21 +16,7 @@ Router.map(function () {
 	this.route('workflows');
 	this.route('workflow', { path: '/w/:steps' });
 	this.route('experiments');
-	this.route('canon', function () {
-		this.route('installation');
-		this.route('components', function () {
-			this.route('component', { path: '/:name' });
-		});
-		this.route('patterns', function () {
-			this.route('pattern', { path: '/:name' });
-		});
-		this.route('screens', function () {
-			this.route('screen', { path: '/:name' });
-		});
-		this.route('blocks', function () {
-			this.route('block', { path: '/:name' });
-		});
-	});
+	// 원작 UI 키트 문서(/canon)는 툴피디아에서 공개하지 않는다
 	this.route('privacy');
 	this.route('not-found', { path: '/*path' });
 });
