@@ -66,7 +66,6 @@ import './pages.css';
 
 const COLUMN = 300;
 const COLUMN_GAP = 1;
-const BUG_MAILTO = 'mailto:tools@rmv.fyi?subject=substrata%20bug%20report';
 const REPO_URL = 'https://github.com/1612elphi/delphitools';
 const GUIDE_DEFAULTS: GuidesPref = {
 	rulers: false,
@@ -418,7 +417,6 @@ export default class SettingsPage extends Component<{
 	};
 
 	openShortcuts = () => openModal('shortcuts');
-	openAboutDelphitools = () => openModal('about-delphitools');
 
 	<template>
 		<span
@@ -908,16 +906,6 @@ export default class SettingsPage extends Component<{
 						>Keyboard shortcuts<IconSvg
 								@name="chevron-right"
 							/></button>
-						<button
-							type="button"
-							class="sub-pg-link"
-							{{on
-								"click"
-								this.openAboutDelphitools
-							}}
-						>About delphitools<IconSvg
-								@name="chevron-right"
-							/></button>
 						<a
 							class="sub-pg-link"
 							href={{REPO_URL}}
@@ -925,12 +913,6 @@ export default class SettingsPage extends Component<{
 							rel="noopener noreferrer"
 						>Source · GitHub<IconSvg
 								@name="arrow-up-right"
-							/></a>
-						<a
-							class="sub-pg-link"
-							href={{BUG_MAILTO}}
-						>Feedback<IconSvg
-								@name="message-square-plus"
 							/></a>
 						<LinkTo
 							@route="index"

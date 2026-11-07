@@ -14,7 +14,6 @@ import { toast } from 'delphitools-v2/lib/substrata/toast';
 import { TrackedExternal } from 'delphitools-v2/lib/tracked-external';
 import './pages.css';
 
-const BUG_MAILTO = 'mailto:tools@rmv.fyi?subject=substrata%20bug%20report';
 const REPO_URL = 'https://github.com/1612elphi/delphitools';
 
 const touch = navigator.maxTouchPoints > 1;
@@ -245,20 +244,7 @@ export default class Onboarding extends Component<{
 								class="sub-pg-onb-art is-medium"
 							/>
 							<p>
-								Substrata is
-								still an early
-								access public
-								beta. Please
-								report bugs you
-								find to me
-								directly:
-								<a
-									href={{BUG_MAILTO}}
-								>tools@rmv.fyi</a>
-								or press the
-								Feedback button
-								up in the top
-								bar.
+								Substrata is still an early access public beta, so please watch for bugs.
 							</p>
 							<p>Thanks for being here
 								this early.</p>
@@ -269,7 +255,7 @@ export default class Onboarding extends Component<{
 					<div class="sub-pg-onb-bar">
 						<CanonButton
 							@kind="cell"
-							@text="Back"
+							@text="Previous"
 							@icon={{component
 								IconSvg
 								name="chevron-left"
