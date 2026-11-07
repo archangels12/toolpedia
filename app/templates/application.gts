@@ -5,6 +5,7 @@ import type FlowService from 'delphitools-v2/services/flow';
 import type SidebarService from 'delphitools-v2/services/sidebar';
 import type ThemeService from 'delphitools-v2/services/theme';
 import { pageTitle } from 'ember-page-title';
+import { t } from 'delphitools-v2/lib/i18n';
 import CanonButton from 'delphicanon/components/canon-button';
 import CanonToast from 'delphicanon/components/canon-toast';
 import AppSidebar from 'delphitools-v2/components/app-sidebar';
@@ -64,7 +65,7 @@ export default class ApplicationTemplate extends Component {
 			};
 		return (
 			PAGES[route] ?? {
-				title: 'delphitools',
+				title: t('Toolpedia'),
 				icon: 'layout-grid',
 			}
 		);
@@ -80,7 +81,7 @@ export default class ApplicationTemplate extends Component {
 	}
 
 	<template>
-		{{pageTitle "delphitools"}}
+		{{pageTitle (t "Toolpedia")}}
 
 		{{#if this.isBare}}
 			{{outlet}}

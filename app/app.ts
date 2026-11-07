@@ -1,4 +1,7 @@
 import './styles/app.scss';
+import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+import './styles/toolpedia.css';
+import './components/tp-home.css';
 
 import Application from '@ember/application';
 import compatModules from '@embroider/virtual/compat-modules';
@@ -7,6 +10,9 @@ import loadInitializers from 'ember-load-initializers';
 import config from 'delphitools-v2/config/environment';
 import { importSync, isDevelopingApp, macroCondition } from '@embroider/macros';
 import setupInspector from '@embroider/legacy-inspector-support/ember-source-4.12';
+import { LOCALE } from 'delphitools-v2/lib/locale';
+
+document.documentElement.lang = LOCALE;
 
 if (macroCondition(isDevelopingApp())) {
 	importSync('./deprecation-workflow');

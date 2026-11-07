@@ -1,3 +1,6 @@
+import { LOCALE } from './locale.ts';
+import { toolsKo, categoriesKo } from './tools-ko.ts';
+
 // ios requires extensions
 export const AUDIO_ACCEPT = [
 	'audio/*',
@@ -1215,7 +1218,7 @@ export const toolCategories: ToolCategory[] = [
 	},
 	{
 		id: 'experiments',
-		name: "Alien Delphi's Experiments",
+		name: 'Experiments',
 		tools: [
 			{
 				id: 'stupid-units',
@@ -1241,6 +1244,45 @@ export const toolCategories: ToolCategory[] = [
 ];
 
 const EXPERIMENTS_ID = 'experiments';
+const KO = LOCALE === 'ko';
+
+// 모든 도구 (언어와 무관하게 id로 찾을 때 사용)
+const everyTool = toolCategories.flatMap((category) => category.tools);
+
+// 원작자 앱·CLI·UI 키트로 가는 외부 링크 카테고리는 툴피디아에서 쓰지 않는다
+const ELSEWHERE_ID = 'elsewhere';
+toolCategories.splice(
+	toolCategories.findIndex((category) => category.id === ELSEWHERE_ID),
+	1,
+);
+const turboNerd = toolCategories.find((category) => category.id === 'turbo-nerd');
+if (turboNerd) turboNerd.name = 'Fun Converters';
+
+// 한국어판: 번역된 도구만 목록에 남기고 이름·설명을 한국어로 바꾼다.
+// 목록에서 빠진 도구도 everyTool 에는 남아 있어 id 조회는 계속 된다.
+// 아래 allTools 등이 이 결과로 만들어지므로 반드시 그보다 먼저 실행한다.
+if (LOCALE === 'ko') {
+	for (const tool of everyTool) {
+		const ko = toolsKo[tool.id];
+		if (!ko) continue;
+		// 영어 이름·키워드로도 검색되게 남겨 둔다 (예: "pdf", "qr")
+		const keywords = [
+			...(ko.keywords ?? []),
+			tool.name,
+			...(tool.keywords ?? []),
+		];
+		Object.assign(tool, ko, { keywords });
+	}
+	for (const category of toolCategories) {
+		category.name = categoriesKo[category.id] ?? category.name;
+		category.tools = category.tools.filter((tool) => tool.id in toolsKo);
+	}
+	for (let i = toolCategories.length - 1; i >= 0; i--) {
+		const category = toolCategories[i]!;
+		if (category.tools.length === 0 && category.id !== EXPERIMENTS_ID)
+			toolCategories.splice(i, 1);
+	}
+}
 
 export const experimentsCategory = toolCategories.find(
 	(category) => category.id === EXPERIMENTS_ID,
@@ -1275,7 +1317,7 @@ const workflowsEntry: Tool = {
 
 const experimentsEntry: Tool = {
 	id: 'experiments',
-	name: "Alien Delphi's Experiments",
+	name: 'Experiments',
 	description: 'Unfinished tool sketches',
 	icon: 'flask-conical',
 	href: '/experiments',
@@ -1293,15 +1335,19 @@ export interface Suite {
 export const suites: Suite[] = [
 	{
 		id: 'substrata',
-		tagline: 'the delphitools image editor',
-		word: 'Edit images',
-		features: ['Layers', 'Masks', 'Crop', 'Text'],
+		tagline: KO ? '툴피디아 이미지 편집기' : 'the Toolpedia image editor',
+		word: KO ? '이미지 편집' : 'Edit images',
+		features: KO
+			? ['레이어', '마스크', '자르기', '글자']
+			: ['Layers', 'Masks', 'Crop', 'Text'],
 	},
 	{
 		id: 'errata',
-		tagline: 'the delphitools PDF editor',
-		word: 'Edit PDFs',
-		features: ['Redact', 'Forms', 'Sign', 'Impose'],
+		tagline: KO ? '툴피디아 PDF 편집기' : 'the Toolpedia PDF editor',
+		word: KO ? 'PDF 편집' : 'Edit PDFs',
+		features: KO
+			? ['가리기', '양식', '서명', '판걸이']
+			: ['Redact', 'Forms', 'Sign', 'Impose'],
 	},
 ].flatMap(({ id, ...rest }) => {
 	const tool = allTools.find((t) => t.id === id);
@@ -1316,7 +1362,7 @@ export const homeFeatured: Tool[] = [
 ];
 
 export function getToolById(id: string): Tool | undefined {
-	return allTools.find((tool) => tool.id === id);
+	return everyTool.find((tool) => tool.id === id);
 }
 
 export function getCategoryByToolId(id: string): ToolCategory | undefined {

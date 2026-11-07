@@ -22,6 +22,8 @@ import { isHalloween } from 'delphitools-v2/lib/hero-art';
 import type SidebarService from 'delphitools-v2/services/sidebar';
 import type MagazineService from 'delphitools-v2/services/magazine';
 import { isPlainClick } from 'delphitools-v2/services/magazine';
+import { t } from 'delphitools-v2/lib/i18n';
+import { isKo, pathFor } from 'delphitools-v2/lib/locale';
 import {
 	navIdFor,
 	opensSection,
@@ -29,12 +31,16 @@ import {
 	searchDocs,
 } from 'delphitools-v2/lib/canon-docs';
 
+// 이미지·PDF 통합 편집기와 워크플로는 아직 번역 전이라 영어판에만 둔다
 const PAGES = [
-	{ name: 'Home', icon: 'home', href: '/' },
-	{ name: 'Substrata', icon: 'brush', href: '/editor' },
-	{ name: 'Errata', icon: 'signature', href: '/errata' },
-	{ name: 'Workflows', icon: 'workflow', href: '/workflows' },
-	{ name: 'Experiments', icon: 'flask-conical', href: '/experiments' },
+	{ name: t('Home'), icon: 'home', href: '/' },
+	...(isKo
+		? []
+		: [
+				{ name: 'Substrata', icon: 'brush', href: '/editor' },
+				{ name: 'Errata', icon: 'signature', href: '/errata' },
+				{ name: 'Workflows', icon: 'workflow', href: '/workflows' },
+			]),
 ];
 
 const SIDEBAR_CATEGORIES: ToolCategory[] = toolCategories.map((cat) => ({
@@ -135,6 +141,12 @@ export default class AppSidebar extends Component {
 	@tracked toolSearch = '';
 	@tracked docsSearch = '';
 	@tracked aboutOpen = false;
+
+	// 같은 페이지의 다른 언어 주소 (전체 새로고침으로 이동)
+	get otherLangHref(): string {
+		// currentURL 은 /ko 접두사가 빠진 앱 내부 주소라 화면 이동 때마다 갱신된다
+		return pathFor(isKo ? 'en' : 'ko', this.router.currentURL ?? '/');
+	}
 
 	openAbout = (event: MouseEvent) => {
 		// webkit leaves a clicked button unfocused; the dialog returns focus to it
@@ -278,67 +290,12 @@ export default class AppSidebar extends Component {
 					{{else}}
 						<LinkTo
 							@route="index"
-							class="dt-brand"
+							class="dt-brand tp-brand"
 						>
-							<img
-								src={{if
-									this.halloween
-									"/heroes/garbajcam.png"
-									"/delphi-lowlod.png"
-								}}
-								width="64"
-								height="64"
-								alt=""
-								class="dt-brand-logo
-									{{if
-										this.pride
-										'pride-ring'
-									}}"
-							/>
-							<span
-								class="dt-brand-text"
-							>
-								<span
-									class="dt-brand-name
-										{{if
-											this.pride
-											'pride-wordmark'
-										}}"
-								>
-									{{if
-										this.halloween
-										"garbajtools"
-										"delphitools"
-									}}
-								</span>
-								<span
-									class="dt-brand-sub"
-								>
-									<span
-										class="dt-brand-tagline
-											{{if
-												this.pride
-												'pride-tagline'
-											}}"
-									>
-										{{#if
-											this.pride
-										}}trans
-											rights{{else if
-											this.halloween
-										}}evil
-											tools{{else}}indie
-											tools{{/if}}
-									</span>
-									<span
-										class="dt-brand-sha"
-										title="Build commit"
-									>
-										v{{VERSION}}
-										·
-										{{this.commitSha}}
-									</span>
-								</span>
+							<span class="tp-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+							<span class="dt-brand-text">
+								<span class="dt-brand-name">{{t "Toolpedia"}}</span>
+								<span class="dt-brand-sub">{{t "Every tool in the world"}}</span>
 							</span>
 						</LinkTo>
 					{{/if}}
@@ -350,12 +307,12 @@ export default class AppSidebar extends Component {
 							placeholder={{if
 								this.inDocs
 								"Search docs..."
-								"Search tools..."
+								(t "Search tools...")
 							}}
 							aria-label={{if
 								this.inDocs
 								"Search docs"
-								"Search tools"
+								(t "Search tools")
 							}}
 							value={{this.search}}
 							{{on
@@ -368,7 +325,7 @@ export default class AppSidebar extends Component {
 							<button
 								type="button"
 								class="dt-search-clear"
-								aria-label="Clear search"
+								aria-label={{t "Clear search"}}
 								{{on
 									"click"
 									this.clearSearch
@@ -433,12 +390,12 @@ export default class AppSidebar extends Component {
 						<output
 							class="dt-nav-empty"
 							aria-live="polite"
-						>No tools found</output>
+						>{{t "No tools found"}}</output>
 					{{/if}}
 
 					{{#if this.featured.length}}
 						<CanonHeading
-							@text="Greatest Hits"
+							@text={{t "Popular"}}
 						/>
 						{{#each
 							this.featured
@@ -481,44 +438,18 @@ export default class AppSidebar extends Component {
 
 					{{#unless this.query}}
 						<CanonHeading
-							@text="delphitools"
+							@text={{t "Toolpedia"}}
 						/>
-						<CanonSidebarRow
-							@title="About"
-							@icon={{component
-								IconSvg
-								name="info"
-							}}
-							{{on
-								"click"
-								this.openAbout
-							}}
-						/>
-						<CanonDialog
-							class="dt-about"
-							@open={{this.aboutOpen}}
-							@title="About delphitools"
-							@onClose={{this.closeAbout}}
-						>
-							<:default>
-								<AboutDelphitoolsBody
-								/>
-							</:default>
-							<:footer as |close|>
-								<CanonButton
-									@text="Close"
-									@onClick={{fn
-										close
-										""
-									}}
-								/>
-							</:footer>
-						</CanonDialog>
 						<NavRow
-							@name="Privacy"
+							@name={{t "Privacy"}}
 							@icon="shield-check"
 							@href="/privacy"
 						/>
+						<a
+							class="tp-lang-switch"
+							href={{this.otherLangHref}}
+							hreflang={{if isKo "en" "ko"}}
+						>{{if isKo "English" "한국어"}}</a>
 					{{/unless}}
 				{{/if}}
 			</:default>

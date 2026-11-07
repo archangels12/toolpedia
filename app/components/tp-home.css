@@ -1,0 +1,185 @@
+/* 툴피디아 홈: 제목, 검색창, 카테고리 색, 색인 탭 */
+
+/* 카테고리 → 색인 탭 색 */
+[data-cat="img-assets"] { --cat: var(--tp-tab-img); }
+[data-cat="pdf"] { --cat: var(--tp-tab-pdf); }
+[data-cat="audio-video"] { --cat: var(--tp-tab-av); }
+[data-cat="typo-text"] { --cat: var(--tp-tab-text); }
+[data-cat="other-tools"] { --cat: var(--tp-tab-other); }
+[data-cat="calculators"] { --cat: var(--tp-tab-calc); }
+[data-cat="colour"] { --cat: var(--tp-tab-colour); }
+[data-cat="social-media"] { --cat: var(--tp-tab-social); }
+[data-cat="dev-tools"] { --cat: var(--tp-tab-dev); }
+[data-cat="print-production"] { --cat: var(--tp-tab-print); }
+[data-cat="turbo-nerd"],
+[data-cat="elsewhere"] { --cat: var(--tp-ink-soft); }
+
+.tp-hero {
+	max-width: 760px;
+	margin: clamp(24px, 6vw, 72px) auto 0;
+	padding-inline: 4px;
+}
+
+.tp-hero-title {
+	margin: 0;
+	font-size: clamp(40px, 7.5vw, 84px);
+	font-weight: 850;
+	letter-spacing: -0.045em;
+	line-height: 1.02;
+}
+
+.tp-hero-sub {
+	max-width: 34em;
+	margin: 16px 0 0;
+	color: var(--tp-ink-soft);
+	font-size: clamp(16px, 2vw, 19px);
+	line-height: 1.55;
+}
+
+/* 검색창: 펼친 사전의 한 면처럼 크고 단단하게 */
+.dt-home .dt-omni-zone {
+	max-width: 760px;
+	margin: 28px auto 48px;
+}
+
+.dt-home .dt-omni {
+	overflow: hidden;
+	border: 2px solid var(--tp-ink);
+	border-radius: var(--tp-radius);
+	background: var(--tp-sheet);
+	box-shadow: 6px 6px 0 var(--tp-ink);
+}
+
+.dt-home .dt-omni:focus-within {
+	border-color: var(--tp-ink);
+	box-shadow: 6px 6px 0 var(--tp-marker);
+}
+
+.dt-home .dt-omni-input {
+	text-align: left;
+	padding: 12px 14px;
+}
+
+.dt-home .dt-omni-legend .canon-button {
+	background: var(--tp-sheet);
+}
+
+.dt-home .dt-omni-answers {
+	border: 2px solid var(--tp-ink);
+	border-top: 0;
+	border-radius: 0 0 var(--tp-radius) var(--tp-radius);
+}
+
+/* 카테고리 구획 */
+.tp-cat {
+	scroll-margin-top: 16px;
+}
+
+.tp-cat .canon-jump-heading,
+.tp-cat > :first-child {
+	box-shadow: inset 6px 0 0 var(--cat, var(--tp-ink));
+}
+
+.tp-cat .dt-cell-icon {
+	color: var(--cat, var(--tp-ink));
+}
+
+.tp-cat .dt-cell-pattern {
+	background: var(--cat, var(--tp-ink));
+}
+
+.tp-cat .dt-cell-name {
+	font-weight: 700;
+}
+
+/* 색인 탭: 오른쪽 가장자리에 붙은 사전 옆면 탭 */
+.tp-thumb-index {
+	position: fixed;
+	z-index: 20;
+	top: 50%;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	transform: translateY(-50%);
+}
+
+.tp-thumb {
+	padding: 12px 7px 12px 9px;
+	border-radius: var(--tp-radius-sm) 0 0 var(--tp-radius-sm);
+	background: var(--cat, var(--tp-ink));
+	color: #fff;
+	font-size: 13px;
+	font-weight: 700;
+	letter-spacing: 0;
+	text-decoration: none;
+	writing-mode: vertical-rl;
+	transform: translateX(4px);
+	transition: transform 120ms ease;
+}
+
+.tp-thumb:hover,
+.tp-thumb:focus-visible {
+	transform: translateX(0);
+}
+
+/* 좁은 화면: 탭을 숨기고 카테고리는 스크롤로 */
+@media (max-width: 720px) {
+	.tp-thumb-index {
+		display: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.tp-thumb {
+		transition: none;
+	}
+}
+
+/* 사이드바 로고: 색인 탭 세 줄 + 워드마크 */
+.tp-brand {
+	align-items: center;
+	gap: 10px;
+}
+
+.tp-brand-mark {
+	display: inline-flex;
+	flex-direction: column;
+	gap: 3px;
+}
+
+.tp-brand-mark i {
+	display: block;
+	width: 22px;
+	height: 6px;
+	border-radius: 0 3px 3px 0;
+}
+
+.tp-brand-mark i:nth-child(1) { width: 16px; background: var(--tp-tab-img); }
+.tp-brand-mark i:nth-child(2) { width: 22px; background: var(--tp-tab-pdf); }
+.tp-brand-mark i:nth-child(3) { width: 12px; background: var(--tp-tab-text); }
+
+.tp-brand .dt-brand-name {
+	font-size: 20px;
+	font-weight: 850;
+	letter-spacing: -0.03em;
+}
+
+.tp-brand .dt-brand-sub {
+	color: var(--tp-ink-soft);
+	font-size: 12px;
+}
+
+.tp-lang-switch {
+	display: block;
+	margin: 8px var(--canon-panel-padding) 16px;
+	color: var(--tp-ink-soft);
+	font-size: 14px;
+	font-weight: 600;
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.tp-lang-switch:hover {
+	color: var(--tp-ink);
+}

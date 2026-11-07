@@ -1,0 +1,128 @@
+/*
+ * 툴피디아 디자인 토큰 — "백과사전의 색인"
+ * 종이·잉크·형광펜 + 카테고리별 색인 탭 색.
+ * delphicanon 토큰을 덮어써서 모든 도구 화면에 함께 적용된다.
+ */
+
+html:root {
+	--tp-paper: #f5f6f8;
+	--tp-sheet: #ffffff;
+	--tp-ink: #1a1c2b;
+	--tp-ink-soft: #5b5f73;
+	--tp-rule: #dfe2e8;
+	--tp-marker: #ffe347;
+	--tp-marker-ink: #1a1c2b;
+
+	/* 색인 탭: 카테고리 구분 정보 */
+	--tp-tab-img: #4c6fff;
+	--tp-tab-pdf: #ff5a4e;
+	--tp-tab-av: #9b5cff;
+	--tp-tab-text: #17b890;
+	--tp-tab-other: #ffa41b;
+	--tp-tab-calc: #2cb5e8;
+	--tp-tab-colour: #ff5fa2;
+	--tp-tab-social: #e8574f;
+	--tp-tab-dev: #5b5f73;
+	--tp-tab-print: #8a6d3b;
+
+	--tp-radius: 14px;
+	--tp-radius-sm: 8px;
+
+	--canon-background: var(--tp-paper);
+	--canon-foreground: var(--tp-ink);
+	--canon-card: var(--tp-sheet);
+	--canon-muted: #eceef2;
+	--canon-muted-foreground: var(--tp-ink-soft);
+	--canon-secondary-foreground: #2b2e44;
+	--canon-accent-bg: #e6e9f0;
+	--canon-border: var(--tp-rule);
+	--canon-primary: var(--tp-ink);
+	--canon-primary-foreground: #ffffff;
+	--canon-destructive: #d92d3a;
+
+	--canon-font:
+		"Pretendard Variable", Pretendard, -apple-system,
+		BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo",
+		"Noto Sans KR", sans-serif;
+	--canon-text-title2: 22px;
+	--canon-text-title3: 19px;
+	--canon-text-body: 16px;
+	--canon-text-callout: 15px;
+	--canon-text-subheadline: 14px;
+	--canon-text-footnote: 13px;
+	--canon-text-caption: 12px;
+
+	/* 앱 셸이 쓰는 두 번째 토큰 체계도 같은 값으로 맞춘다 (다크 모드는 --tp-* 가 바뀌며 따라감) */
+	--radius: var(--tp-radius-sm);
+	--background: var(--tp-paper);
+	--foreground: var(--tp-ink);
+	--card: var(--tp-sheet);
+	--card-foreground: var(--tp-ink);
+	--popover: var(--tp-sheet);
+	--popover-foreground: var(--tp-ink);
+	--primary: var(--tp-ink);
+	--primary-foreground: var(--tp-sheet);
+	--secondary: var(--canon-muted);
+	--secondary-foreground: var(--tp-ink);
+	--muted: var(--canon-muted);
+	--muted-foreground: var(--tp-ink-soft);
+	--accent: var(--canon-accent-bg);
+	--accent-foreground: var(--tp-ink);
+	--destructive: var(--canon-destructive);
+	--border: var(--tp-rule);
+	--input: var(--tp-rule);
+	--ring: var(--tp-tab-img);
+	--sidebar: var(--tp-sheet);
+	--sidebar-foreground: var(--tp-ink);
+	--sidebar-primary: var(--tp-ink);
+	--sidebar-primary-foreground: var(--tp-sheet);
+	--sidebar-accent: var(--canon-accent-bg);
+	--sidebar-accent-foreground: var(--tp-ink);
+	--sidebar-border: var(--tp-rule);
+	--sidebar-ring: var(--tp-tab-img);
+}
+
+@media (prefers-color-scheme: dark) {
+	html:root:not(.light) {
+		--tp-paper: #12131c;
+		--tp-sheet: #1b1d29;
+		--tp-ink: #eef0f6;
+		--tp-ink-soft: #9a9eb3;
+		--tp-rule: #2c2f3f;
+		--canon-muted: #222534;
+		--canon-accent-bg: #262a3b;
+		--canon-secondary-foreground: #d5d8e4;
+		--canon-primary-foreground: #12131c;
+		--canon-destructive: #ff6b74;
+	}
+}
+
+html.dark:root {
+	--tp-paper: #12131c;
+	--tp-sheet: #1b1d29;
+	--tp-ink: #eef0f6;
+	--tp-ink-soft: #9a9eb3;
+	--tp-rule: #2c2f3f;
+	--canon-muted: #222534;
+	--canon-accent-bg: #262a3b;
+	--canon-secondary-foreground: #d5d8e4;
+	--canon-primary-foreground: #12131c;
+	--canon-destructive: #ff6b74;
+}
+
+body {
+	background: var(--tp-paper);
+	color: var(--tp-ink);
+	letter-spacing: -0.01em;
+	word-break: keep-all;
+}
+
+::selection {
+	background: var(--tp-marker);
+	color: var(--tp-marker-ink);
+}
+
+:focus-visible {
+	outline: 2px solid var(--tp-tab-img);
+	outline-offset: 2px;
+}

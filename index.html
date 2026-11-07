@@ -2,48 +2,35 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>delphitools</title>
-    <meta name="description" content="A collection of small, low stakes and low effort tools. No logins, no registration, no data collection. Everything runs locally in your browser.">
+    <title>Toolpedia — every tool in the world</title>
+    <meta name="description" content="Free online tools for images, PDF, video and text. No sign-up, no install — your files never leave your device.">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="delphitools">
-    <meta property="og:title" content="delphitools — digital indie toolkit">
-    <meta property="og:description" content="A collection of small, low stakes and low effort tools. No logins, no registration, no data collection. Everything runs locally in your browser.">
-    <meta property="og:image" content="https://delphi.tools/og.png">
+    <meta property="og:site_name" content="Toolpedia">
+    <meta property="og:title" content="Toolpedia — every tool in the world">
+    <meta property="og:description" content="Free online tools for images, PDF, video and text. No sign-up, no install — your files never leave your device.">
+    <meta property="og:image" content="https://toolpedia.app/og.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="delphitools hero image">
+    <meta property="og:image:alt" content="Toolpedia — every tool in the world">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="delphitools — digital indie toolkit">
-    <meta name="twitter:description" content="A collection of small, low stakes and low effort tools. No logins, no registration, no data collection. Everything runs locally in your browser.">
-    <meta name="twitter:image" content="https://delphi.tools/og.png">
-    <meta name="twitter:image:alt" content="delphitools hero image">
+    <meta name="twitter:title" content="Toolpedia — every tool in the world">
+    <meta name="twitter:description" content="Free online tools for images, PDF, video and text. No sign-up, no install — your files never leave your device.">
+    <meta name="twitter:image" content="https://toolpedia.app/og.png">
+    <meta name="twitter:image:alt" content="Toolpedia — every tool in the world">
     <meta name="twitter:image:width" content="1200">
     <meta name="twitter:image:height" content="630">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="/delphi-lowlod.png">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
     <script>
       (function () {
         try {
-          // 31 October only; ?halloween previews it
-          var d = new Date();
-          if ((d.getMonth() === 9 && d.getDate() === 31) || /[?&]halloween\b/.test(location.search))
-            document.documentElement.classList.add('halloween');
           var t = localStorage.getItem('theme');
           var dark = t === 'dark' || (t !== 'light' && matchMedia('(prefers-color-scheme:dark)').matches);
           // delphicanon tokens follow prefers-color-scheme unless html.light is set
           document.documentElement.classList.add(dark ? 'dark' : 'light');
           if (localStorage.getItem('font') === 'classic') document.documentElement.classList.add('classic');
         } catch (e) {}
-        // ctrl+shift+h toggles the halloween preview
-        addEventListener('keydown', function (e) {
-          if (!e.ctrlKey || !e.shiftKey || e.code !== 'KeyH') return;
-          e.preventDefault();
-          var u = new URL(location.href);
-          if (u.searchParams.has('halloween')) u.searchParams.delete('halloween');
-          else u.searchParams.set('halloween', '');
-          location.href = u.href;
-        });
       })();
     </script>
 
@@ -58,8 +45,8 @@
 
     <script src="/@embroider/virtual/vendor.js"></script>
     <script type="module">
-      import Application from './app/app';
-      import environment from './app/config/environment';
+      import Application from '/app/app';
+      import environment from '/app/config/environment';
 
       Application.create(environment.APP);
     </script>

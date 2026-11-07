@@ -1,9 +1,10 @@
 import EmberRouter from '@embroider/router';
 import config from 'delphitools-v2/config/environment';
+import { ROOT_URL } from 'delphitools-v2/lib/locale';
 
 export default class Router extends EmberRouter {
 	location = config.locationType;
-	rootURL = config.rootURL;
+	rootURL = ROOT_URL;
 }
 
 Router.map(function () {

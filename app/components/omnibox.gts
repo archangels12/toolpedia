@@ -33,13 +33,14 @@ import { HERO_ART, isHalloween } from 'delphitools-v2/lib/hero-art';
 import { heroPatternStyle } from 'delphitools-v2/lib/icon-pattern';
 import WhatsNew from 'delphitools-v2/components/whats-new';
 import ChangelogPopup from 'delphitools-v2/components/changelog-popup';
+import { t } from 'delphitools-v2/lib/i18n';
 import './omnibox.css';
 
 const FileIcon = <template><IconSvg @name="file-up" /></template>;
 const PasteIcon = <template><IconSvg @name="clipboard-paste" /></template>;
 const DiceIcon = <template><IconSvg @name="dices" /></template>;
 
-const PLACEHOLDER = 'Drop a file, search for a tool, paste in text';
+const PLACEHOLDER = t('Search a tool, drop a file, or paste text');
 
 const READ_DEFER_MS = 120;
 
@@ -294,16 +295,11 @@ export default class Omnibox extends Component<OmniboxSignature> {
 	};
 
 	<template>
-		<header class="dt-hero">
-			<div class="dt-hero-pattern" aria-hidden="true">
-				<div style={{this.heroPattern}}></div>
-			</div>
-			<div class="dt-hero-pills">
-				<ChangelogPopup />
-				<WhatsNew />
-			</div>
-			<img src={{this.artSrc}} alt="" class="dt-hero-art" />
-			<h1 class="dt-sr-only">delphitools</h1>
+		<header class="tp-hero">
+			<h1 class="tp-hero-title">{{t "Every tool in the world"}}</h1>
+			<p class="tp-hero-sub">{{t
+					"No sign-up, no install. Your files never leave your device."
+				}}</p>
 		</header>
 
 		<div class="dt-omni-zone">
@@ -325,7 +321,7 @@ export default class Omnibox extends Component<OmniboxSignature> {
 						</div>
 						<CanonButton
 							@kind="cell"
-							@text="Clear"
+							@text={{t "Clear"}}
 							@onClick={{this.clearFile}}
 							class="dt-omni-clear"
 						/>
@@ -335,7 +331,7 @@ export default class Omnibox extends Component<OmniboxSignature> {
 						<input
 							class="dt-omni-input"
 							type="text"
-							aria-label="Search tools"
+							aria-label={{t "Search tools"}}
 							placeholder={{PLACEHOLDER}}
 							value={{this.raw}}
 							{{on
@@ -356,19 +352,19 @@ export default class Omnibox extends Component<OmniboxSignature> {
 						>
 							<CanonButton
 								@kind="cell"
-								@text="Choose a file"
+								@text={{t "Choose a file"}}
 								@icon={{FileIcon}}
 								@onClick={{this.chooseFile}}
 							/>
 							<CanonButton
 								@kind="cell"
-								@text="Paste from clipboard"
+								@text={{t "Paste from clipboard"}}
 								@icon={{PasteIcon}}
 								@onClick={{this.pasteClipboard}}
 							/>
 							<CanonButton
 								@kind="cell"
-								@text="I'm feeling lucky"
+								@text={{t "I'm feeling lucky"}}
 								@icon={{DiceIcon}}
 								@onClick={{this.feelingLucky}}
 							/>
@@ -376,7 +372,7 @@ export default class Omnibox extends Component<OmniboxSignature> {
 						<input
 							type="file"
 							class="dt-omni-pick"
-							aria-label="Choose a file"
+							aria-label={{t "Choose a file"}}
 							tabindex="-1"
 							{{this.picker}}
 							{{on
@@ -444,41 +440,6 @@ export default class Omnibox extends Component<OmniboxSignature> {
 				</div>
 			{{/if}}
 
-			{{#if this.showArtBar}}
-				<div class="dt-omni-artbar">
-					{{#if this.art.artist}}
-						{{#if this.art.url}}
-							<a
-								href={{this.art.url}}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="dt-omni-artist"
-							>art by
-								{{this.art.artist}}</a>
-						{{else}}
-							<span
-								class="dt-omni-artist"
-							>art by
-								{{this.art.artist}}</span>
-						{{/if}}
-					{{else}}
-						<span></span>
-					{{/if}}
-					{{#if this.canShuffle}}
-						<button
-							type="button"
-							class="dt-omni-shuffle"
-							{{on
-								"click"
-								this.shuffle
-							}}
-						>
-							<Icon @name="shuffle" />
-							shuffle
-						</button>
-					{{/if}}
-				</div>
-			{{/if}}
 
 			{{yield}}
 		</div>
@@ -486,7 +447,7 @@ export default class Omnibox extends Component<OmniboxSignature> {
 		{{#if this.carry.length}}
 			<section class="dt-section">
 				<h3 class="canon-heading dt-section-title">
-					Takes a colour
+					{{t "Takes a colour"}}
 					<span
 						class="dt-section-count"
 					>{{this.carry.length}}</span>
@@ -502,7 +463,7 @@ export default class Omnibox extends Component<OmniboxSignature> {
 		{{#if this.showMatches}}
 			<section class="dt-section">
 				<h3 class="canon-heading dt-section-title">
-					Matches
+					{{t "Matches"}}
 					<span
 						class="dt-section-count"
 					>{{this.matches.length}}</span>
@@ -518,32 +479,26 @@ export default class Omnibox extends Component<OmniboxSignature> {
 			class="dt-omni-catalogue
 				{{if this.isFiltering 'is-dimmed'}}"
 		>
-
-			<section class="dt-section">
-				<CanonJumpHeading
-					@text="Greatest Hits"
-					@detail={{String homeFeatured.length}}
-				/>
-				<ToolGrid
-					@tools={{homeFeatured}}
-					class="is-featured"
-				/>
-			</section>
-
-			<section class="dt-section">
-				<CanonJumpHeading
-					@text="Suites"
-					@detail={{String suites.length}}
-				/>
-				<div class="dt-suites">
-					{{#each suites as |suite|}}
-						<SuiteBox @suite={{suite}} />
-					{{/each}}
-				</div>
-			</section>
+			{{#if suites.length}}
+				<section class="dt-section">
+					<CanonJumpHeading
+						@text={{t "Suites"}}
+						@detail={{String suites.length}}
+					/>
+					<div class="dt-suites">
+						{{#each suites as |suite|}}
+							<SuiteBox @suite={{suite}} />
+						{{/each}}
+					</div>
+				</section>
+			{{/if}}
 
 			{{#each homeCategories as |category|}}
-				<section class="dt-section">
+				<section
+					class="dt-section tp-cat"
+					id="cat-{{category.id}}"
+					data-cat={{category.id}}
+				>
 					<CanonJumpHeading
 						@text={{category.name}}
 						@detail={{String
@@ -554,5 +509,16 @@ export default class Omnibox extends Component<OmniboxSignature> {
 				</section>
 			{{/each}}
 		</div>
+
+		{{! 색인 탭: 사전 옆면의 색깔 탭처럼 카테고리로 바로 이동 }}
+		<nav class="tp-thumb-index" aria-label={{t "Categories"}}>
+			{{#each homeCategories as |category|}}
+				<a
+					href="#cat-{{category.id}}"
+					class="tp-thumb"
+					data-cat={{category.id}}
+				>{{category.name}}</a>
+			{{/each}}
+		</nav>
 	</template>
 }
