@@ -10,9 +10,11 @@ import loadInitializers from 'ember-load-initializers';
 import config from 'delphitools-v2/config/environment';
 import { importSync, isDevelopingApp, macroCondition } from '@embroider/macros';
 import setupInspector from '@embroider/legacy-inspector-support/ember-source-4.12';
-import { LOCALE } from 'delphitools-v2/lib/locale';
+import { LOCALE, isKo } from 'delphitools-v2/lib/locale';
+import { startDomTranslate } from 'delphitools-v2/lib/dom-translate';
 
 document.documentElement.lang = LOCALE;
+if (isKo) startDomTranslate();
 
 if (macroCondition(isDevelopingApp())) {
 	importSync('./deprecation-workflow');
