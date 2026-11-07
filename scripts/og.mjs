@@ -28,8 +28,18 @@ const TABS = [
 ];
 
 export const ogFonts = [
-	{ name: 'Pretendard', data: read('Pretendard-Bold.otf'), weight: 700, style: 'normal' },
-	{ name: 'Pretendard', data: read('Pretendard-Black.otf'), weight: 900, style: 'normal' },
+	{
+		name: 'Pretendard',
+		data: read('Pretendard-Bold.otf'),
+		weight: 700,
+		style: 'normal',
+	},
+	{
+		name: 'Pretendard',
+		data: read('Pretendard-Black.otf'),
+		weight: 900,
+		style: 'normal',
+	},
 ];
 
 const h = (type, props = {}, children) => ({
@@ -65,34 +75,60 @@ const IndexTabs = () =>
 
 // 로고: 색인 탭 세 줄 + 워드마크
 const Brand = () =>
-	h('div', { style: { display: 'flex', alignItems: 'center', gap: 16 } }, [
-		h(
-			'div',
-			{ style: { display: 'flex', flexDirection: 'column', gap: 6 } },
-			[
-				[34, TABS[0]],
-				[46, TABS[1]],
-				[26, TABS[3]],
-			].map(([width, color]) =>
-				h('div', {
+	h(
+		'div',
+		{ style: { display: 'flex', alignItems: 'center', gap: 16 } },
+		[
+			h(
+				'div',
+				{
 					style: {
-						width,
-						height: 12,
-						borderRadius: '0 6px 6px 0',
-						backgroundColor: color,
+						display: 'flex',
+						flexDirection: 'column',
+						gap: 6,
 					},
-				}),
+				},
+				[
+					[34, TABS[0]],
+					[46, TABS[1]],
+					[26, TABS[3]],
+				].map(([width, color]) =>
+					h('div', {
+						style: {
+							width,
+							height: 12,
+							borderRadius:
+								'0 6px 6px 0',
+							backgroundColor: color,
+						},
+					}),
+				),
 			),
-		),
-		h(
-			'div',
-			{ style: { display: 'flex', fontSize: 44, fontWeight: 900, color: INK, letterSpacing: -1 } },
-			'툴피디아',
-		),
-	]);
+			h(
+				'div',
+				{
+					style: {
+						display: 'flex',
+						fontSize: 44,
+						fontWeight: 900,
+						color: INK,
+						letterSpacing: -1,
+					},
+				},
+				'툴피디아',
+			),
+		],
+	);
 
 const Title = (text) => {
-	const size = text.length <= 8 ? 120 : text.length <= 12 ? 100 : text.length <= 18 ? 80 : 64;
+	const size =
+		text.length <= 8
+			? 120
+			: text.length <= 12
+				? 100
+				: text.length <= 18
+					? 80
+					: 64;
 	return h(
 		'div',
 		{ style: { display: 'flex', marginTop: 'auto' } },
@@ -165,13 +201,20 @@ const Frame = (children) =>
 	);
 
 export const toolCard = (name) =>
-	Frame([Brand(), Title(name), Subtitle('가입·설치 없이 쓰는 무료 온라인 도구'), SiteUrl()]);
+	Frame([
+		Brand(),
+		Title(name),
+		Subtitle('가입·설치 없이 쓰는 무료 온라인 도구'),
+		SiteUrl(),
+	]);
 
 export const siteCard = () =>
 	Frame([
 		Brand(),
 		Title('세상의 모든 도구'),
-		Subtitle('이미지·PDF·동영상·텍스트 도구를 무료로, 내 기기 안에서'),
+		Subtitle(
+			'이미지·PDF·동영상·텍스트 도구를 무료로, 내 기기 안에서',
+		),
 		SiteUrl(),
 	]);
 
@@ -188,7 +231,10 @@ export async function renderPng(element) {
 if (import.meta.url === `file://${process.argv[1]}`) {
 	const outDir = process.argv[2] ?? join(root, 'tmp/og');
 	mkdirSync(outDir, { recursive: true });
-	writeFileSync(join(outDir, 'tool.png'), await renderPng(toolCard('이미지 용량 줄이기')));
+	writeFileSync(
+		join(outDir, 'tool.png'),
+		await renderPng(toolCard('이미지 용량 줄이기')),
+	);
 	writeFileSync(join(outDir, 'site.png'), await renderPng(siteCard()));
 	console.log(`wrote ${outDir}`);
 }

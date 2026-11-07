@@ -169,7 +169,8 @@ for (const route of routes) {
 			shell,
 			headFor({
 				title: `페이지를 찾을 수 없어요 | ${SITE}`,
-				description: '찾는 페이지가 없어요. 툴피디아 홈에서 도구를 검색해 보세요.',
+				description:
+					'찾는 페이지가 없어요. 툴피디아 홈에서 도구를 검색해 보세요.',
 				url: '/404',
 				image: '/og.png',
 				imageAlt: `${SITE} — 세상의 모든 도구`,
