@@ -10,7 +10,8 @@ const SKIP =
 	'script, style, textarea, input, code, pre, [contenteditable], [translate="no"], .cm-editor, .ProseMirror';
 
 function lookup(text: string): string | undefined {
-	const key = text.trim();
+	// 템플릿 줄바꿈·들여쓰기로 생긴 공백은 한 칸으로 본다
+	const key = text.replace(/\s+/g, ' ').trim();
 	if (!key) return undefined;
 	if (ko[key]) return ko[key];
 	for (const [pattern, korean] of koPatterns)
@@ -18,12 +19,25 @@ function lookup(text: string): string | undefined {
 	return undefined;
 }
 
+// 페이지가 번역한 글자를 계속 영어로 되돌리면 무한 반복이 된다.
+// 같은 자리를 너무 많이 바꾸면 그 자리는 영어로 둔다.
+const MAX_REWRITES = 30;
+const rewrites = new WeakMap<Node, number>();
+
+function tooMany(node: Node): boolean {
+	const count = (rewrites.get(node) ?? 0) + 1;
+	rewrites.set(node, count);
+	return count > MAX_REWRITES;
+}
+
 function translateText(node: Text) {
 	const value = node.nodeValue ?? '';
 	const ko = lookup(value);
-	if (!ko) return;
+	if (!ko || ko === value.trim()) return;
 	if (node.parentElement?.closest(SKIP)) return;
-	node.nodeValue = value.replace(value.trim(), ko);
+	if (tooMany(node)) return;
+	const [, lead, trail] = /^(\s*)[\s\S]*?(\s*)$/.exec(value)!;
+	node.nodeValue = lead + ko + trail;
 }
 
 function translateAttrs(el: Element) {
@@ -31,7 +45,7 @@ function translateAttrs(el: Element) {
 		const value = el.getAttribute(name);
 		if (!value) continue;
 		const ko = lookup(value);
-		if (ko) el.setAttribute(name, ko);
+		if (ko && ko !== value && !tooMany(el)) el.setAttribute(name, ko);
 	}
 }
 
@@ -42,17 +56,23 @@ function translateTree(root: Node) {
 	}
 	if (root.nodeType !== Node.ELEMENT_NODE) return;
 	const el = root as Element;
-	if (el.matches(SKIP)) return;
+	// 입력칸·편집기는 안내 문구(placeholder 등)만 번역하고 내용은 건너뛴다
 	translateAttrs(el);
+	if (el.matches(SKIP)) return;
 	const walker = document.createTreeWalker(
 		el,
 		NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT,
 		{
-			acceptNode: (node) =>
-				node.nodeType === Node.ELEMENT_NODE &&
-				(node as Element).matches(SKIP)
-					? NodeFilter.FILTER_REJECT
-					: NodeFilter.FILTER_ACCEPT,
+			acceptNode: (node) => {
+				if (
+					node.nodeType === Node.ELEMENT_NODE &&
+					(node as Element).matches(SKIP)
+				) {
+					translateAttrs(node as Element);
+					return NodeFilter.FILTER_REJECT;
+				}
+				return NodeFilter.FILTER_ACCEPT;
+			},
 		},
 	);
 	for (let node = walker.nextNode(); node; node = walker.nextNode()) {
