@@ -173,20 +173,3 @@
 	color: var(--tp-ink-soft);
 	font-size: 12px;
 }
-
-/* 상단 바 언어 전환 버튼: 다크모드 버튼과 같은 칸 모양 */
-.dt-bar > .tp-bar-lang {
-	display: flex;
-	align-items: center;
-	padding-inline: 14px;
-	border-inline-start: var(--canon-hairline) solid var(--canon-border);
-	color: var(--tp-ink);
-	font-size: 14px;
-	font-weight: 700;
-	text-decoration: none;
-	white-space: nowrap;
-}
-
-.dt-bar > .tp-bar-lang:hover {
-	background: var(--canon-accent-bg);
-}
