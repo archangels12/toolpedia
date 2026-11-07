@@ -6,6 +6,7 @@ import type SidebarService from 'delphitools-v2/services/sidebar';
 import type ThemeService from 'delphitools-v2/services/theme';
 import { pageTitle } from 'ember-page-title';
 import { t } from 'delphitools-v2/lib/i18n';
+import { isKo, pathFor } from 'delphitools-v2/lib/locale';
 import CanonButton from 'delphicanon/components/canon-button';
 import CanonToast from 'delphicanon/components/canon-toast';
 import AppSidebar from 'delphitools-v2/components/app-sidebar';
@@ -71,6 +72,11 @@ export default class ApplicationTemplate extends Component {
 		);
 	}
 
+	get otherLangHref(): string {
+		// currentURL 은 /ko 접두사가 빠진 앱 내부 주소라 화면 이동 때마다 갱신된다
+		return pathFor(isKo ? 'en' : 'ko', this.router.currentURL ?? '/');
+	}
+
 	get showsNotation() {
 		const id = this.toolId;
 		return (
@@ -128,6 +134,12 @@ export default class ApplicationTemplate extends Component {
 							<ColourNotationSelector
 							/>
 						{{/if}}
+						<a
+							class="dt-bar-pref tp-bar-lang"
+							href={{this.otherLangHref}}
+							hreflang={{if isKo "en" "ko"}}
+							lang={{if isKo "en" "ko"}}
+						>{{if isKo "English" "한국어"}}</a>
 						<CanonButton
 							class="dt-bar-pref"
 							@kind="cell"

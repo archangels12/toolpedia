@@ -23,7 +23,7 @@ import type SidebarService from 'delphitools-v2/services/sidebar';
 import type MagazineService from 'delphitools-v2/services/magazine';
 import { isPlainClick } from 'delphitools-v2/services/magazine';
 import { t } from 'delphitools-v2/lib/i18n';
-import { isKo, pathFor } from 'delphitools-v2/lib/locale';
+import { isKo } from 'delphitools-v2/lib/locale';
 import {
 	navIdFor,
 	opensSection,
@@ -143,11 +143,6 @@ export default class AppSidebar extends Component {
 	@tracked aboutOpen = false;
 
 	// 같은 페이지의 다른 언어 주소 (전체 새로고침으로 이동)
-	get otherLangHref(): string {
-		// currentURL 은 /ko 접두사가 빠진 앱 내부 주소라 화면 이동 때마다 갱신된다
-		return pathFor(isKo ? 'en' : 'ko', this.router.currentURL ?? '/');
-	}
-
 	openAbout = (event: MouseEvent) => {
 		// webkit leaves a clicked button unfocused; the dialog returns focus to it
 		(event.currentTarget as HTMLElement).focus();
@@ -445,11 +440,6 @@ export default class AppSidebar extends Component {
 							@icon="shield-check"
 							@href="/privacy"
 						/>
-						<a
-							class="tp-lang-switch"
-							href={{this.otherLangHref}}
-							hreflang={{if isKo "en" "ko"}}
-						>{{if isKo "English" "한국어"}}</a>
 					{{/unless}}
 				{{/if}}
 			</:default>
