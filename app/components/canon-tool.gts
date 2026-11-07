@@ -4,7 +4,6 @@ import type { ComponentLike } from '@glint/template';
 import type { TOC } from '@ember/component/template-only';
 import { on } from '@ember/modifier';
 import { modifier } from 'ember-modifier';
-import { PeelSticker } from 'delphitools-v2/components/sticker-wall';
 import type { Tool } from 'delphitools-v2/lib/tools';
 
 const KEY = 'dt-canon-expanded';
@@ -90,26 +89,6 @@ interface CanonToolSignature {
 // the sheet's slot for a canon tool; an `expands` tool can leave the 1200 px column
 export default class CanonTool extends Component<CanonToolSignature> {
 	@tracked expandedIds = stored();
-	@tracked stickerSlot: HTMLElement | null = null;
-
-	// outermost split, as ios
-	findStickerSlot = modifier(
-		(tool: HTMLElement, [component]: [unknown]) => {
-			// defer: avoids render backtracking
-			queueMicrotask(() => {
-				this.stickerSlot = component
-					? tool.querySelector<HTMLElement>(
-							'.canon-split > .canon-split-body > .canon-split-main > .canon-split-end',
-						)
-					: null;
-			});
-		},
-	);
-
-	get stickerId() {
-		return this.args.tool.component ?? this.args.tool.id;
-	}
-
 	get expanded() {
 		return this.expandedIds.has(this.args.tool.id);
 	}
@@ -131,22 +110,10 @@ export default class CanonTool extends Component<CanonToolSignature> {
 			class="dt-canon-tool
 				{{if @tool.expands 'is-expandable'}}
 				{{if this.expanded 'is-expanded'}}"
-			{{this.findStickerSlot @component}}
 			{{wheelToPage}}
 		>
 			{{#if @component}}
 				<@component />
-			{{/if}}
-			{{#if this.stickerSlot}}
-				{{! whitespace breaks :empty }}
-				{{~#in-element
-					this.stickerSlot insertBefore=null
-				~}}
-					<PeelSticker
-						@tool={{this.stickerId}}
-						@label={{@tool.name}}
-					/>
-				{{~/in-element~}}
 			{{/if}}
 			{{#if @tool.expands}}
 				{{#if this.expanded}}
