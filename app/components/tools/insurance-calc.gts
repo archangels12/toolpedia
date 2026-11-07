@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import CanonHeading from 'delphicanon/components/canon-heading';
 import CanonRows from 'delphicanon/components/canon-rows';
+import CanonSegmented from 'delphicanon/components/canon-segmented';
 import CanonSplit from 'delphicanon/components/canon-split';
 import MoneyField from 'delphitools-v2/components/tools/krw/money-field';
 import KrwResult, {
@@ -13,25 +14,34 @@ import {
 	PENSION_MAX,
 	PENSION_MIN,
 	RATES_AS_OF,
+	STABILITY_RATES,
 } from 'delphitools-v2/lib/krw/insurance';
 import './krw/krw.css';
+
+const sizeNames = STABILITY_RATES.map((size) => size.label);
 
 export default class InsuranceCalc extends Component {
 	@tracked pay = 3000000;
 	@tracked taxFree = 200000;
+	@tracked size = 0;
 
 	get base() {
 		return Math.max(0, this.pay - this.taxFree);
 	}
 
 	get result() {
-		return insurance(this.base);
+		return insurance(this.base, STABILITY_RATES[this.size]!.rate);
 	}
 
 	get lines(): ResultLine[] {
 		const r = this.result;
 		return [
 			{ label: '근로자 부담 합계 (월)', value: won(r.total), main: true },
+			{
+				label: '계산 기준 월 보수',
+				value: won(this.base),
+				note: this.taxFree ? `월 급여 − 비과세 ${comma(this.taxFree)}원` : undefined,
+			},
 			{
 				label: '국민연금 (4.75%)',
 				value: won(r.pension),
@@ -41,18 +51,23 @@ export default class InsuranceCalc extends Component {
 						: `기준소득월액 ${comma(r.pensionBase)}원으로 계산`,
 			},
 			{ label: '건강보험 (3.595%)', value: won(r.health) },
-			{ label: '장기요양보험 (건강보험료 × 13.14%)', value: won(r.care) },
+			{
+				label: '장기요양보험',
+				value: won(r.care),
+				note: '건강보험료 × 0.9448% ÷ 7.19%',
+			},
 			{ label: '고용보험 (0.9%)', value: won(r.employment) },
 			{
 				label: '사업주 부담 (월)',
 				value: won(r.employer),
-				note: '150인 미만 기준, 산재보험 제외',
+				note: `고용안정 ${won(r.stability)} 포함, 산재보험 제외`,
 			},
 		];
 	}
 
 	setPay = (value: number) => (this.pay = value);
 	setTaxFree = (value: number) => (this.taxFree = value);
+	pickSize = (index: number) => (this.size = index);
 
 	<template>
 		<CanonSplit>
@@ -68,9 +83,19 @@ export default class InsuranceCalc extends Component {
 						<MoneyField
 							@label="비과세 금액"
 							@value={{this.taxFree}}
-							@hint="식대는 월 20만 원까지 비과세"
+							@hint="식대는 월 20만 원까지 비과세. 없으면 0"
 							@onChange={{this.setTaxFree}}
 						/>
+						<div class="krw-choice">
+							<span class="krw-field-label">회사 규모 (사업주 부담 계산용)</span>
+							<CanonSegmented
+								aria-label="회사 규모"
+								@items={{sizeNames}}
+								@selected={{this.size}}
+								@columns={{2}}
+								@onChange={{this.pickSize}}
+							/>
+						</div>
 					</div>
 				</CanonRows>
 			</:sidebar>
@@ -106,10 +131,28 @@ export default class InsuranceCalc extends Component {
 								범위에서 계산합니다(2026년 7월~2027년 6월). 이보다 많이 벌어도 상한액
 								기준으로 냅니다.
 							</li>
-							<li>각 보험료의 10원 미만은 버립니다.</li>
+							<li>
+							장기요양보험료는 건강보험료 × (0.9448% ÷ 7.19%)로 계산합니다. 건강보험료
+							근로자 부담은 월 최고 4,591,740원, 최저 10,080원입니다.
+						</li>
+						<li>
+							각 보험료의 10원 미만은 버립니다. 공식 예시(보수 200만 원 → 건강보험 71,900원,
+							장기요양 9,440원)와 같은 결과가 나옵니다.
+						</li>
 						</ul>
 
 						<h3>자주 묻는 질문</h3>
+						<details>
+							<summary>다른 계산기와 금액이 조금 달라요. 어느 쪽이 맞나요?</summary>
+							<p>
+								주로 세 가지 때문입니다. ① 비과세 금액: 이 계산기는 식대 20만 원을 빼고
+								계산합니다. 비과세가 없다면 0으로 바꾸세요. ② 요율 기준 시점: 2025년
+								요율(국민연금 9%, 건강보험 7.09%)이나 이전 국민연금 상한(637만 원)을 그대로
+								쓰는 계산기가 있습니다. ③ 끝수 처리: 원 단위로 버리는지, 10원 단위로
+								버리는지에 따라 몇 원~몇십 원 차이가 납니다. 이 계산기는 4대사회보험
+								정보연계센터의 2026년 공식 모의계산 기준을 따릅니다.
+							</p>
+						</details>
 						<details>
 							<summary>급여명세서 금액과 조금 달라요.</summary>
 							<p>
@@ -135,9 +178,9 @@ export default class InsuranceCalc extends Component {
 							</p>
 						</details>
 						<p class="krw-source">
-							근거: 보건복지부·국민연금공단(국민연금 요율·기준소득월액), 국민건강보험공단(건강·장기요양
-							요율), 고용노동부(고용보험 요율). 참고용이며 실제 고지액은 각 공단에서
-							확인하세요.
+							근거: 4대사회보험 정보연계센터 보험료 모의계산(4insure.or.kr), 보건복지부 2026년
+							건강보험료율·장기요양보험료율 발표, 국민연금공단 연금보험료 안내. 참고용이며 실제
+							고지액은 각 공단에서 확인하세요.
 						</p>
 					</div>
 				</CanonRows>

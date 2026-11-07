@@ -101,6 +101,7 @@ export default class SalaryCalc extends Component {
 							@label="8세 이상 20세 이하 자녀 수"
 							@value={{this.children}}
 							@unit="명"
+							@hint="연 소득 100만 원 넘는 자녀는 빼요"
 							@onChange={{this.setChildren}}
 						/>
 					</div>
@@ -174,6 +175,15 @@ export default class SalaryCalc extends Component {
 							<p>
 								본인을 포함해 기본공제 대상인 가족 수입니다. 배우자와 소득 요건을 갖춘
 								자녀·부모 등이 들어가며, 본인과 배우자도 각각 1명으로 셉니다.
+							</p>
+						</details>
+						<details>
+							<summary>국세청 계산과 같은가요?</summary>
+							<p>
+								소득세는 국세청 홈택스에서 받은 간이세액표를 그대로 씁니다. 국세청 안내 예시(월
+								급여 350만 원, 본인·배우자·8~20세 자녀 2명 → 소득세 3,510원)와 같은 결과가
+								나옵니다. 8세 이상 20세 이하 자녀라도 연간 소득금액이 100만 원을 넘으면
+								자녀 수에서 뺍니다.
 							</p>
 						</details>
 						<p class="krw-source">
