@@ -42,7 +42,8 @@ export interface SeveranceResult {
 export function severancePay(input: SeveranceInput): SeveranceResult {
 	const start = toUtc(input.start);
 	const end = toUtc(input.end);
-	const valid = Number.isFinite(start) && Number.isFinite(end) && end > start;
+	const valid =
+		Number.isFinite(start) && Number.isFinite(end) && end > start;
 	if (!valid)
 		return {
 			days: 0,

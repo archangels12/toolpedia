@@ -16,7 +16,6 @@ import Icon, { IconSvg } from 'delphitools-v2/components/icon';
 import ToolGrid from 'delphitools-v2/components/tool-grid';
 import SuiteBox from 'delphitools-v2/components/suite-box';
 import {
-	homeFeatured,
 	getToolById,
 	homeCategories,
 	type Tool,
@@ -31,8 +30,6 @@ import {
 } from 'delphitools-v2/lib/omni';
 import { HERO_ART, isHalloween } from 'delphitools-v2/lib/hero-art';
 import { heroPatternStyle } from 'delphitools-v2/lib/icon-pattern';
-import WhatsNew from 'delphitools-v2/components/whats-new';
-import ChangelogPopup from 'delphitools-v2/components/changelog-popup';
 import { t } from 'delphitools-v2/lib/i18n';
 import './omnibox.css';
 
@@ -296,7 +293,9 @@ export default class Omnibox extends Component<OmniboxSignature> {
 
 	<template>
 		<header class="tp-hero">
-			<h1 class="tp-hero-title">{{t "Every tool in the world"}}</h1>
+			<h1 class="tp-hero-title">{{t
+					"Every tool in the world"
+				}}</h1>
 			<p class="tp-hero-sub">{{t
 					"No sign-up, no install. Your files never leave your device."
 				}}</p>
@@ -331,7 +330,9 @@ export default class Omnibox extends Component<OmniboxSignature> {
 						<input
 							class="dt-omni-input"
 							type="text"
-							aria-label={{t "Search tools"}}
+							aria-label={{t
+								"Search tools"
+							}}
 							placeholder={{PLACEHOLDER}}
 							value={{this.raw}}
 							{{on
@@ -352,19 +353,25 @@ export default class Omnibox extends Component<OmniboxSignature> {
 						>
 							<CanonButton
 								@kind="cell"
-								@text={{t "Choose a file"}}
+								@text={{t
+									"Choose a file"
+								}}
 								@icon={{FileIcon}}
 								@onClick={{this.chooseFile}}
 							/>
 							<CanonButton
 								@kind="cell"
-								@text={{t "Paste from clipboard"}}
+								@text={{t
+									"Paste from clipboard"
+								}}
 								@icon={{PasteIcon}}
 								@onClick={{this.pasteClipboard}}
 							/>
 							<CanonButton
 								@kind="cell"
-								@text={{t "I'm feeling lucky"}}
+								@text={{t
+									"I'm feeling lucky"
+								}}
 								@icon={{DiceIcon}}
 								@onClick={{this.feelingLucky}}
 							/>
@@ -372,7 +379,9 @@ export default class Omnibox extends Component<OmniboxSignature> {
 						<input
 							type="file"
 							class="dt-omni-pick"
-							aria-label={{t "Choose a file"}}
+							aria-label={{t
+								"Choose a file"
+							}}
 							tabindex="-1"
 							{{this.picker}}
 							{{on
@@ -440,7 +449,6 @@ export default class Omnibox extends Component<OmniboxSignature> {
 				</div>
 			{{/if}}
 
-
 			{{yield}}
 		</div>
 
@@ -487,7 +495,9 @@ export default class Omnibox extends Component<OmniboxSignature> {
 					/>
 					<div class="dt-suites">
 						{{#each suites as |suite|}}
-							<SuiteBox @suite={{suite}} />
+							<SuiteBox
+								@suite={{suite}}
+							/>
 						{{/each}}
 					</div>
 				</section>

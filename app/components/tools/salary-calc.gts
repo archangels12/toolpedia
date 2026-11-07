@@ -28,7 +28,10 @@ export default class SalaryCalc extends Component {
 			annual: this.annual,
 			taxFreeMonthly: this.taxFree,
 			family: this.family || 1,
-			children: Math.min(this.children, Math.max(0, (this.family || 1) - 1)),
+			children: Math.min(
+				this.children,
+				Math.max(0, (this.family || 1) - 1),
+			),
 		});
 	}
 
@@ -46,7 +49,10 @@ export default class SalaryCalc extends Component {
 			{ label: '국민연금', value: won(r.insurance.pension) },
 			{ label: '건강보험', value: won(r.insurance.health) },
 			{ label: '장기요양보험', value: won(r.insurance.care) },
-			{ label: '고용보험', value: won(r.insurance.employment) },
+			{
+				label: '고용보험',
+				value: won(r.insurance.employment),
+			},
 			{ label: '근로소득세', value: won(r.incomeTax) },
 			{ label: '지방소득세', value: won(r.localTax) },
 		];
@@ -58,7 +64,10 @@ export default class SalaryCalc extends Component {
 				annual: man * 10000,
 				taxFreeMonthly: this.taxFree,
 				family: this.family || 1,
-				children: Math.min(this.children, Math.max(0, (this.family || 1) - 1)),
+				children: Math.min(
+					this.children,
+					Math.max(0, (this.family || 1) - 1),
+				),
 			});
 			return {
 				annual: `${comma(man)}만 원`,
@@ -109,22 +118,37 @@ export default class SalaryCalc extends Component {
 			</:sidebar>
 			<:main>
 				<CanonRows @framed={{true}}>
-					<CanonHeading @text="계산 결과 (월 기준)" />
+					<CanonHeading
+						@text="계산 결과 (월 기준)"
+					/>
 					<KrwResult @lines={{this.lines}} />
 				</CanonRows>
 				<CanonRows @framed={{true}}>
-					<CanonHeading @text="연봉별 월 실수령액" />
+					<CanonHeading
+						@text="연봉별 월 실수령액"
+					/>
 					<div class="krw-table-wrap">
 						<table class="krw-table">
 							<thead>
-								<tr><th>연봉</th><th>월 실수령액</th><th>월 공제액</th></tr>
+								<tr><th
+									>연봉</th><th
+									>월
+										실수령액</th><th
+									>월
+										공제액</th></tr>
 							</thead>
 							<tbody>
-								{{#each this.table as |row|}}
+								{{#each
+									this.table
+									as |row|
+								}}
 									<tr>
-										<td>{{row.annual}}</td>
-										<td>{{row.net}}원</td>
-										<td>{{row.deductions}}원</td>
+										<td
+										>{{row.annual}}</td>
+										<td
+										>{{row.net}}원</td>
+										<td
+										>{{row.deductions}}원</td>
 									</tr>
 								{{/each}}
 							</tbody>
@@ -134,61 +158,135 @@ export default class SalaryCalc extends Component {
 			</:main>
 			<:end>
 				<CanonRows @framed={{true}}>
-					<CanonHeading @text="실수령액 계산 방법" />
+					<CanonHeading
+						@text="실수령액 계산 방법"
+					/>
 					<div class="krw-guide">
 						<p>
-							월 실수령액 = 월 급여 − 4대보험(근로자 부담) − 근로소득세 − 지방소득세
+							월 실수령액 = 월 급여 −
+							4대보험(근로자 부담) −
+							근로소득세 − 지방소득세
 						</p>
 						<ul>
-							<li>월 급여는 연봉 ÷ 12로 계산합니다.</li>
+							<li>월 급여는 연봉 ÷
+								12로 계산합니다.</li>
 							<li>
-								4대보험과 소득세는 비과세 금액(식대 등)을 뺀 금액에 매깁니다. 4대보험 요율은
-								{{RATES_AS_OF}} 기준입니다.
+								4대보험과
+								소득세는 비과세
+								금액(식대 등)을
+								뺀 금액에
+								매깁니다.
+								4대보험 요율은
+								{{RATES_AS_OF}}
+								기준입니다.
 							</li>
 							<li>
-								근로소득세는 국세청 근로소득 간이세액표({{WAGE_TAX_AS_OF}} 시행)대로, 월급여와
-								부양가족 수에 맞는 금액을 찾아 계산합니다. 8세 이상 20세 이하 자녀가 있으면
-								자녀 수만큼 세액을 더 뺍니다.
+								근로소득세는
+								국세청 근로소득
+								간이세액표({{WAGE_TAX_AS_OF}}
+								시행)대로,
+								월급여와
+								부양가족 수에
+								맞는 금액을 찾아
+								계산합니다. 8세
+								이상 20세 이하
+								자녀가 있으면
+								자녀 수만큼
+								세액을 더
+								뺍니다.
 							</li>
-							<li>지방소득세는 근로소득세의 10%입니다.</li>
+							<li>지방소득세는
+								근로소득세의
+								10%입니다.</li>
 						</ul>
 
 						<h3>자주 묻는 질문</h3>
 						<details>
-							<summary>급여명세서 금액과 다른 이유는요?</summary>
+							<summary>급여명세서
+								금액과 다른
+								이유는요?</summary>
 							<p>
-								회사마다 비과세 항목, 상여금 지급 방식, 4대보험 신고 보수가 달라 차이가 날 수
-								있습니다. 또 회사가 간이세액표의 80%나 120%로 원천징수하도록 선택한 경우에도
-								달라집니다. 이 계산기는 100% 기준입니다.
+								회사마다 비과세
+								항목, 상여금
+								지급 방식,
+								4대보험 신고
+								보수가 달라
+								차이가 날 수
+								있습니다. 또
+								회사가
+								간이세액표의
+								80%나 120%로
+								원천징수하도록
+								선택한 경우에도
+								달라집니다. 이
+								계산기는 100%
+								기준입니다.
 							</p>
 						</details>
 						<details>
-							<summary>연말정산을 하면 금액이 바뀌나요?</summary>
+							<summary>연말정산을 하면
+								금액이 바뀌나요?</summary>
 							<p>
-								매달 떼는 소득세는 미리 내는 세금입니다. 연말정산에서 실제 공제(카드 사용액,
-								보험료, 의료비 등)를 반영해 더 낸 세금은 돌려받고, 덜 낸 세금은 추가로
-								냅니다.
+								매달 떼는
+								소득세는 미리
+								내는 세금입니다.
+								연말정산에서
+								실제 공제(카드
+								사용액, 보험료,
+								의료비 등)를
+								반영해 더 낸
+								세금은 돌려받고,
+								덜 낸 세금은
+								추가로 냅니다.
 							</p>
 						</details>
 						<details>
-							<summary>부양가족 수는 어떻게 세나요?</summary>
+							<summary>부양가족 수는
+								어떻게 세나요?</summary>
 							<p>
-								본인을 포함해 기본공제 대상인 가족 수입니다. 배우자와 소득 요건을 갖춘
-								자녀·부모 등이 들어가며, 본인과 배우자도 각각 1명으로 셉니다.
+								본인을 포함해
+								기본공제 대상인
+								가족 수입니다.
+								배우자와 소득
+								요건을 갖춘
+								자녀·부모 등이
+								들어가며, 본인과
+								배우자도 각각
+								1명으로 셉니다.
 							</p>
 						</details>
 						<details>
-							<summary>국세청 계산과 같은가요?</summary>
+							<summary>국세청 계산과
+								같은가요?</summary>
 							<p>
-								소득세는 국세청 홈택스에서 받은 간이세액표를 그대로 씁니다. 국세청 안내 예시(월
-								급여 350만 원, 본인·배우자·8~20세 자녀 2명 → 소득세 3,510원)와 같은 결과가
-								나옵니다. 8세 이상 20세 이하 자녀라도 연간 소득금액이 100만 원을 넘으면
-								자녀 수에서 뺍니다.
+								소득세는 국세청
+								홈택스에서 받은
+								간이세액표를
+								그대로 씁니다.
+								국세청 안내
+								예시(월 급여
+								350만 원,
+								본인·배우자·8~20세
+								자녀 2명 →
+								소득세
+								3,510원)와 같은
+								결과가 나옵니다.
+								8세 이상 20세
+								이하 자녀라도
+								연간 소득금액이
+								100만 원을
+								넘으면 자녀
+								수에서 뺍니다.
 							</p>
 						</details>
 						<p class="krw-source">
-							근거: 소득세법 시행령 별표2 근로소득 간이세액표({{WAGE_TAX_AS_OF}} 시행, 국세청 배포
-							파일), 4대보험 요율은 4대보험 계산기와 같습니다. 참고용 추정치입니다.
+							근거: 소득세법 시행령
+							별표2 근로소득
+							간이세액표({{WAGE_TAX_AS_OF}}
+							시행, 국세청 배포 파일),
+							4대보험 요율은 4대보험
+							계산기와 같습니다.
+							참고용 추정치입니다.
 						</p>
 					</div>
 				</CanonRows>

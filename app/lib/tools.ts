@@ -1064,7 +1064,8 @@ export const toolCategories: ToolCategory[] = [
 			{
 				id: 'salary-calc',
 				name: 'Take-home Pay Calculator',
-				description: 'Korean net monthly pay from annual salary',
+				description:
+					'Korean net monthly pay from annual salary',
 				icon: 'wallet',
 				href: '/tools/salary-calc',
 				canon: true,
@@ -1072,7 +1073,8 @@ export const toolCategories: ToolCategory[] = [
 			{
 				id: 'vat-calc',
 				name: 'VAT Calculator',
-				description: 'Korean VAT (10%) from supply or total amount',
+				description:
+					'Korean VAT (10%) from supply or total amount',
 				icon: 'receipt',
 				href: '/tools/vat-calc',
 				canon: true,
@@ -1080,7 +1082,8 @@ export const toolCategories: ToolCategory[] = [
 			{
 				id: 'loan-calc',
 				name: 'Loan Calculator',
-				description: 'Monthly payments and interest for Korean loans',
+				description:
+					'Monthly payments and interest for Korean loans',
 				icon: 'landmark',
 				href: '/tools/loan-calc',
 				canon: true,
@@ -1096,7 +1099,8 @@ export const toolCategories: ToolCategory[] = [
 			{
 				id: 'brokerage-calc',
 				name: 'Brokerage Fee Calculator',
-				description: 'Korean real estate brokerage fee cap',
+				description:
+					'Korean real estate brokerage fee cap',
 				icon: 'house',
 				href: '/tools/brokerage-calc',
 				canon: true,
@@ -1104,7 +1108,8 @@ export const toolCategories: ToolCategory[] = [
 			{
 				id: 'insurance-calc',
 				name: 'Social Insurance Calculator',
-				description: 'Korean four major social insurance premiums',
+				description:
+					'Korean four major social insurance premiums',
 				icon: 'hand-coins',
 				href: '/tools/insurance-calc',
 				canon: true,
@@ -1304,7 +1309,9 @@ toolCategories.splice(
 	toolCategories.findIndex((category) => category.id === ELSEWHERE_ID),
 	1,
 );
-const turboNerd = toolCategories.find((category) => category.id === 'turbo-nerd');
+const turboNerd = toolCategories.find(
+	(category) => category.id === 'turbo-nerd',
+);
 if (turboNerd) turboNerd.name = 'Fun Converters';
 
 // 한국어판: 번역된 도구만 목록에 남기고 이름·설명을 한국어로 바꾼다.
@@ -1324,11 +1331,16 @@ if (LOCALE === 'ko') {
 	}
 	for (const category of toolCategories) {
 		category.name = categoriesKo[category.id] ?? category.name;
-		category.tools = category.tools.filter((tool) => tool.id in toolsKo);
+		category.tools = category.tools.filter(
+			(tool) => tool.id in toolsKo,
+		);
 	}
 	for (let i = toolCategories.length - 1; i >= 0; i--) {
 		const category = toolCategories[i]!;
-		if (category.tools.length === 0 && category.id !== EXPERIMENTS_ID)
+		if (
+			category.tools.length === 0 &&
+			category.id !== EXPERIMENTS_ID
+		)
 			toolCategories.splice(i, 1);
 	}
 }
@@ -1384,7 +1396,9 @@ export interface Suite {
 export const suites: Suite[] = [
 	{
 		id: 'substrata',
-		tagline: KO ? '툴피디아 이미지 편집기' : 'the Toolpedia image editor',
+		tagline: KO
+			? '툴피디아 이미지 편집기'
+			: 'the Toolpedia image editor',
 		word: KO ? '이미지 편집' : 'Edit images',
 		features: KO
 			? ['레이어', '마스크', '자르기', '글자']
@@ -1392,7 +1406,9 @@ export const suites: Suite[] = [
 	},
 	{
 		id: 'errata',
-		tagline: KO ? '툴피디아 PDF 편집기' : 'the Toolpedia PDF editor',
+		tagline: KO
+			? '툴피디아 PDF 편집기'
+			: 'the Toolpedia PDF editor',
 		word: KO ? 'PDF 편집' : 'Edit PDFs',
 		features: KO
 			? ['가리기', '양식', '서명', '판걸이']

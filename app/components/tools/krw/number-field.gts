@@ -33,7 +33,11 @@ export default class NumberField extends Component<Signature> {
 			<span class="krw-field-box">
 				<input
 					type="text"
-					inputmode={{if @decimal "decimal" "numeric"}}
+					inputmode={{if
+						@decimal
+						"decimal"
+						"numeric"
+					}}
 					autocomplete="off"
 					value={{this.text}}
 					placeholder="0"

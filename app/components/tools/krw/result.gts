@@ -15,8 +15,11 @@ const KrwResult: TOC<{ Args: { lines: ResultLine[] } }> = <template>
 			<div class="krw-result-line {{if line.main 'is-main'}}">
 				<dt>{{line.label}}</dt>
 				<dd>
-					<span class="krw-result-value">{{line.value}}</span>
-					{{#if line.note}}<small>{{line.note}}</small>{{/if}}
+					<span
+						class="krw-result-value"
+					>{{line.value}}</span>
+					{{#if line.note}}<small
+						>{{line.note}}</small>{{/if}}
 				</dd>
 			</div>
 		{{/each}}

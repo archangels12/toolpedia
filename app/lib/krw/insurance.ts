@@ -60,7 +60,10 @@ export function insurance(
 	const pension = pay ? floorTo(pensionBase * PENSION_RATE, 10) : 0;
 	const health = pay
 		? Math.min(
-				Math.max(floorTo(pay * HEALTH_RATE, 10), HEALTH_MIN),
+				Math.max(
+					floorTo(pay * HEALTH_RATE, 10),
+					HEALTH_MIN,
+				),
 				HEALTH_MAX,
 			)
 		: 0;

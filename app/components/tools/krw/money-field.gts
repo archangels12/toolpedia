@@ -48,10 +48,16 @@ export default class MoneyField extends Component<Signature> {
 					placeholder="0"
 					{{on "input" this.input}}
 				/>
-				<span class="krw-field-unit">{{if @unit @unit "원"}}</span>
+				<span class="krw-field-unit">{{if
+						@unit
+						@unit
+						"원"
+					}}</span>
 			</span>
 			{{#if this.showHangul}}
-				<span class="krw-field-note">{{this.hangul}}</span>
+				<span
+					class="krw-field-note"
+				>{{this.hangul}}</span>
 			{{else if @hint}}
 				<span class="krw-field-note">{{@hint}}</span>
 			{{/if}}

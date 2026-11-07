@@ -45,7 +45,8 @@ function translateAttrs(el: Element) {
 		const value = el.getAttribute(name);
 		if (!value) continue;
 		const ko = lookup(value);
-		if (ko && ko !== value && !tooMany(el)) el.setAttribute(name, ko);
+		if (ko && ko !== value && !tooMany(el))
+			el.setAttribute(name, ko);
 	}
 }
 
@@ -76,7 +77,8 @@ function translateTree(root: Node) {
 		},
 	);
 	for (let node = walker.nextNode(); node; node = walker.nextNode()) {
-		if (node.nodeType === Node.TEXT_NODE) translateText(node as Text);
+		if (node.nodeType === Node.TEXT_NODE)
+			translateText(node as Text);
 		else translateAttrs(node as Element);
 	}
 }

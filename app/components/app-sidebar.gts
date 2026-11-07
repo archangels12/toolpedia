@@ -1,23 +1,19 @@
 import Component from '@glimmer/component';
 import { cached, tracked } from '@glimmer/tracking';
-import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { service } from '@ember/service';
 import { modifier } from 'ember-modifier';
 import { LinkTo } from '@ember/routing';
 import type RouterService from '@ember/routing/router-service';
-import CanonButton from 'delphicanon/components/canon-button';
-import CanonDialog from 'delphicanon/components/canon-dialog';
 import CanonHeading from 'delphicanon/components/canon-heading';
 import CanonSidebar from 'delphicanon/components/canon-sidebar';
 import CanonSidebarRow from 'delphicanon/components/canon-sidebar-row';
 import { IconSvg } from 'delphitools-v2/components/icon';
 import './app-sidebar.css';
-import AboutDelphitoolsBody from 'delphitools-v2/components/about-delphitools';
 import { toolCategories, featuredTools } from 'delphitools-v2/lib/tools';
 import type { Tool, ToolCategory } from 'delphitools-v2/lib/tools';
 import { matchesQuery } from 'delphitools-v2/lib/tool-search';
-import { COMMIT_SHA, PRIDE, VERSION } from 'delphitools-v2/lib/build-flags';
+import { COMMIT_SHA, PRIDE } from 'delphitools-v2/lib/build-flags';
 import { isHalloween } from 'delphitools-v2/lib/hero-art';
 import type SidebarService from 'delphitools-v2/services/sidebar';
 import type MagazineService from 'delphitools-v2/services/magazine';
@@ -37,9 +33,21 @@ const PAGES = [
 	...(isKo
 		? []
 		: [
-				{ name: 'Substrata', icon: 'brush', href: '/editor' },
-				{ name: 'Errata', icon: 'signature', href: '/errata' },
-				{ name: 'Workflows', icon: 'workflow', href: '/workflows' },
+				{
+					name: 'Substrata',
+					icon: 'brush',
+					href: '/editor',
+				},
+				{
+					name: 'Errata',
+					icon: 'signature',
+					href: '/errata',
+				},
+				{
+					name: 'Workflows',
+					icon: 'workflow',
+					href: '/workflows',
+				},
 			]),
 ];
 
@@ -287,10 +295,24 @@ export default class AppSidebar extends Component {
 							@route="index"
 							class="dt-brand tp-brand"
 						>
-							<span class="tp-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-							<span class="dt-brand-text">
-								<span class="dt-brand-name">{{t "Toolpedia"}}</span>
-								<span class="dt-brand-sub">{{t "Every tool in the world"}}</span>
+							<span
+								class="tp-brand-mark"
+								aria-hidden="true"
+							><i></i><i></i><i
+								></i></span>
+							<span
+								class="dt-brand-text"
+							>
+								<span
+									class="dt-brand-name"
+								>{{t
+										"Toolpedia"
+									}}</span>
+								<span
+									class="dt-brand-sub"
+								>{{t
+										"Every tool in the world"
+									}}</span>
 							</span>
 						</LinkTo>
 					{{/if}}
@@ -302,12 +324,16 @@ export default class AppSidebar extends Component {
 							placeholder={{if
 								this.inDocs
 								"Search docs..."
-								(t "Search tools...")
+								(t
+									"Search tools..."
+								)
 							}}
 							aria-label={{if
 								this.inDocs
 								"Search docs"
-								(t "Search tools")
+								(t
+									"Search tools"
+								)
 							}}
 							value={{this.search}}
 							{{on
@@ -320,7 +346,9 @@ export default class AppSidebar extends Component {
 							<button
 								type="button"
 								class="dt-search-clear"
-								aria-label={{t "Clear search"}}
+								aria-label={{t
+									"Clear search"
+								}}
 								{{on
 									"click"
 									this.clearSearch

@@ -244,7 +244,11 @@ export default class Onboarding extends Component<{
 								class="sub-pg-onb-art is-medium"
 							/>
 							<p>
-								Substrata is still an early access public beta, so please watch for bugs.
+								Substrata is
+								still an early
+								access public
+								beta, so please
+								watch for bugs.
 							</p>
 							<p>Thanks for being here
 								this early.</p>

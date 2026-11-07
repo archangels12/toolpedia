@@ -6,7 +6,7 @@
 
 html:root {
 	--tp-paper: #f5f6f8;
-	--tp-sheet: #ffffff;
+	--tp-sheet: #fff;
 	--tp-ink: #1a1c2b;
 	--tp-ink-soft: #5b5f73;
 	--tp-rule: #dfe2e8;
@@ -24,10 +24,8 @@ html:root {
 	--tp-tab-social: #e8574f;
 	--tp-tab-dev: #5b5f73;
 	--tp-tab-print: #8a6d3b;
-
 	--tp-radius: 14px;
 	--tp-radius-sm: 8px;
-
 	--canon-background: var(--tp-paper);
 	--canon-foreground: var(--tp-ink);
 	--canon-card: var(--tp-sheet);
@@ -37,12 +35,11 @@ html:root {
 	--canon-accent-bg: #e6e9f0;
 	--canon-border: var(--tp-rule);
 	--canon-primary: var(--tp-ink);
-	--canon-primary-foreground: #ffffff;
+	--canon-primary-foreground: #fff;
 	--canon-destructive: #d92d3a;
-
 	--canon-font:
-		"Pretendard Variable", Pretendard, -apple-system,
-		BlinkMacSystemFont, system-ui, "Apple SD Gothic Neo",
+		"Pretendard Variable", pretendard, -apple-system,
+		blinkmacsystemfont, system-ui, "Apple SD Gothic Neo",
 		"Noto Sans KR", sans-serif;
 	--canon-text-title2: 22px;
 	--canon-text-title3: 19px;
@@ -137,25 +134,30 @@ body {
 	line-height: 1.75;
 	word-break: keep-all;
 }
+
 .tp-doc h1 {
 	margin: 0 0 4px;
 	font-size: 32px;
 	font-weight: 900;
 	letter-spacing: -0.03em;
 }
+
 .tp-doc h2 {
 	margin: 40px 0 8px;
 	font-size: 20px;
 	font-weight: 800;
 }
+
 .tp-doc p {
 	margin: 0 0 12px;
 }
+
 .tp-doc a {
 	color: inherit;
 	text-decoration-color: var(--tp-tab-img);
 	text-underline-offset: 3px;
 }
+
 .tp-doc-meta {
 	color: var(--tp-ink-soft);
 	font-size: 14px;

@@ -26,14 +26,20 @@ export function loanSchedule(
 ): LoanResult {
 	const rows: LoanRow[] = [];
 	if (amount <= 0 || months <= 0)
-		return { rows, totalInterest: 0, totalPayment: 0, firstPayment: 0 };
+		return {
+			rows,
+			totalInterest: 0,
+			totalPayment: 0,
+			firstPayment: 0,
+		};
 
 	const i = annualRatePercent / 100 / 12;
 	// 원리금균등: 매달 같은 금액 = P·i·(1+i)^n / ((1+i)^n − 1)
 	const level =
 		i === 0
 			? amount / months
-			: (amount * i * (1 + i) ** months) / ((1 + i) ** months - 1);
+			: (amount * i * (1 + i) ** months) /
+				((1 + i) ** months - 1);
 
 	let balance = amount;
 	for (let month = 1; month <= months; month++) {

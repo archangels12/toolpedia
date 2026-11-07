@@ -1,18 +1,50 @@
 /* 툴피디아 홈: 제목, 검색창, 카테고리 색, 색인 탭 */
 
 /* 카테고리 → 색인 탭 색 */
-[data-cat="img-assets"] { --cat: var(--tp-tab-img); }
-[data-cat="pdf"] { --cat: var(--tp-tab-pdf); }
-[data-cat="audio-video"] { --cat: var(--tp-tab-av); }
-[data-cat="typo-text"] { --cat: var(--tp-tab-text); }
-[data-cat="other-tools"] { --cat: var(--tp-tab-other); }
-[data-cat="calculators"] { --cat: var(--tp-tab-calc); }
-[data-cat="colour"] { --cat: var(--tp-tab-colour); }
-[data-cat="social-media"] { --cat: var(--tp-tab-social); }
-[data-cat="dev-tools"] { --cat: var(--tp-tab-dev); }
-[data-cat="print-production"] { --cat: var(--tp-tab-print); }
+[data-cat="img-assets"] {
+	--cat: var(--tp-tab-img);
+}
+
+[data-cat="pdf"] {
+	--cat: var(--tp-tab-pdf);
+}
+
+[data-cat="audio-video"] {
+	--cat: var(--tp-tab-av);
+}
+
+[data-cat="typo-text"] {
+	--cat: var(--tp-tab-text);
+}
+
+[data-cat="other-tools"] {
+	--cat: var(--tp-tab-other);
+}
+
+[data-cat="calculators"] {
+	--cat: var(--tp-tab-calc);
+}
+
+[data-cat="colour"] {
+	--cat: var(--tp-tab-colour);
+}
+
+[data-cat="social-media"] {
+	--cat: var(--tp-tab-social);
+}
+
+[data-cat="dev-tools"] {
+	--cat: var(--tp-tab-dev);
+}
+
+[data-cat="print-production"] {
+	--cat: var(--tp-tab-print);
+}
+
 [data-cat="turbo-nerd"],
-[data-cat="elsewhere"] { --cat: var(--tp-ink-soft); }
+[data-cat="elsewhere"] {
+	--cat: var(--tp-ink-soft);
+}
 
 .tp-hero {
 	max-width: 760px;
@@ -96,6 +128,7 @@
 .tp-thumb-index {
 	position: fixed;
 	z-index: 20;
+
 	/* 상단 바(다크모드·언어 버튼) 아래에서 시작해 버튼을 가리지 않는다 */
 	top: calc(var(--canon-row-height) + 16px);
 	right: 0;
@@ -128,7 +161,7 @@
 }
 
 /* 좁은 화면: 탭을 숨기고 카테고리는 스크롤로 */
-@media (max-width: 720px) {
+@media (width <= 720px) {
 	.tp-thumb-index {
 		display: none;
 	}
@@ -159,9 +192,20 @@
 	border-radius: 0 3px 3px 0;
 }
 
-.tp-brand-mark i:nth-child(1) { width: 16px; background: var(--tp-tab-img); }
-.tp-brand-mark i:nth-child(2) { width: 22px; background: var(--tp-tab-pdf); }
-.tp-brand-mark i:nth-child(3) { width: 12px; background: var(--tp-tab-text); }
+.tp-brand-mark i:nth-child(1) {
+	width: 16px;
+	background: var(--tp-tab-img);
+}
+
+.tp-brand-mark i:nth-child(2) {
+	width: 22px;
+	background: var(--tp-tab-pdf);
+}
+
+.tp-brand-mark i:nth-child(3) {
+	width: 12px;
+	background: var(--tp-tab-text);
+}
 
 .tp-brand .dt-brand-name {
 	font-size: 20px;

@@ -21,8 +21,10 @@ function column(pay: number, family: number): number {
 	// 1,000만 원 초과: 별표2 표 아래 계산식
 	let extra: number;
 	if (pay <= 14000000) extra = (pay - TEN_MILLION) * 0.98 * 0.35 + 25000;
-	else if (pay <= 28000000) extra = 1397000 + (pay - 14000000) * 0.98 * 0.38;
-	else if (pay <= 30000000) extra = 6610600 + (pay - 28000000) * 0.98 * 0.4;
+	else if (pay <= 28000000)
+		extra = 1397000 + (pay - 14000000) * 0.98 * 0.38;
+	else if (pay <= 30000000)
+		extra = 6610600 + (pay - 28000000) * 0.98 * 0.4;
 	else if (pay <= 45000000) extra = 7394600 + (pay - 30000000) * 0.4;
 	else if (pay <= 87000000) extra = 13394600 + (pay - 45000000) * 0.42;
 	else extra = 31034600 + (pay - 87000000) * 0.45;

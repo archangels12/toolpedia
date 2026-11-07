@@ -33,12 +33,9 @@ export default class ApplicationTemplate extends Component {
 	@service declare theme: ThemeService;
 
 	get isBare() {
-		return [
-			'editor',
-			'errata',
-			'workflow',
-			'not-found',
-		].includes(this.router.currentRouteName ?? '');
+		return ['editor', 'errata', 'workflow', 'not-found'].includes(
+			this.router.currentRouteName ?? '',
+		);
 	}
 
 	get toolId(): string | undefined {
