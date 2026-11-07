@@ -1060,6 +1060,47 @@ export const toolCategories: ToolCategory[] = [
 		id: 'calculators',
 		name: 'Calculators',
 		tools: [
+			// 한국형 계산기 (툴피디아 추가, 한국어 전용)
+			{
+				id: 'vat-calc',
+				name: 'VAT Calculator',
+				description: 'Korean VAT (10%) from supply or total amount',
+				icon: 'receipt',
+				href: '/tools/vat-calc',
+				canon: true,
+			},
+			{
+				id: 'loan-calc',
+				name: 'Loan Calculator',
+				description: 'Monthly payments and interest for Korean loans',
+				icon: 'landmark',
+				href: '/tools/loan-calc',
+				canon: true,
+			},
+			{
+				id: 'severance-calc',
+				name: 'Severance Pay Calculator',
+				description: 'Korean statutory severance pay',
+				icon: 'briefcase',
+				href: '/tools/severance-calc',
+				canon: true,
+			},
+			{
+				id: 'brokerage-calc',
+				name: 'Brokerage Fee Calculator',
+				description: 'Korean real estate brokerage fee cap',
+				icon: 'house',
+				href: '/tools/brokerage-calc',
+				canon: true,
+			},
+			{
+				id: 'insurance-calc',
+				name: 'Social Insurance Calculator',
+				description: 'Korean four major social insurance premiums',
+				icon: 'hand-coins',
+				href: '/tools/insurance-calc',
+				canon: true,
+			},
 			{
 				id: 'algebra-calc',
 				name: 'Algebra Calculator',

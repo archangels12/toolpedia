@@ -231,6 +231,32 @@ export const toolsKo: Record<string, ToolKo> = {
 	'markdown-writer': { name: '텍스트 메모장', description: '대소문자 변환·정렬 등 편집 기능이 있는 메모장' },
 	'morse-code': { name: '모스 부호 변환', description: '모스 부호로 바꾸고, 풀고, 소리로 들어봅니다' },
 	// 계산기
+	// 한국형 계산기
+	'vat-calc': {
+		name: '부가세 계산기',
+		description: '공급가액·합계금액으로 부가가치세 10%를 바로 계산합니다',
+		keywords: ['부가세 계산', '부가가치세', '공급가액', 'vat 계산'],
+	},
+	'loan-calc': {
+		name: '대출이자 계산기',
+		description: '원리금균등·원금균등·만기일시 상환의 월 상환금과 총 이자를 계산합니다',
+		keywords: ['대출 이자 계산', '원리금균등', '원금균등', '주택담보대출 계산', '월 상환금'],
+	},
+	'severance-calc': {
+		name: '퇴직금 계산기',
+		description: '입사일·퇴직일·월급으로 법정 퇴직금을 계산합니다',
+		keywords: ['퇴직금 계산', '평균임금', '퇴직금 지급 기준'],
+	},
+	'brokerage-calc': {
+		name: '복비 계산기',
+		description: '매매·전세·월세 부동산 중개보수 상한을 요율표대로 계산합니다',
+		keywords: ['중개수수료', '중개보수', '복비', '부동산 수수료', '월세 복비'],
+	},
+	'insurance-calc': {
+		name: '4대보험 계산기',
+		description: '2026년 요율로 국민연금·건강보험·장기요양·고용보험료를 계산합니다',
+		keywords: ['4대보험 계산', '국민연금 계산', '건강보험료 계산', '고용보험료', '4대보험 요율'],
+	},
 	'algebra-calc': { name: '방정식 계산기', description: '식 정리·인수분해·방정식 풀이·미분을 합니다' },
 	'base-converter': { name: '진법 변환', description: '2진수·8진수·16진수를 서로 바꿉니다' },
 	encoder: { name: '인코딩 변환', description: 'Base64·URL 인코딩과 해시를 만듭니다' },

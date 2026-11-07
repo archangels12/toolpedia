@@ -1,0 +1,195 @@
+/* 한국형 계산기 공용 스타일 */
+
+.krw-form {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	padding: 18px 16px;
+}
+
+.krw-field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.krw-field-label {
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.krw-field-box {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 0 14px;
+	border: 2px solid var(--canon-border);
+	border-radius: var(--tp-radius-sm, 8px);
+	background: var(--canon-card);
+}
+
+.krw-field-box:focus-within {
+	border-color: var(--canon-foreground);
+}
+
+.krw-field-box input {
+	flex: 1;
+	min-width: 0;
+	height: 48px;
+	border: 0;
+	background: transparent;
+	color: var(--canon-foreground);
+	font: inherit;
+	font-size: 20px;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+	text-align: right;
+	outline: none;
+}
+
+.krw-field-unit {
+	color: var(--canon-muted-foreground);
+	font-weight: 700;
+}
+
+.krw-field-note {
+	color: var(--canon-muted-foreground);
+	font-size: 13px;
+	text-align: right;
+}
+
+.krw-choice {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.krw-result {
+	margin: 0;
+	padding: 8px 16px 16px;
+}
+
+.krw-result-line {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 12px 0;
+	border-bottom: 1px solid var(--canon-border);
+}
+
+.krw-result-line dt {
+	color: var(--canon-muted-foreground);
+	font-size: 15px;
+}
+
+.krw-result-line dd {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	margin: 0;
+	font-size: 18px;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+	text-align: right;
+}
+
+.krw-result-line dd small {
+	color: var(--canon-muted-foreground);
+	font-size: 12px;
+	font-weight: 500;
+}
+
+.krw-result-line.is-main dt {
+	color: var(--canon-foreground);
+	font-weight: 700;
+}
+
+.krw-result-line.is-main dd {
+	font-size: 28px;
+	font-weight: 900;
+	background: linear-gradient(
+		to bottom,
+		transparent 60%,
+		var(--tp-marker, #ffe347) 60%,
+		var(--tp-marker, #ffe347) 92%,
+		transparent 92%
+	);
+}
+
+/* 표 (대출 상환 일정 등) */
+.krw-table-wrap {
+	max-height: 420px;
+	overflow: auto;
+	padding: 0 16px 16px;
+}
+
+.krw-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 14px;
+	font-variant-numeric: tabular-nums;
+}
+
+.krw-table th,
+.krw-table td {
+	padding: 8px 6px;
+	border-bottom: 1px solid var(--canon-border);
+	text-align: right;
+	white-space: nowrap;
+}
+
+.krw-table th {
+	position: sticky;
+	top: 0;
+	background: var(--canon-card);
+	color: var(--canon-muted-foreground);
+	font-weight: 700;
+}
+
+/* 계산 방법·자주 묻는 질문 */
+.krw-guide {
+	padding: 8px 16px 20px;
+	font-size: 15px;
+	line-height: 1.75;
+	word-break: keep-all;
+}
+
+.krw-guide h3 {
+	margin: 20px 0 6px;
+	font-size: 16px;
+	font-weight: 800;
+}
+
+.krw-guide p,
+.krw-guide ul {
+	margin: 0 0 10px;
+}
+
+.krw-guide ul {
+	padding-left: 20px;
+}
+
+.krw-guide details {
+	padding: 10px 0;
+	border-bottom: 1px solid var(--canon-border);
+}
+
+.krw-guide summary {
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.krw-guide details p {
+	margin: 8px 0 0;
+}
+
+.krw-source {
+	color: var(--canon-muted-foreground);
+	font-size: 13px;
+}
+
+.krw-field-box input[type="date"] {
+	font-size: 18px;
+	text-align: left;
+}

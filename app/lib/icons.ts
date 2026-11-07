@@ -259,6 +259,12 @@ import iWrench from 'lucide-static/icons/wrench.svg?raw';
 import iX from 'lucide-static/icons/x.svg?raw';
 import iZoomIn from 'lucide-static/icons/zoom-in.svg?raw';
 import iZoomOut from 'lucide-static/icons/zoom-out.svg?raw';
+// 한국형 계산기
+import iReceipt from 'lucide-static/icons/receipt.svg?raw';
+import iLandmark from 'lucide-static/icons/landmark.svg?raw';
+import iHouse from 'lucide-static/icons/house.svg?raw';
+import iHandCoins from 'lucide-static/icons/hand-coins.svg?raw';
+import iWallet from 'lucide-static/icons/wallet.svg?raw';
 
 export const icons: Record<string, string> = {
 	'alert-circle': iAlertCircle,
@@ -522,4 +528,10 @@ export const icons: Record<string, string> = {
 	x: iX,
 	'zoom-in': iZoomIn,
 	'zoom-out': iZoomOut,
+	// 한국형 계산기
+	receipt: iReceipt,
+	landmark: iLandmark,
+	house: iHouse,
+	'hand-coins': iHandCoins,
+	wallet: iWallet,
 };
