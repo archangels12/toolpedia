@@ -232,6 +232,11 @@ export const toolsKo: Record<string, ToolKo> = {
 	'morse-code': { name: '모스 부호 변환', description: '모스 부호로 바꾸고, 풀고, 소리로 들어봅니다' },
 	// 계산기
 	// 한국형 계산기
+	'salary-calc': {
+		name: '연봉 실수령액 계산기',
+		description: '연봉에서 4대보험·소득세를 뺀 월 실수령액을 2026년 기준으로 계산합니다',
+		keywords: ['연봉 실수령액', '월급 실수령액', '연봉 계산기', '세후 월급', '간이세액표'],
+	},
 	'vat-calc': {
 		name: '부가세 계산기',
 		description: '공급가액·합계금액으로 부가가치세 10%를 바로 계산합니다',

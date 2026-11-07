@@ -108,6 +108,9 @@
 .krw-result-line.is-main dd {
 	font-size: 28px;
 	font-weight: 900;
+}
+
+.krw-result-line.is-main .krw-result-value {
 	background: linear-gradient(
 		to bottom,
 		transparent 60%,

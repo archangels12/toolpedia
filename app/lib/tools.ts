@@ -1062,6 +1062,14 @@ export const toolCategories: ToolCategory[] = [
 		tools: [
 			// 한국형 계산기 (툴피디아 추가, 한국어 전용)
 			{
+				id: 'salary-calc',
+				name: 'Take-home Pay Calculator',
+				description: 'Korean net monthly pay from annual salary',
+				icon: 'wallet',
+				href: '/tools/salary-calc',
+				canon: true,
+			},
+			{
 				id: 'vat-calc',
 				name: 'VAT Calculator',
 				description: 'Korean VAT (10%) from supply or total amount',
