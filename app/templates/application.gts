@@ -38,7 +38,6 @@ export default class ApplicationTemplate extends Component {
 			'errata',
 			'workflow',
 			'not-found',
-			'privacy',
 		].includes(this.router.currentRouteName ?? '');
 	}
 
