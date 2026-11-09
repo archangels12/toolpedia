@@ -25,19 +25,19 @@ interface RailsSignature {
 	};
 }
 
-const shortMonth = new Intl.DateTimeFormat(undefined, {
+const shortMonth = new Intl.DateTimeFormat('ko-KR', {
 	month: 'short',
 	timeZone: 'UTC',
 });
-const narrowMonth = new Intl.DateTimeFormat(undefined, {
+const narrowMonth = new Intl.DateTimeFormat('ko-KR', {
 	month: 'narrow',
 	timeZone: 'UTC',
 });
-const shortDay = new Intl.DateTimeFormat(undefined, {
+const shortDay = new Intl.DateTimeFormat('ko-KR', {
 	weekday: 'short',
 	timeZone: 'UTC',
 });
-const narrowDay = new Intl.DateTimeFormat(undefined, {
+const narrowDay = new Intl.DateTimeFormat('ko-KR', {
 	weekday: 'narrow',
 	timeZone: 'UTC',
 });

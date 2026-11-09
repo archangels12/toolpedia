@@ -80,7 +80,7 @@ class Take {
 		readonly audio: boolean,
 	) {
 		this.url = URL.createObjectURL(blob);
-		this.name = `screen-recording-${this.date.toISOString().replace(/[:.]/g, '-')}`;
+		this.name = `toolpedia-screen-${this.date.toISOString().replace(/[:.]/g, '-')}`;
 	}
 
 	get aspect() {
@@ -93,7 +93,7 @@ class Take {
 		const parts = [clock(this.duration)];
 		if (this.width) parts.push(`${this.width} × ${this.height}`);
 		parts.push(
-			this.date.toLocaleString(undefined, {
+			this.date.toLocaleString('ko-KR', {
 				dateStyle: 'medium',
 				timeStyle: 'short',
 			}),

@@ -407,7 +407,7 @@ export function city(zone: string) {
 function zoneName(date: Date, zone: string, style: string) {
 	try {
 		return (
-			new Intl.DateTimeFormat(undefined, {
+			new Intl.DateTimeFormat('ko-KR', {
 				timeZone: zone,
 				timeZoneName:
 					style as Intl.DateTimeFormatOptions['timeZoneName'],

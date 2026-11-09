@@ -21,6 +21,7 @@
     <meta name="twitter:image:width" content="1200">
     <meta name="twitter:image:height" content="630">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="naver-site-verification" content="4bfbceaa13f116972d3add10b58533feddca4e28">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96">
@@ -38,6 +39,17 @@
       })();
     </script>
 
+    <!-- Google Tag Manager: 실제 주소(toolpedia.app)에서만 불러온다. 빌드·점검용 localhost 방문이 통계에 섞이지 않게 -->
+    <script>
+      if (location.hostname === 'toolpedia.app') {
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-5T5BL9SM');
+      }
+    </script>
+
     {{content-for "head"}}
 
     <link integrity="" rel="stylesheet" href="/@embroider/virtual/vendor.css">
@@ -45,6 +57,7 @@
     {{content-for "head-footer"}}
   </head>
   <body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5T5BL9SM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     {{content-for "body"}}
 
     <script src="/@embroider/virtual/vendor.js"></script>

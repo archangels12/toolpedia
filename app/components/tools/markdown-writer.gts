@@ -219,7 +219,7 @@ export default class MarkdownWriterTool extends Component {
 	}
 
 	get savedAt() {
-		return this.lastSaved?.toLocaleTimeString() ?? '';
+		return this.lastSaved?.toLocaleTimeString('ko-KR') ?? '';
 	}
 
 	@cached

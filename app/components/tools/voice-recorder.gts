@@ -278,9 +278,9 @@ export default class VoiceRecorder extends Component {
 			id: ++this.#ids,
 			blob,
 			url: URL.createObjectURL(blob),
-			name: `voice-recording-${stamp}`,
+			name: `toolpedia-voice-${stamp}`,
 			detail: `${clock(duration)} · ${date.toLocaleString(
-				undefined,
+				'ko-KR',
 				{ dateStyle: 'medium', timeStyle: 'short' },
 			)}`,
 			peaks,

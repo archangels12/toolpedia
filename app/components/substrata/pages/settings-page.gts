@@ -76,7 +76,7 @@ const GUIDE_DEFAULTS: GuidesPref = {
 // physical sides; the frame's leading edge is the right one while mirrored
 const EDGES = ['top', 'bottom', 'left', 'right'] as const;
 const NOTATIONS = COLOUR_NOTATIONS.map((n) => n.label);
-const DATE = new Intl.DateTimeFormat(undefined, {
+const DATE = new Intl.DateTimeFormat('ko-KR', {
 	dateStyle: 'medium',
 	timeStyle: 'short',
 });

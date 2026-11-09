@@ -43,7 +43,7 @@ export default class CommentPopover extends Component {
 	get date(): string {
 		const iso = this.open?.note.date;
 		return iso
-			? new Date(iso).toLocaleString(undefined, {
+			? new Date(iso).toLocaleString('ko-KR', {
 					dateStyle: 'medium',
 					timeStyle: 'short',
 				})

@@ -46,7 +46,7 @@ interface Tile {
 	current: boolean;
 }
 
-const DAY = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' });
+const DAY = new Intl.DateTimeFormat('ko-KR', { dateStyle: 'medium' });
 
 // the tile's long-press menu (iOS DocumentActions.menu)
 const MENU: CanonMenuItem[] = [
