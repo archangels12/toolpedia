@@ -98,14 +98,16 @@
 
 .dt-suite-name {
 	padding-block: 12px;
-	border-left: var(--canon-hairline) solid var(--canon-border);
+	border-right: var(--canon-hairline) solid var(--canon-border);
 	color: var(--suite-ink);
 	font-size: 30px;
 	font-weight: var(--canon-weight-bold);
 	grid-area: name;
 	line-height: 1;
-	rotate: 180deg;
-	text-align: end;
+	text-align: start;
+
+	/* 한글 세로쓰기: 위에서 아래로, 글자(영문 포함)는 똑바로 */
+	text-orientation: upright;
 	writing-mode: vertical-rl;
 }
 
