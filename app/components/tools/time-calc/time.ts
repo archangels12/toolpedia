@@ -199,7 +199,7 @@ export function formats(date: Date): Record<Format, string> {
 
 const formatters = new Map<string, Intl.DateTimeFormat>();
 
-/** A cached formatter in the user's locale. */
+/** A cached formatter. 한국어 전용 사이트라 브라우저 언어와 관계없이 한국어 날짜로 표시한다 */
 export function formatter(
 	options: Intl.DateTimeFormatOptions,
 	zone = localZone,
@@ -207,7 +207,7 @@ export function formatter(
 	const key = JSON.stringify(options) + zone;
 	let made = formatters.get(key);
 	if (!made) {
-		made = new Intl.DateTimeFormat(undefined, {
+		made = new Intl.DateTimeFormat('ko-KR', {
 			...options,
 			timeZone: zone,
 		});

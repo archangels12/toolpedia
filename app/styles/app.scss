@@ -2903,3 +2903,15 @@ body {
 		}
 	}
 }
+
+// 선택 버튼(세그먼트) 글자 잘림 방지: 칸이 똑같이 나뉘어 긴 글자("WebP", 4대보험 사업장 규모 등)가 "…"로 잘렸다.
+// 양옆 여백을 줄이고, 좁으면 띄어쓰기 단위로 줄을 바꿔 전체 글자를 보인다.
+.canon-segmented > .canon-button {
+	padding-inline: 6px;
+}
+
+.canon-segmented .canon-button-title {
+	text-align: center;
+	white-space: normal;
+	word-break: keep-all;
+}
