@@ -38,8 +38,8 @@ module('Unit | Tool | base64-image-encoder', function () {
 			'iVBOR',
 		);
 		assert.strictEqual(
-			atob(idleText).slice(0, 19),
-			'delphitools base64 ',
+			atob(idleText).slice(0, 17),
+			'toolpedia base64 ',
 		);
 	});
 });
