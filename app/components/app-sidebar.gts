@@ -468,6 +468,12 @@ export default class AppSidebar extends Component {
 							@icon="shield-check"
 							@href="/privacy"
 						/>
+						<NavRow
+							@name={{t "Source code"}}
+							@icon="code"
+							@href="https://github.com/archangels12/toolpedia"
+							@external={{true}}
+						/>
 					{{/unless}}
 				{{/if}}
 			</:default>
