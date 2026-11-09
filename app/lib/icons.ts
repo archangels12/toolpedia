@@ -265,6 +265,12 @@ import iLandmark from 'lucide-static/icons/landmark.svg?raw';
 import iHouse from 'lucide-static/icons/house.svg?raw';
 import iHandCoins from 'lucide-static/icons/hand-coins.svg?raw';
 import iWallet from 'lucide-static/icons/wallet.svg?raw';
+import iPiggyBank from 'lucide-static/icons/piggy-bank.svg?raw';
+import iTrendingUp from 'lucide-static/icons/trending-up.svg?raw';
+import iBanknote from 'lucide-static/icons/banknote.svg?raw';
+import iCreditCard from 'lucide-static/icons/credit-card.svg?raw';
+import iChartCandlestick from 'lucide-static/icons/chart-candlestick.svg?raw';
+import iChartLine from 'lucide-static/icons/chart-line.svg?raw';
 
 export const icons: Record<string, string> = {
 	'alert-circle': iAlertCircle,
@@ -534,4 +540,10 @@ export const icons: Record<string, string> = {
 	house: iHouse,
 	'hand-coins': iHandCoins,
 	wallet: iWallet,
+	'piggy-bank': iPiggyBank,
+	'trending-up': iTrendingUp,
+	banknote: iBanknote,
+	'credit-card': iCreditCard,
+	'chart-candlestick': iChartCandlestick,
+	'chart-line': iChartLine,
 };

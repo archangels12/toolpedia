@@ -7,6 +7,14 @@ import { brokerageFee, leaseBase } from '../../app/lib/krw/brokerage.ts';
 import { insurance } from '../../app/lib/krw/insurance.ts';
 import { wageTax } from '../../app/lib/krw/wage-tax.ts';
 import { salary } from '../../app/lib/krw/salary.ts';
+import { savings } from '../../app/lib/krw/savings.ts';
+import { prepaymentFee } from '../../app/lib/krw/prepayment.ts';
+import { compound } from '../../app/lib/krw/compound.ts';
+import { depositToRent, rentToDeposit, legalCap } from '../../app/lib/krw/rent-convert.ts';
+import { averagePrice, investReturn } from '../../app/lib/krw/invest.ts';
+import { installment } from '../../app/lib/krw/installment.ts';
+import { freelanceTax, grossFromNet } from '../../app/lib/krw/freelance.ts';
+import { holidayPay } from '../../app/lib/krw/holiday-pay.ts';
 
 let failed = 0;
 const check = (name, got, want) => {
@@ -48,6 +56,43 @@ check(
 	salary({ annual: 50000000, taxFreeMonthly: 200000, family: 1, children: 0 }).net,
 	3571586,
 );
+
+// 손으로 계산한 값: 1,000만 원 × 3% = 30만 원, 소득세 42,000 + 지방소득세 4,200
+check(
+	'예금: 1천만 원 연 3% 1년 단리 세후 이자',
+	savings('deposit', 10000000, 3, 12, 'simple', 'normal').afterTaxInterest,
+	253800,
+);
+// 10만 원 × 0.25% × 78(=12×13÷2) = 19,500, 소득세 2,730 + 지방소득세 270
+check(
+	'적금: 월 10만 원 연 3% 12개월 단리 세후 이자',
+	savings('installment', 100000, 3, 12, 'simple', 'normal').afterTaxInterest,
+	16500,
+);
+check('중도상환: 1억 1.2% 3년 중 1년 경과', prepaymentFee(100000000, 1.2, 365, 1095).fee, 800000);
+check('복리: 1천만 원 연 7% 10년 (1.07^10)', compound(10000000, 0, 7, 10).value, 19671514);
+check('전환율 상한: 기준금리 3% → 5%', legalCap(3), 5);
+check('전월세: 보증금 1억 5% → 월세', depositToRent(100000000, 5), 416667);
+check('전월세: 월세 50만 원 5% → 보증금', rentToDeposit(500000, 5), 120000000);
+check(
+	'평단: 1만 원 10주 + 8천 원 10주',
+	averagePrice([
+		{ price: 10000, quantity: 10 },
+		{ price: 8000, quantity: 10 },
+	]).average,
+	9000,
+);
+check('CAGR: 10년에 2배 (%)', investReturn(1000, 2000, 10).cagrPercent.toFixed(2), '7.18');
+check('할부: 120만 원 3개월 연 12% 총 수수료', installment(1200000, 12, 3).totalFee, 24000);
+check('3.3%: 100만 원 실수령', freelanceTax(1000000).net, 967000);
+// 10원 미만 절사 때문에 세전 999,980원~1,000,000원이 모두 실수령 967,000원. 가장 작은 금액을 고른다
+check('3.3%: 실수령 96만 7천 원 역산', grossFromNet(967000).gross, 999980);
+check('3.3%: 역산 금액의 실수령', grossFromNet(1234567).net, 1234567);
+check('3.3%: 3만 원은 소액부징수', freelanceTax(30000).net, 30000);
+check('주휴수당: 최저임금 주 40시간', holidayPay(10320, 40).holidayPay, 82560);
+// 고용노동부 고시 월 환산액 (209시간)
+check('최저임금 월 환산 (2026 고시)', holidayPay(10320, 40).monthlyPay, 2156880);
+check('주휴수당: 주 14시간은 없음', holidayPay(10320, 14).holidayPay, 0);
 
 if (failed) {
 	console.log(`${failed}건 실패`);

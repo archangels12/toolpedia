@@ -1114,6 +1114,84 @@ export const toolCategories: ToolCategory[] = [
 				canon: true,
 			},
 			{
+				id: 'savings-calc',
+				name: 'Savings Interest Calculator',
+				description:
+					'Korean deposit and savings interest after tax',
+				icon: 'piggy-bank',
+				href: '/tools/savings-calc',
+				canon: true,
+			},
+			{
+				id: 'compound-calc',
+				name: 'Compound Interest Calculator',
+				description:
+					'Compound growth with monthly contributions',
+				icon: 'trending-up',
+				href: '/tools/compound-calc',
+				canon: true,
+			},
+			{
+				id: 'prepayment-calc',
+				name: 'Prepayment Fee Calculator',
+				description: 'Korean loan early repayment fee',
+				icon: 'banknote',
+				href: '/tools/prepayment-calc',
+				canon: true,
+			},
+			{
+				id: 'rent-convert-calc',
+				name: 'Jeonse-Wolse Conversion Calculator',
+				description:
+					'Convert Korean rental deposit and monthly rent',
+				icon: 'key-round',
+				href: '/tools/rent-convert-calc',
+				canon: true,
+			},
+			{
+				id: 'installment-calc',
+				name: 'Card Installment Fee Calculator',
+				description:
+					'Korean credit card installment fees',
+				icon: 'credit-card',
+				href: '/tools/installment-calc',
+				canon: true,
+			},
+			{
+				id: 'avg-price-calc',
+				name: 'Average Price Calculator',
+				description:
+					'Average purchase price after buying more shares',
+				icon: 'chart-candlestick',
+				href: '/tools/avg-price-calc',
+				canon: true,
+			},
+			{
+				id: 'return-calc',
+				name: 'Investment Return Calculator',
+				description: 'Total return and CAGR',
+				icon: 'chart-line',
+				href: '/tools/return-calc',
+				canon: true,
+			},
+			{
+				id: 'freelance-tax-calc',
+				name: 'Freelancer 3.3% Tax Calculator',
+				description:
+					'Korean 3.3% withholding on freelance pay',
+				icon: 'file-text',
+				href: '/tools/freelance-tax-calc',
+				canon: true,
+			},
+			{
+				id: 'holiday-pay-calc',
+				name: 'Weekly Holiday Pay Calculator',
+				description: 'Korean weekly holiday allowance',
+				icon: 'calendar-clock',
+				href: '/tools/holiday-pay-calc',
+				canon: true,
+			},
+			{
 				id: 'algebra-calc',
 				name: 'Algebra Calculator',
 				description:
