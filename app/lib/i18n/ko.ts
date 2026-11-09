@@ -330,6 +330,7 @@ const ko: Record<string, string> = {
 	'Square Feet': '제곱피트',
 	'Square Kilometres': '제곱킬로미터',
 	'Square Metres': '제곱미터',
+	Pyeong: '평',
 	'Square Miles': '제곱마일',
 	'Square Yards': '제곱야드',
 	Celsius: '섭씨(℃)',

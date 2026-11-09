@@ -118,6 +118,8 @@ export const categories: { name: string; units: Unit[] }[] = [
 		name: 'Area',
 		units: [
 			u('m²', 'Square Metres', 1),
+			// 한국 넓이 단위: 1평 = 400/121 m² (약 3.3058)
+			u('평', 'Pyeong', 400 / 121),
 			u('km²', 'Square Kilometres', 1e6),
 			u('ft²', 'Square Feet', 0.09290304),
 			u('yd²', 'Square Yards', 0.83612736),

@@ -27,13 +27,16 @@ const GuideBody: TOC<{ Args: { name: string; guide: ToolGuideData } }> =
 						{{/each}}
 					</ul>
 				{{/if}}
-				<h3>자주 묻는 질문</h3>
-				{{#each @guide.faq as |item|}}
-					<details>
-						<summary>{{item.q}}</summary>
-						<p>{{item.a}}</p>
-					</details>
-				{{/each}}
+				{{#if @guide.faq.length}}
+					<h3>자주 묻는 질문</h3>
+					{{#each @guide.faq as |item|}}
+						<details>
+							<summary
+							>{{item.q}}</summary>
+							<p>{{item.a}}</p>
+						</details>
+					{{/each}}
+				{{/if}}
 			</div>
 		</CanonRows>
 	</template>;
