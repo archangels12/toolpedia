@@ -1,16 +1,44 @@
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import {
+	readFileSync,
+	writeFileSync,
+	mkdirSync,
+	existsSync,
+	readdirSync,
+} from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import puppeteer from 'puppeteer-core';
 import { serve } from './static-server.mjs';
 import { renderPng, toolCard, siteCard } from './og.mjs';
 
-const CHROME =
-	process.env.CHROME_PATH ??
-	'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+// 빌드 전용 브라우저: npx @puppeteer/browsers install chrome-headless-shell@stable --path .chrome
+function localHeadlessShell() {
+	const base = join(root, '.chrome', 'chrome-headless-shell');
+	if (!existsSync(base)) return undefined;
+	const dirs = (p) =>
+		readdirSync(p, { withFileTypes: true })
+			.filter((d) => d.isDirectory())
+			.map((d) => d.name);
+	for (const version of dirs(base)) {
+		for (const dir of dirs(join(base, version))) {
+			const exe = join(
+				base,
+				version,
+				dir,
+				'chrome-headless-shell',
+			);
+			if (existsSync(exe)) return exe;
+		}
+	}
+	return undefined;
+}
 const ORIGIN = 'https://toolpedia.app';
 const SITE = '툴피디아';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+const CHROME =
+	process.env.CHROME_PATH ??
+	localHeadlessShell() ??
+	'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const dist = process.argv[2] ?? join(root, 'dist');
 
 // node strips typescript
@@ -47,6 +75,17 @@ function headFor({ title, description, url, image, imageAlt }) {
 		`<meta name="twitter:image:width" content="1200">`,
 		`<meta name="twitter:image:height" content="630">`,
 	].join('\n    ');
+}
+
+// JS를 실행하지 않는 검색엔진·AI 수집기도 본문(설명·FAQ)을 읽도록 그려진 본문을 넣어 둔다.
+// 앱이 시작되면 index.html 의 스크립트가 이 블록을 지우고 앱 화면으로 바꾼다.
+function withBody(html, main) {
+	if (!main) return html;
+	const clean = main.replace(/ id="ember\d+"/g, '');
+	return html.replace(
+		/<body([^>]*)>/,
+		`<body$1>\n    <div id="dt-prerender">${clean}</div>`,
+	);
 }
 
 function withHead(shell, head) {
@@ -142,19 +181,22 @@ for (const route of routes) {
 
 	writeFileSync(join(dir, 'og.png'), await renderPng(route.card));
 
-	const rendered = await boot(
-		route.url,
-		() =>
+	const rendered = await boot(route.url, () => ({
+		title:
 			document
 				.querySelector('.dt-bar-title')
 				?.textContent?.trim() ?? '',
-	);
+		main: document.querySelector('#main-content')?.innerHTML ?? '',
+	}));
 
-	writeFileSync(join(dir, 'index.html'), withHead(shell, headFor(route)));
+	writeFileSync(
+		join(dir, 'index.html'),
+		withBody(withHead(shell, headFor(route)), rendered?.main ?? ''),
+	);
 	written += 1;
 	if (written % 10 === 0 || written === routes.length) {
 		console.log(
-			`  ${written}/${routes.length} (last: ${route.url} -> "${rendered ?? ''}")`,
+			`  ${written}/${routes.length} (last: ${route.url} -> "${rendered?.title ?? ''}")`,
 		);
 	}
 }

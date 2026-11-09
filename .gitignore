@@ -14,6 +14,8 @@
 *.tsbuildinfo
 /.vite/
 /.cache/
+# 빌드 전용 headless chrome (scripts/prerender.mjs)
+/.chrome/
 
 # broccoli-debug
 /DEBUG/
