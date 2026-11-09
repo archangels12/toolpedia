@@ -1,12 +1,12 @@
 import { pageTitle } from 'ember-page-title';
 
-// 개인정보처리방침 초안 (2026-11-07). [확인 필요] 표시는 공개 전에 운영자가 채운다.
+// 개인정보처리방침 (2026-11-09). 개인사업자 등록 후 책임자를 사업자명·대표자명으로 바꾸고 시행일을 갱신한다.
 <template>
 	{{pageTitle "개인정보처리방침"}}
 
 	<article class="tp-doc">
 		<h1>개인정보처리방침</h1>
-		<p class="tp-doc-meta">시행일: [확인 필요]</p>
+		<p class="tp-doc-meta">시행일: 2026년 11월 9일</p>
 
 		<p>
 			툴피디아(toolpedia.app, 이하 “사이트”)는 회원가입이
@@ -70,15 +70,18 @@ import { pageTitle } from 'ember-page-title';
 		<p>
 			사이트를 제공하는 호스팅 서버(Hostinger)는 보안과 장애
 			대응을 위해 접속 기록(IP 주소, 브라우저 종류, 방문 시각,
-			요청한 주소)을 자동으로 남길 수 있습니다. 보관 기간:
-			[확인 필요]
+			요청한 주소)을 자동으로 남길 수 있으며, 이 기록은 호스팅
+			업체가 정한 기간 동안 보관된 뒤 삭제됩니다.
 		</p>
 
 		<h2>5. 개인정보 보호책임자</h2>
 		<p>
 			개인정보 관련 문의는 아래로 연락해 주세요.<br />
-			책임자: [확인 필요]<br />
-			이메일: [확인 필요]
+			책임자: 툴피디아 운영자<br />
+			이메일:
+			<a
+				href="mailto:support@toolpedia.app"
+			>support@toolpedia.app</a>
 		</p>
 		<p>
 			개인정보 침해 신고·상담은
