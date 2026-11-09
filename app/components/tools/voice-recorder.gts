@@ -14,6 +14,7 @@ import CanonSplit from 'delphicanon/components/canon-split';
 import CanonStatus from 'delphicanon/components/canon-status';
 import { IconSvg } from 'delphitools-v2/components/icon';
 import { downloadBlob } from 'delphitools-v2/lib/download';
+import { pickMimeType, recordingExtension } from 'delphitools-v2/lib/recording';
 import {
 	capturing,
 	downloadIcon,
@@ -208,14 +209,18 @@ export default class VoiceRecorder extends Component {
 		}
 		void this.#refreshDevices();
 
-		const mimeType = MediaRecorder.isTypeSupported(
+		// WebM이 안 되는 브라우저(일부 Safari)는 MP4, 그것도 없으면 브라우저 기본 형식
+		const mimeType = pickMimeType([
 			'audio/webm;codecs=opus',
-		)
-			? 'audio/webm;codecs=opus'
-			: 'audio/webm';
+			'audio/webm',
+			'audio/mp4',
+		]);
 		let recorder: MediaRecorder;
 		try {
-			recorder = new MediaRecorder(stream, { mimeType });
+			recorder = new MediaRecorder(
+				stream,
+				mimeType ? { mimeType } : {},
+			);
 		} catch {
 			stream.getTracks().forEach((track) => track.stop());
 			this.error = UNSUPPORTED;
@@ -309,7 +314,11 @@ export default class VoiceRecorder extends Component {
 		});
 	});
 
-	save = (take: Take) => downloadBlob(take.blob, `${take.name}.webm`);
+	save = (take: Take) =>
+		downloadBlob(
+			take.blob,
+			`${take.name}${recordingExtension(take.blob.type)}`,
+		);
 
 	passNewest = () => {
 		if (this.newest) this.save(this.newest);

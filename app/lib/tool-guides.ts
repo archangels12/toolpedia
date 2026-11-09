@@ -475,7 +475,7 @@ export const toolGuides: Record<string, ToolGuideData> = {
 			'녹화를 멈추면 녹음 목록에 추가됩니다. 미리 보고 내려받습니다.',
 		],
 		tips: [
-			'녹화 파일은 WebM 형식으로 저장됩니다. 편집 프로그램에서 열리지 않으면 MP4로 변환해 쓰세요.',
+			'녹화 파일은 브라우저가 지원하는 형식(대부분 WebM, 일부 Safari는 MP4)으로 저장됩니다. 편집 프로그램에서 WebM이 열리지 않으면 MP4로 변환해 쓰세요.',
 			'탭을 녹화하면 그 탭의 소리도 함께 담을 수 있습니다(브라우저에 따라 다름).',
 		],
 		faq: [
@@ -501,7 +501,7 @@ export const toolGuides: Record<string, ToolGuideData> = {
 			'다시 들어 보고 파일로 내려받습니다.',
 		],
 		tips: [
-			'녹음 파일은 WebM 형식으로 저장됩니다.',
+			'녹음 파일은 브라우저가 지원하는 형식(대부분 WebM, 일부 Safari는 M4A)으로 저장됩니다.',
 			'녹음 내용은 서버로 보내지 않습니다.',
 		],
 		faq: [
@@ -511,7 +511,7 @@ export const toolGuides: Record<string, ToolGuideData> = {
 			},
 			{
 				q: '녹음 파일을 MP3로 받을 수 있나요?',
-				a: '이 도구는 WebM으로 저장합니다. MP3가 필요하면 다른 변환 도구를 함께 쓰세요.',
+				a: '이 도구는 WebM 또는 M4A로 저장합니다. MP3가 필요하면 다른 변환 도구를 함께 쓰세요.',
 			},
 			{
 				q: '페이지를 닫으면 녹음이 사라지나요?',

@@ -14,6 +14,7 @@ import CanonStatus from 'delphicanon/components/canon-status';
 import CanonSwitch from 'delphicanon/components/canon-switch';
 import { IconSvg } from 'delphitools-v2/components/icon';
 import { downloadBlob } from 'delphitools-v2/lib/download';
+import { pickMimeType, recordingExtension } from 'delphitools-v2/lib/recording';
 import {
 	capturing,
 	downloadIcon,
@@ -294,24 +295,22 @@ export default class ScreenRecorder extends Component {
 
 		// opus with no audio track hangs onstop
 		const hasAudio = tracks.some((track) => track.kind === 'audio');
-		const candidates = hasAudio
-			? [
-					'video/webm;codecs=vp9,opus',
-					'video/webm;codecs=vp8,opus',
-					'video/webm',
-				]
-			: [
-					'video/webm;codecs=vp9',
-					'video/webm;codecs=vp8',
-					'video/webm',
-				];
-		const mimeType = candidates.find((type) => {
-			try {
-				return MediaRecorder.isTypeSupported(type);
-			} catch {
-				return false;
-			}
-		});
+		// WebM이 안 되는 브라우저(일부 Safari)는 MP4로 녹화한다
+		const mimeType = pickMimeType(
+			hasAudio
+				? [
+						'video/webm;codecs=vp9,opus',
+						'video/webm;codecs=vp8,opus',
+						'video/webm',
+						'video/mp4',
+					]
+				: [
+						'video/webm;codecs=vp9',
+						'video/webm;codecs=vp8',
+						'video/webm',
+						'video/mp4',
+					],
+		);
 		let recorder: MediaRecorder;
 		try {
 			recorder = new MediaRecorder(stream, {
@@ -479,7 +478,11 @@ export default class ScreenRecorder extends Component {
 		});
 	});
 
-	save = (take: Take) => downloadBlob(take.blob, `${take.name}.webm`);
+	save = (take: Take) =>
+		downloadBlob(
+			take.blob,
+			`${take.name}${recordingExtension(take.blob.type)}`,
+		);
 
 	passNewest = () => {
 		if (this.newest) this.save(this.newest);
