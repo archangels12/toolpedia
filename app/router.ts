@@ -18,5 +18,7 @@ Router.map(function () {
 	this.route('experiments');
 	// 원작 UI 키트 문서(/canon)는 툴피디아에서 공개하지 않는다
 	this.route('privacy');
+	this.route('about');
+	this.route('contact');
 	this.route('not-found', { path: '/*path' });
 });

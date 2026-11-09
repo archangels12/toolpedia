@@ -8,6 +8,8 @@ const ko: Record<string, string> = {
 	Toolpedia: '툴피디아',
 	Privacy: '개인정보 처리방침',
 	'Source code': '소스 코드',
+	'About Toolpedia': '툴피디아 소개',
+	Contact: '문의하기',
 	Popular: '인기 도구',
 	'Search tools...': '도구 검색...',
 	'Clear search': '검색어 지우기',

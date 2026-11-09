@@ -24,6 +24,10 @@ const PAGES: Record<string, { title: string; icon: string }> = {
 	index: { title: 'Home', icon: 'home' },
 	workflows: { title: 'Workflows', icon: 'workflow' },
 	experiments: { title: 'Experiments', icon: 'flask-conical' },
+	about: { title: '툴피디아 소개', icon: 'info' },
+	contact: { title: '문의하기', icon: 'message-square' },
+	privacy: { title: '개인정보 처리방침', icon: 'shield-check' },
+	'not-found': { title: '페이지를 찾을 수 없어요', icon: 'search' },
 };
 
 export default class ApplicationTemplate extends Component {
@@ -34,7 +38,7 @@ export default class ApplicationTemplate extends Component {
 
 	get isBare() {
 		// 이미지·PDF 편집기(editor, errata)는 다른 도구처럼 사이드바 옆에 보인다. 전체 화면은 상단 버튼으로
-		return ['workflow', 'not-found'].includes(
+		return ['workflow'].includes(
 			this.router.currentRouteName ?? '',
 		);
 	}

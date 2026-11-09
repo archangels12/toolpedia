@@ -165,6 +165,22 @@ const routes = [
 		card: toolCard('PDF 편집기'),
 	},
 	{
+		url: '/about',
+		title: `툴피디아 소개 | ${SITE}`,
+		description: `${SITE}는 이미지·PDF·영상·글·계산기 등 100여 가지 무료 온라인 도구 모음입니다. 파일은 브라우저 안에서 처리되어 서버로 올라가지 않아요.`,
+		image: '/about/og.png',
+		imageAlt: `툴피디아 소개 — ${SITE}`,
+		card: toolCard('툴피디아 소개'),
+	},
+	{
+		url: '/contact',
+		title: `문의하기 | ${SITE}`,
+		description: `${SITE} 오류 제보, 도구 제안, 계산기 정정, 광고·제휴 문의 안내.`,
+		image: '/contact/og.png',
+		imageAlt: `문의하기 — ${SITE}`,
+		card: toolCard('문의하기'),
+	},
+	{
 		url: '/privacy',
 		title: `개인정보처리방침 | ${SITE}`,
 		description: `${SITE} 개인정보처리방침. 수집하는 정보, 광고 쿠키, 문의처를 안내합니다.`,
@@ -205,12 +221,10 @@ for (const route of routes) {
 {
 	const sceneRendered = await boot(
 		'/no-such-page',
-		() => document.querySelector('.dt-404-page') !== null,
+		() => document.querySelector('.tp-404') !== null,
 	);
 	if (browser && !sceneRendered) {
-		console.error(
-			'  /no-such-page: 404 scene missing (.dt-404-page)',
-		);
+		console.error('  /no-such-page: 404 page missing (.tp-404)');
 		process.exitCode = 1;
 	}
 	writeFileSync(

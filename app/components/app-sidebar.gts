@@ -469,7 +469,19 @@ export default class AppSidebar extends Component {
 							@href="/privacy"
 						/>
 						<NavRow
-							@name={{t "Source code"}}
+							@name={{t "About Toolpedia"}}
+							@icon="info"
+							@href="/about"
+						/>
+						<NavRow
+							@name={{t "Contact"}}
+							@icon="message-square"
+							@href="/contact"
+						/>
+						<NavRow
+							@name={{t
+								"Source code"
+							}}
 							@icon="code"
 							@href="https://github.com/archangels12/toolpedia"
 							@external={{true}}
