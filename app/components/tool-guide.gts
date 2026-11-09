@@ -1,10 +1,11 @@
 import Component from '@glimmer/component';
+import type Owner from '@ember/owner';
 import { tracked } from '@glimmer/tracking';
 import type { TOC } from '@ember/component/template-only';
 import { modifier } from 'ember-modifier';
 import CanonHeading from 'delphicanon/components/canon-heading';
 import CanonRows from 'delphicanon/components/canon-rows';
-import { toolGuides, type ToolGuideData } from 'delphitools-v2/lib/tool-guides';
+import type { ToolGuideData } from 'delphitools-v2/lib/tool-guides';
 import type { Tool } from 'delphitools-v2/lib/tools';
 import './tool-guide.css';
 
@@ -45,14 +46,32 @@ interface Signature {
 	Args: { tool: Tool };
 }
 
+// 사용법 데이터(약 80KB)는 도구 페이지에 들어올 때 한 번만 불러온다 (첫 로딩을 가볍게)
+let loaded: Record<string, ToolGuideData> | null = null;
+let loading: Promise<Record<string, ToolGuideData>> | null = null;
+function loadGuides() {
+	loading ??= import('delphitools-v2/lib/tool-guides').then(
+		(m) => (loaded = m.toolGuides),
+	);
+	return loading;
+}
+
 // 도구 사용법·FAQ: 도구 화면 아래(.canon-split-end, 계산기 설명이 들어가는 자리)에 붙인다.
 // 그 자리가 없는 도구는 도구 화면 바로 아래에 보인다. 내용은 lib/tool-guides.ts
 export default class ToolGuide extends Component<Signature> {
 	// 자리를 찾은 도구 id. 다른 도구로 옮기면 이전 자리는 쓰지 않는다
 	@tracked found: { id: string; target: Element | null } | null = null;
 
+	@tracked guides = loaded;
+
+	constructor(owner: Owner, args: Signature['Args']) {
+		super(owner, args);
+		if (!this.guides)
+			void loadGuides().then((g) => (this.guides = g));
+	}
+
 	get guide() {
-		return toolGuides[this.args.tool.id];
+		return this.guides?.[this.args.tool.id];
 	}
 
 	get target() {
