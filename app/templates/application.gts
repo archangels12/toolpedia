@@ -33,8 +33,8 @@ export default class ApplicationTemplate extends Component {
 	@service declare theme: ThemeService;
 
 	get isBare() {
-		// 이미지 편집기(editor)는 다른 도구처럼 사이드바 옆에 보인다. 전체 화면은 상단 버튼으로
-		return ['errata', 'workflow', 'not-found'].includes(
+		// 이미지·PDF 편집기(editor, errata)는 다른 도구처럼 사이드바 옆에 보인다. 전체 화면은 상단 버튼으로
+		return ['workflow', 'not-found'].includes(
 			this.router.currentRouteName ?? '',
 		);
 	}
@@ -52,9 +52,11 @@ export default class ApplicationTemplate extends Component {
 			? getToolById(this.toolId)
 			: route === 'editor'
 				? getToolById('substrata')
-				: route.startsWith('canon.')
-					? getToolById(CANON_KIT_ID)
-					: undefined;
+				: route === 'errata'
+					? getToolById('errata')
+					: route.startsWith('canon.')
+						? getToolById(CANON_KIT_ID)
+						: undefined;
 		if (tool)
 			return {
 				title: tool.name,
@@ -70,7 +72,9 @@ export default class ApplicationTemplate extends Component {
 	}
 
 	get isEditor() {
-		return this.router.currentRouteName === 'editor';
+		return ['editor', 'errata'].includes(
+			this.router.currentRouteName ?? '',
+		);
 	}
 
 	// 브라우저 전체 화면 기능으로 편집기만 화면 가득 띄운다 (Esc로 돌아옴)
