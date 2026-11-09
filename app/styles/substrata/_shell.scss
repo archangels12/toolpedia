@@ -11,6 +11,14 @@
 	color: var(--foreground);
 }
 
+// 사이드바 옆 본문 영역 안에 들어갈 때는 그 영역을 채운다. 전체 화면일 때는 화면 전체
+.dt-main > .sub-editor-viewport:not(:fullscreen) {
+	position: relative;
+	inset: auto;
+	block-size: 100%;
+	inline-size: 100%;
+}
+
 .sub-shell {
 	display: flex;
 	block-size: 100%;

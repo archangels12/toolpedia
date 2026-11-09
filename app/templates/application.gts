@@ -33,7 +33,8 @@ export default class ApplicationTemplate extends Component {
 	@service declare theme: ThemeService;
 
 	get isBare() {
-		return ['editor', 'errata', 'workflow', 'not-found'].includes(
+		// 이미지 편집기(editor)는 다른 도구처럼 사이드바 옆에 보인다. 전체 화면은 상단 버튼으로
+		return ['errata', 'workflow', 'not-found'].includes(
 			this.router.currentRouteName ?? '',
 		);
 	}
@@ -49,9 +50,11 @@ export default class ApplicationTemplate extends Component {
 		const route = this.router.currentRouteName ?? '';
 		const tool = this.toolId
 			? getToolById(this.toolId)
-			: route.startsWith('canon.')
-				? getToolById(CANON_KIT_ID)
-				: undefined;
+			: route === 'editor'
+				? getToolById('substrata')
+				: route.startsWith('canon.')
+					? getToolById(CANON_KIT_ID)
+					: undefined;
 		if (tool)
 			return {
 				title: tool.name,
@@ -65,6 +68,17 @@ export default class ApplicationTemplate extends Component {
 			}
 		);
 	}
+
+	get isEditor() {
+		return this.router.currentRouteName === 'editor';
+	}
+
+	// 브라우저 전체 화면 기능으로 편집기만 화면 가득 띄운다 (Esc로 돌아옴)
+	editorFullscreen = () => {
+		void document
+			.querySelector('.sub-editor-viewport')
+			?.requestFullscreen?.();
+	};
 
 	get showsNotation() {
 		const id = this.toolId;
@@ -121,6 +135,20 @@ export default class ApplicationTemplate extends Component {
 						</span>
 						{{#if this.showsNotation}}
 							<ColourNotationSelector
+							/>
+						{{/if}}
+						{{#if this.isEditor}}
+							<CanonButton
+								class="dt-bar-pref"
+								@kind="cell"
+								@label={{t
+									"Full screen"
+								}}
+								@icon={{component
+									IconSvg
+									name="maximize"
+								}}
+								@onClick={{this.editorFullscreen}}
 							/>
 						{{/if}}
 						<CanonButton
