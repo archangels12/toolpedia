@@ -35,7 +35,7 @@ import './line-height-calc/line-height-calc.css';
 const typingDelayMs = 400;
 const presetNames = presets.map((preset) => preset.name);
 const pangram =
-	'The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. How vexingly quick daft zebras jump.';
+	'다람쥐 헌 쳇바퀴에 타고파. 글자 크기와 줄 간격을 바꿔 가며 가장 읽기 편한 조합을 찾아보세요. 본문은 너무 빽빽하지도 너무 듬성듬성하지도 않아야 합니다.';
 
 interface SizeRowSignature {
 	Args: {

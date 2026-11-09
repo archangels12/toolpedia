@@ -80,6 +80,8 @@ const LOAD_FAILED =
 /** The web preview's sizes, so the waterfall still reaches 72 and 96. */
 const WATERFALL_SIZES = [12, 14, 16, 18, 24, 32, 48, 64, 72, 96];
 const SAMPLE_TEXTS = [
+	'다람쥐 헌 쳇바퀴에 타고파',
+	'가나다라마바사아자차카타파하',
 	'The quick brown fox jumps over the lazy dog',
 	'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
 	'abcdefghijklmnopqrstuvwxyz',
