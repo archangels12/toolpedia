@@ -49,7 +49,7 @@ CLAUDE.md
 /wheelybin/
 
 # session scratch (one-off debug/repro rigs land as root dot-files;
-# anything worth keeping into scripts/verify/)
+# anything worth keeping into scripts/check/)
 /.*.mjs
 !/.prettierrc.mjs
 !/.stylelintrc.mjs

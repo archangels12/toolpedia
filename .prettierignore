@@ -32,7 +32,7 @@ ember-cli-update.json
 
 # Substrata harnesses and the dictionary builder moved in with the Next-era
 # root and keep their own formatting.
-/scripts/verify/
+/scripts/verify-legacy/
 /scripts/build-shavian-dict.ts
 
 # colour data copied verbatim from dt-substrata-ios Substrata/Colour/
