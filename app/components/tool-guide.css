@@ -1,0 +1,44 @@
+/* 도구 사용법·FAQ (계산기 설명 .krw-guide 와 같은 모양) */
+.tp-guide {
+	padding: 8px 16px 20px;
+	font-size: 15px;
+	line-height: 1.75;
+	word-break: keep-all;
+}
+
+.tp-guide h3 {
+	margin: 20px 0 6px;
+	font-size: 16px;
+	font-weight: 800;
+}
+
+.tp-guide p,
+.tp-guide ol,
+.tp-guide ul {
+	margin: 0 0 10px;
+}
+
+.tp-guide ol,
+.tp-guide ul {
+	padding-left: 20px;
+}
+
+.tp-guide details {
+	padding: 10px 0;
+	border-bottom: 1px solid var(--canon-border);
+}
+
+.tp-guide summary {
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.tp-guide details p {
+	margin: 8px 0 0;
+}
+
+.tp-guide-fallback {
+	max-width: 960px;
+	margin: 0 auto;
+	padding: 16px;
+}

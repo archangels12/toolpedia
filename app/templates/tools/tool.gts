@@ -1,6 +1,7 @@
 import RouteTemplate from 'ember-route-template';
 import { pageTitle } from 'ember-page-title';
 import CanonTool from 'delphitools-v2/components/canon-tool';
+import ToolGuide from 'delphitools-v2/components/tool-guide';
 import type { ToolModel } from 'delphitools-v2/routes/tools/tool';
 
 export default RouteTemplate<{ Args: { model: ToolModel } }>(
@@ -13,5 +14,6 @@ export default RouteTemplate<{ Args: { model: ToolModel } }>(
 			@tool={{@model.tool}}
 			@component={{@model.component}}
 		/>
+		<ToolGuide @tool={{@model.tool}} />
 	</template>,
 );
