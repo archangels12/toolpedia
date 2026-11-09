@@ -107,7 +107,7 @@ check(
 let seen = await state();
 check('the box starts at the default expression', seen.box === '30 9 * * MON-FRI');
 check('the canonical line normalises the day names', seen.canonical === '30 9 * * 1-5');
-check('the sentence reads the default', seen.sentence === 'At 09:30 on weekdays', seen.sentence);
+check('the sentence reads the default', seen.sentence === '평일 09:30에', seen.sentence);
 check(
 	'five next runs, the time zone in the heading',
 	seen.runs.length === 5 && /^Next runs · .+/.test(seen.headings[1] ?? ''),
@@ -141,7 +141,7 @@ seen = await state();
 check('Step rewrites the expression', seen.canonical === '*/5 9 * * 1-5', seen.canonical);
 check(
 	'the sentence follows',
-	seen.sentence === 'Every 5 minutes during hour 9 on weekdays',
+	seen.sentence === '평일 9시 동안 5분마다',
 	seen.sentence,
 );
 await page.click('.cron-field-panel .canon-number-field button:last-of-type');

@@ -34,12 +34,8 @@ import {
 } from 'delphitools-v2/components/tools/cron-builder/cron';
 import Field from 'delphitools-v2/components/tools/cron-builder/field';
 import Rails from 'delphitools-v2/components/tools/cron-builder/rails';
-import {
-	describeCron,
-	FIELD_RULES,
-	nextRuns,
-	type FieldKind,
-} from 'delphitools-v2/lib/cron';
+import { describeCronKo } from 'delphitools-v2/lib/cron-ko';
+import { FIELD_RULES, nextRuns, type FieldKind } from 'delphitools-v2/lib/cron';
 import './cron-builder/cron-builder.css';
 
 const arityWarning =
@@ -146,7 +142,9 @@ export default class CronBuilder extends Component {
 	}
 
 	get description() {
-		return this.parsed.ok ? describeCron(this.parsed.fields) : null;
+		return this.parsed.ok
+			? describeCronKo(this.parsed.fields)
+			: null;
 	}
 
 	get timeZone() {
