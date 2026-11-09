@@ -17,6 +17,7 @@
 	"scripts": {
 		"build": "vite build",
 		"build:static": "vite build && node scripts/prerender.mjs",
+		"deploy": "bash scripts/deploy.sh",
 		"format": "prettier . --cache --write",
 		"gen-icons": "node scripts/gen-icons.mjs",
 		"lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",

@@ -23,6 +23,8 @@
 
 # env: .env.development is tracked; local overrides are not
 .env*.local
+# 배포 접속 정보
+.env
 
 # claude / local-only working notes
 AGENTS.md

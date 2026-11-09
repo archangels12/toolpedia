@@ -125,6 +125,14 @@ const routes = [
 		imageAlt: `PDF 편집기 — ${SITE}`,
 		card: toolCard('PDF 편집기'),
 	},
+	{
+		url: '/privacy',
+		title: `개인정보처리방침 | ${SITE}`,
+		description: `${SITE} 개인정보처리방침. 수집하는 정보, 광고 쿠키, 문의처를 안내합니다.`,
+		image: '/privacy/og.png',
+		imageAlt: `개인정보처리방침 — ${SITE}`,
+		card: toolCard('개인정보처리방침'),
+	},
 ];
 
 let written = 0;

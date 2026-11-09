@@ -1,0 +1,39 @@
+# 툴피디아 Hostinger 서버 설정 (빌드하면 dist/ 최상위로 복사된다)
+
+ErrorDocument 404 /404.html
+Options -Indexes
+DirectorySlash Off
+AddType application/wasm .wasm
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+
+	# 캐시 구분 표시 (아래 Header 규칙에서 사용)
+	RewriteRule ^(assets|fonts)/ - [E=TP_CACHE_LONG:1]
+	RewriteRule ^(compress|jxl|mupdf|mediainfo)/ - [E=TP_CACHE_DAY:1]
+
+	# http → https, www → 기본 주소
+	RewriteCond %{HTTPS} off [OR]
+	RewriteCond %{HTTP_HOST} ^www\. [NC]
+	RewriteRule ^ https://toolpedia.app%{REQUEST_URI} [R=301,L]
+
+	# 끝 슬래시 제거: /tools/qr-genny/ → /tools/qr-genny (캐노니컬 주소와 맞춤)
+	RewriteCond %{REQUEST_URI} ^(.+)/$
+	RewriteRule ^ https://toolpedia.app%1 [R=301,L]
+
+	# 슬래시 없는 주소는 폴더 안 index.html을 보여 준다
+	RewriteCond %{REQUEST_FILENAME} -d
+	RewriteCond %{REQUEST_FILENAME}/index.html -f
+	RewriteRule ^(.+)$ $1/index.html [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+	# 파일 이름에 해시가 붙어 바뀌지 않는 파일: 1년
+	Header set Cache-Control "public, max-age=31536000, immutable" env=TP_CACHE_LONG
+	# 이름이 고정된 코덱 파일: 하루
+	Header set Cache-Control "public, max-age=86400" env=TP_CACHE_DAY
+	# 페이지는 매번 새 버전 확인
+	<FilesMatch "\.html$">
+		Header set Cache-Control "no-cache"
+	</FilesMatch>
+</IfModule>
