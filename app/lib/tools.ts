@@ -271,7 +271,6 @@ export const toolCategories: ToolCategory[] = [
 				route: 'editor',
 				accepts: ['image/*'],
 				beta: true,
-				highlight: true,
 			},
 			{
 				id: 'errata',
