@@ -157,6 +157,13 @@ if (!browser) console.warn('chrome not found, skipping boot checks');
 async function boot(url, evaluate) {
 	if (!browser) return null;
 	const page = await browser.newPage();
+	// 광고 스크립트는 막는다: 자동 광고가 미리 그린 본문에 섞이거나 빌드 방문이 광고 노출로 잡히지 않게
+	await page.setRequestInterception(true);
+	page.on('request', (r) =>
+		/googlesyndication|doubleclick|adservice\.google/.test(r.url())
+			? r.abort()
+			: r.continue(),
+	);
 	const errors = [];
 	page.on('pageerror', (e) => errors.push(e.message));
 	await page.goto(`http://localhost:${port}${url}`, {
