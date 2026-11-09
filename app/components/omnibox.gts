@@ -32,6 +32,9 @@ import { HERO_ART, isHalloween } from 'delphitools-v2/lib/hero-art';
 import { heroPatternStyle } from 'delphitools-v2/lib/icon-pattern';
 import { t } from 'delphitools-v2/lib/i18n';
 import './omnibox.css';
+import { categoryPages } from 'delphitools-v2/lib/category-pages';
+
+const hasCategoryPage = (id: string) => id in categoryPages;
 
 const FileIcon = <template><IconSvg @name="file-up" /></template>;
 const PasteIcon = <template><IconSvg @name="clipboard-paste" /></template>;
@@ -516,6 +519,13 @@ export default class Omnibox extends Component<OmniboxSignature> {
 						}}
 					/>
 					<ToolGrid @tools={{category.tools}} />
+					{{#if (hasCategoryPage category.id)}}
+						<a
+							class="tp-cat-more"
+							href="/category/{{category.id}}"
+						>{{category.name}}
+							도구 모음 보기 →</a>
+					{{/if}}
 				</section>
 			{{/each}}
 		</div>

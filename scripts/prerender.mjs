@@ -43,7 +43,8 @@ const dist = process.argv[2] ?? join(root, 'dist');
 
 // node strips typescript
 // 한국어 전용 사이트라 allTools 는 한국어판 도구(이름·설명 한국어)만 담고 있다
-const { allTools } = await import('../app/lib/tools.ts');
+const { allTools, toolCategories } = await import('../app/lib/tools.ts');
+const { categoryPages } = await import('../app/lib/category-pages.ts');
 
 const toolRoutes = allTools.filter(
 	(t) => !t.external && t.href.startsWith('/tools/'),
@@ -52,7 +53,49 @@ const toolRoutes = allTools.filter(
 const esc = (s) =>
 	s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 
-function headFor({ title, description, url, image, imageAlt }) {
+// 구조화 데이터(JSON-LD): 검색결과의 사이트 이름·경로 표시용
+function ldScript(data) {
+	const json = JSON.stringify({
+		'@context': 'https://schema.org',
+		...data,
+	});
+	return `<script type="application/ld+json">${json.replace(/</g, '\\u003c')}</script>`;
+}
+
+// 홈 > (카테고리) > 현재 페이지
+function breadcrumb(items) {
+	return ldScript({
+		'@type': 'BreadcrumbList',
+		itemListElement: [{ name: SITE, url: '/' }, ...items].map(
+			(item, i) => ({
+				'@type': 'ListItem',
+				position: i + 1,
+				name: item.name,
+				item: `${ORIGIN}${item.url}`,
+			}),
+		),
+	});
+}
+
+function toolBreadcrumb(tool) {
+	const category = toolCategories.find((c) =>
+		c.tools.some((t) => t.id === tool.id),
+	);
+	const page = category && categoryPages[category.id];
+	return breadcrumb([
+		...(page
+			? [
+					{
+						name: page.heading,
+						url: `/category/${category.id}`,
+					},
+				]
+			: []),
+		{ name: tool.name, url: tool.href },
+	]);
+}
+
+function headFor({ title, description, url, image, imageAlt, ld }) {
 	return [
 		`<title>${esc(title)}</title>`,
 		`<meta name="description" content="${esc(description)}">`,
@@ -74,6 +117,7 @@ function headFor({ title, description, url, image, imageAlt }) {
 		`<meta name="twitter:image:alt" content="${esc(imageAlt)}">`,
 		`<meta name="twitter:image:width" content="1200">`,
 		`<meta name="twitter:image:height" content="630">`,
+		...(ld ? [ld] : []),
 	].join('\n    ');
 }
 
@@ -139,6 +183,13 @@ const routes = [
 		image: '/og.png',
 		imageAlt: `${SITE} — 세상의 모든 도구`,
 		card: siteCard(),
+		ld: ldScript({
+			'@type': 'WebSite',
+			name: SITE,
+			alternateName: 'Toolpedia',
+			url: `${ORIGIN}/`,
+			inLanguage: 'ko',
+		}),
 	},
 	...toolRoutes.map((t) => ({
 		url: `/tools/${t.id}`,
@@ -147,6 +198,18 @@ const routes = [
 		image: `/tools/${t.id}/og.png`,
 		imageAlt: `${t.name} — ${SITE}`,
 		card: toolCard(t.name),
+		ld: toolBreadcrumb(t),
+	})),
+	...Object.entries(categoryPages).map(([id, page]) => ({
+		url: `/category/${id}`,
+		title: `${page.title} | ${SITE}`,
+		description: page.description,
+		image: `/category/${id}/og.png`,
+		imageAlt: `${page.heading} — ${SITE}`,
+		card: toolCard(page.heading),
+		ld: breadcrumb([
+			{ name: page.heading, url: `/category/${id}` },
+		]),
 	})),
 	{
 		url: '/editor',
@@ -155,6 +218,7 @@ const routes = [
 		image: '/editor/og.png',
 		imageAlt: `이미지 편집기 — ${SITE}`,
 		card: toolCard('이미지 편집기'),
+		ld: toolBreadcrumb(allTools.find((t) => t.id === 'substrata')),
 	},
 	{
 		url: '/errata',
@@ -163,6 +227,7 @@ const routes = [
 		image: '/errata/og.png',
 		imageAlt: `PDF 편집기 — ${SITE}`,
 		card: toolCard('PDF 편집기'),
+		ld: toolBreadcrumb(allTools.find((t) => t.id === 'errata')),
 	},
 	{
 		url: '/about',

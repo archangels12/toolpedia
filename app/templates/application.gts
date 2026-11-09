@@ -19,6 +19,7 @@ import {
 	getToolById,
 	getCategoryByToolId,
 } from 'delphitools-v2/lib/tools';
+import { categoryPages } from 'delphitools-v2/lib/category-pages';
 
 const PAGES: Record<string, { title: string; icon: string }> = {
 	index: { title: 'Home', icon: 'home' },
@@ -67,6 +68,17 @@ export default class ApplicationTemplate extends Component {
 				icon: tool.icon,
 				description: tool.description,
 			};
+		if (route === 'category') {
+			const id = this.router.currentRoute?.params?.[
+				'category_id'
+			] as string | undefined;
+			const page = id ? categoryPages[id] : undefined;
+			if (page)
+				return {
+					title: page.heading,
+					icon: 'layout-grid',
+				};
+		}
 		return (
 			PAGES[route] ?? {
 				title: t('Toolpedia'),

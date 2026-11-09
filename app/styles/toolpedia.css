@@ -162,3 +162,21 @@ body {
 	color: var(--tp-ink-soft);
 	font-size: 14px;
 }
+
+/* 카테고리 모음 페이지 */
+.tp-category {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding-bottom: 32px;
+}
+
+.tp-category-head {
+	padding-bottom: 8px;
+}
+
+.tp-cat-more {
+	display: inline-block;
+	margin-top: 8px;
+	font-size: 14px;
+	color: var(--canon-muted-foreground);
+}
