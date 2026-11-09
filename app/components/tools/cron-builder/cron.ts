@@ -160,13 +160,13 @@ export function withSub(
 /** Month and weekday values by name in the reader's language; nothing for the numeric fields. */
 export function nameOf(value: number, kind: FieldKind): string | undefined {
 	if (kind === 'month' && value >= 1 && value <= 12)
-		return new Intl.DateTimeFormat(undefined, {
+		return new Intl.DateTimeFormat('ko-KR', {
 			month: 'long',
 			timeZone: 'UTC',
 		}).format(Date.UTC(2001, value - 1, 1));
 	if (kind === 'dow')
 		// 7 January 2001 was a Sunday
-		return new Intl.DateTimeFormat(undefined, {
+		return new Intl.DateTimeFormat('ko-KR', {
 			weekday: 'long',
 			timeZone: 'UTC',
 		}).format(Date.UTC(2001, 0, 7 + (value % 7)));

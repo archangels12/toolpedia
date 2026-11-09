@@ -835,7 +835,7 @@ const ko: Record<string, string> = {
 	Tritanopia: '제3색맹',
 	Dimensions: '크기',
 	'Double-Comp.': '이중 보색',
-	'Download Image': '이미지 다운로드',
+	'Download Image': '이미지 저장',
 	'Download colourblind image': '색맹 시뮬레이션 이미지 다운로드',
 	'Drag dots to reposition, click to change colour':
 		'점을 드래그해 옮기고, 눌러서 색을 바꾸세요',

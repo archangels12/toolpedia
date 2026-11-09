@@ -44,7 +44,7 @@ const runCount = 5;
 
 const CopyIcon = <template><IconSvg @name="copy" /></template>;
 
-const runFormat = new Intl.DateTimeFormat(undefined, {
+const runFormat = new Intl.DateTimeFormat('ko-KR', {
 	weekday: 'short',
 	year: 'numeric',
 	month: 'short',
