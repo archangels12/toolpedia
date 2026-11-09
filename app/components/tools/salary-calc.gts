@@ -12,6 +12,7 @@ import { comma, won } from 'delphitools-v2/lib/krw/money';
 import { salary } from 'delphitools-v2/lib/krw/salary';
 import { WAGE_TAX_AS_OF } from 'delphitools-v2/lib/krw/wage-tax';
 import { RATES_AS_OF } from 'delphitools-v2/lib/krw/insurance';
+import KrwRelated from 'delphitools-v2/components/tools/krw/related';
 import './krw/krw.css';
 
 // 자주 찾는 연봉 (만원)
@@ -290,6 +291,7 @@ export default class SalaryCalc extends Component {
 						</p>
 					</div>
 				</CanonRows>
+				<KrwRelated @current="salary-calc" />
 			</:end>
 		</CanonSplit>
 	</template>

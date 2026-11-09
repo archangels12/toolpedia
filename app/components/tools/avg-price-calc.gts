@@ -10,6 +10,7 @@ import KrwResult, {
 } from 'delphitools-v2/components/tools/krw/result';
 import { comma, won } from 'delphitools-v2/lib/krw/money';
 import { averagePrice } from 'delphitools-v2/lib/krw/invest';
+import KrwRelated from 'delphitools-v2/components/tools/krw/related';
 import './krw/krw.css';
 
 export default class AvgPriceCalc extends Component {
@@ -177,6 +178,7 @@ export default class AvgPriceCalc extends Component {
 						</details>
 					</div>
 				</CanonRows>
+				<KrwRelated @current="avg-price-calc" />
 			</:end>
 		</CanonSplit>
 	</template>

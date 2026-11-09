@@ -15,6 +15,7 @@ import {
 	legalCap,
 	rentToDeposit,
 } from 'delphitools-v2/lib/krw/rent-convert';
+import KrwRelated from 'delphitools-v2/components/tools/krw/related';
 import './krw/krw.css';
 
 const modes = ['보증금 → 월세', '월세 → 보증금'];
@@ -206,6 +207,7 @@ export default class RentConvertCalc extends Component {
 						</p>
 					</div>
 				</CanonRows>
+				<KrwRelated @current="rent-convert-calc" />
 			</:end>
 		</CanonSplit>
 	</template>

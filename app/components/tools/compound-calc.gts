@@ -8,6 +8,7 @@ import NumberField from 'delphitools-v2/components/tools/krw/number-field';
 import KrwResult from 'delphitools-v2/components/tools/krw/result';
 import { comma, won } from 'delphitools-v2/lib/krw/money';
 import { compound } from 'delphitools-v2/lib/krw/compound';
+import KrwRelated from 'delphitools-v2/components/tools/krw/related';
 import './krw/krw.css';
 
 export default class CompoundCalc extends Component {
@@ -197,6 +198,7 @@ export default class CompoundCalc extends Component {
 						</details>
 					</div>
 				</CanonRows>
+				<KrwRelated @current="compound-calc" />
 			</:end>
 		</CanonSplit>
 	</template>

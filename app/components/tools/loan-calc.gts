@@ -9,6 +9,7 @@ import NumberField from 'delphitools-v2/components/tools/krw/number-field';
 import KrwResult from 'delphitools-v2/components/tools/krw/result';
 import { comma, won } from 'delphitools-v2/lib/krw/money';
 import { loanSchedule, type LoanMethod } from 'delphitools-v2/lib/krw/loan';
+import KrwRelated from 'delphitools-v2/components/tools/krw/related';
 import './krw/krw.css';
 
 const methods: LoanMethod[] = ['equal-payment', 'equal-principal', 'bullet'];
@@ -266,6 +267,7 @@ export default class LoanCalc extends Component {
 						</details>
 					</div>
 				</CanonRows>
+				<KrwRelated @current="loan-calc" />
 			</:end>
 		</CanonSplit>
 	</template>

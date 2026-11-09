@@ -8,6 +8,7 @@ import NumberField from 'delphitools-v2/components/tools/krw/number-field';
 import KrwResult from 'delphitools-v2/components/tools/krw/result';
 import { comma, won } from 'delphitools-v2/lib/krw/money';
 import { installment } from 'delphitools-v2/lib/krw/installment';
+import KrwRelated from 'delphitools-v2/components/tools/krw/related';
 import './krw/krw.css';
 
 export default class InstallmentCalc extends Component {
@@ -210,6 +211,7 @@ export default class InstallmentCalc extends Component {
 						</details>
 					</div>
 				</CanonRows>
+				<KrwRelated @current="installment-calc" />
 			</:end>
 		</CanonSplit>
 	</template>

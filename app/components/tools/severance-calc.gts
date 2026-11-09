@@ -10,6 +10,7 @@ import KrwResult, {
 } from 'delphitools-v2/components/tools/krw/result';
 import { comma, won } from 'delphitools-v2/lib/krw/money';
 import { severancePay } from 'delphitools-v2/lib/krw/severance';
+import KrwRelated from 'delphitools-v2/components/tools/krw/related';
 import './krw/krw.css';
 
 const iso = (date: Date) =>
@@ -266,6 +267,7 @@ export default class SeveranceCalc extends Component {
 						</p>
 					</div>
 				</CanonRows>
+				<KrwRelated @current="severance-calc" />
 			</:end>
 		</CanonSplit>
 	</template>

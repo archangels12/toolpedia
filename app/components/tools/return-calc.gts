@@ -8,6 +8,7 @@ import NumberField from 'delphitools-v2/components/tools/krw/number-field';
 import KrwResult from 'delphitools-v2/components/tools/krw/result';
 import { won } from 'delphitools-v2/lib/krw/money';
 import { investReturn } from 'delphitools-v2/lib/krw/invest';
+import KrwRelated from 'delphitools-v2/components/tools/krw/related';
 import './krw/krw.css';
 
 const percent = (value: number) => `${value.toFixed(2)}%`;
@@ -134,6 +135,7 @@ export default class ReturnCalc extends Component {
 						</details>
 					</div>
 				</CanonRows>
+				<KrwRelated @current="return-calc" />
 			</:end>
 		</CanonSplit>
 	</template>

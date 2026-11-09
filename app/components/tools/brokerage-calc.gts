@@ -14,6 +14,7 @@ import {
 	leaseBase,
 	type Property,
 } from 'delphitools-v2/lib/krw/brokerage';
+import KrwRelated from 'delphitools-v2/components/tools/krw/related';
 import './krw/krw.css';
 
 const properties: Property[] = ['house', 'officetel', 'other'];
@@ -321,6 +322,7 @@ export default class BrokerageCalc extends Component {
 						</p>
 					</div>
 				</CanonRows>
+				<KrwRelated @current="brokerage-calc" />
 			</:end>
 		</CanonSplit>
 	</template>

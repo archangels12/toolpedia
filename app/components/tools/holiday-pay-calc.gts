@@ -12,6 +12,7 @@ import {
 	MIN_WAGE,
 	MIN_WAGE_YEAR,
 } from 'delphitools-v2/lib/krw/holiday-pay';
+import KrwRelated from 'delphitools-v2/components/tools/krw/related';
 import './krw/krw.css';
 
 export default class HolidayPayCalc extends Component {
@@ -173,6 +174,7 @@ export default class HolidayPayCalc extends Component {
 						</p>
 					</div>
 				</CanonRows>
+				<KrwRelated @current="holiday-pay-calc" />
 			</:end>
 		</CanonSplit>
 	</template>

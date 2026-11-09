@@ -14,6 +14,7 @@ import {
 	type SavingsKind,
 	type TaxKind,
 } from 'delphitools-v2/lib/krw/savings';
+import KrwRelated from 'delphitools-v2/components/tools/krw/related';
 import './krw/krw.css';
 
 const kinds: SavingsKind[] = ['deposit', 'installment'];
@@ -256,6 +257,7 @@ export default class SavingsCalc extends Component {
 						</p>
 					</div>
 				</CanonRows>
+				<KrwRelated @current="savings-calc" />
 			</:end>
 		</CanonSplit>
 	</template>

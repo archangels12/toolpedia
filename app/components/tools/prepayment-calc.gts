@@ -8,6 +8,7 @@ import NumberField from 'delphitools-v2/components/tools/krw/number-field';
 import KrwResult from 'delphitools-v2/components/tools/krw/result';
 import { won } from 'delphitools-v2/lib/krw/money';
 import { prepaymentFee } from 'delphitools-v2/lib/krw/prepayment';
+import KrwRelated from 'delphitools-v2/components/tools/krw/related';
 import './krw/krw.css';
 
 export default class PrepaymentCalc extends Component {
@@ -182,6 +183,7 @@ export default class PrepaymentCalc extends Component {
 						</p>
 					</div>
 				</CanonRows>
+				<KrwRelated @current="prepayment-calc" />
 			</:end>
 		</CanonSplit>
 	</template>

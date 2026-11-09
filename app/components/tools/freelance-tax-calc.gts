@@ -8,6 +8,7 @@ import MoneyField from 'delphitools-v2/components/tools/krw/money-field';
 import KrwResult from 'delphitools-v2/components/tools/krw/result';
 import { won } from 'delphitools-v2/lib/krw/money';
 import { freelanceTax, grossFromNet } from 'delphitools-v2/lib/krw/freelance';
+import KrwRelated from 'delphitools-v2/components/tools/krw/related';
 import './krw/krw.css';
 
 const modes = ['세전 금액으로', '실수령액으로'];
@@ -167,6 +168,7 @@ export default class FreelanceTaxCalc extends Component {
 						</p>
 					</div>
 				</CanonRows>
+				<KrwRelated @current="freelance-tax-calc" />
 			</:end>
 		</CanonSplit>
 	</template>

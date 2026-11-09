@@ -10,6 +10,7 @@ import KrwResult, {
 } from 'delphitools-v2/components/tools/krw/result';
 import { won } from 'delphitools-v2/lib/krw/money';
 import { fromSupply, fromTotal } from 'delphitools-v2/lib/krw/vat';
+import KrwRelated from 'delphitools-v2/components/tools/krw/related';
 import './krw/krw.css';
 
 const modes = ['공급가액으로 계산', '합계금액으로 계산'];
@@ -161,6 +162,7 @@ export default class VatCalc extends Component {
 							10%)</p>
 					</div>
 				</CanonRows>
+				<KrwRelated @current="vat-calc" />
 			</:end>
 		</CanonSplit>
 	</template>

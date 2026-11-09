@@ -16,6 +16,7 @@ import {
 	RATES_AS_OF,
 	STABILITY_RATES,
 } from 'delphitools-v2/lib/krw/insurance';
+import KrwRelated from 'delphitools-v2/components/tools/krw/related';
 import './krw/krw.css';
 
 const sizeNames = STABILITY_RATES.map((size) => size.label);
@@ -320,6 +321,7 @@ export default class InsuranceCalc extends Component {
 						</p>
 					</div>
 				</CanonRows>
+				<KrwRelated @current="insurance-calc" />
 			</:end>
 		</CanonSplit>
 	</template>
