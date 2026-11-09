@@ -110,7 +110,8 @@ module('Integration | canon-aspect-popover', function (hooks) {
 		await click('.canon-aspect-popover-swap');
 		assert.deepEqual(model.changes.at(-1), [9, 17], 'swap');
 		assert.dom(panel.querySelector('.canon-row-detail')).hasText(
-			'Portrait',
+			// 한국어판: 화면 문구는 번역되어 나온다
+			'세로',
 		);
 		assert.strictEqual(shape.style.blockSize, '96px');
 
@@ -122,7 +123,7 @@ module('Integration | canon-aspect-popover', function (hooks) {
 		assert.deepEqual(model.changes.at(-1), [16, 9], 'preset');
 		assert.dom(
 			'.canon-aspect-popover-presets [aria-checked="true"]',
-		).hasText('Wide');
+		).hasText('가로로 넓게');
 
 		width.focus();
 		panel.hidePopover();

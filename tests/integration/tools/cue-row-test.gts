@@ -70,24 +70,24 @@ module('Integration | Tool | media cue row', function (hooks) {
 				/>
 			</template>,
 		);
-		assert.dom('[aria-label="Start"]').hasValue('00:00:01.000');
-		assert.dom('[aria-label="Text"]').hasValue('Two\nlines');
+		assert.dom('[aria-label="시작"]').hasValue('00:00:01.000');
+		assert.dom('[aria-label="텍스트"]').hasValue('Two\nlines');
 
-		await fillIn('[aria-label="Text"]', 'One');
+		await fillIn('[aria-label="텍스트"]', 'One');
 		assert.deepEqual(seen.at(-1), { ...cue, text: 'One' });
 
-		await fillIn('[aria-label="End"]', '00:00:03.25');
-		await blur('[aria-label="End"]');
+		await fillIn('[aria-label="끝"]', '00:00:03.25');
+		await blur('[aria-label="끝"]');
 		assert.deepEqual(seen.at(-1), { ...cue, end: 3250 });
-		assert.dom('[aria-label="End"]').hasValue('00:00:03.250');
+		assert.dom('[aria-label="끝"]').hasValue('00:00:03.250');
 
-		await fillIn('[aria-label="Start"]', 'nonsense');
-		await blur('[aria-label="Start"]');
+		await fillIn('[aria-label="시작"]', 'nonsense');
+		await blur('[aria-label="시작"]');
 		assert.strictEqual(
 			seen.length,
 			2,
 			'a refused time sends nothing',
 		);
-		assert.dom('[aria-label="Start"]').hasValue('00:00:01.000');
+		assert.dom('[aria-label="시작"]').hasValue('00:00:01.000');
 	});
 });

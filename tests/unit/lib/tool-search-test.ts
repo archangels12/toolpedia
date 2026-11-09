@@ -11,8 +11,10 @@ function hits(query: string) {
 module('Unit | Lib | tool-search', function () {
 	test('still matches names and descriptions', function (assert) {
 		const converter = getToolById('doc-converter')!;
-		assert.true(matchesQuery(converter, 'document'));
-		assert.true(matchesQuery(converter, 'latex'));
+		// 한국어판: 이름·설명·검색어가 한국어
+		assert.true(matchesQuery(converter, '문서'));
+		assert.true(matchesQuery(converter, '워드'));
+		assert.true(matchesQuery(converter, 'docx'));
 		assert.true(
 			matchesQuery(converter, ''),
 			'empty query shows all',
