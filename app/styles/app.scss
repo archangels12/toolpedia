@@ -2915,3 +2915,43 @@ body {
 	white-space: normal;
 	word-break: keep-all;
 }
+
+// 모바일에서는 상단 제목 막대가 숨겨지므로, 도구 페이지 맨 위에 도구 이름과 한 줄 설명을 보인다
+.dt-tool-lede {
+	display: none;
+}
+
+@media (width < 640px) {
+	.dt-main:has(> .dt-tool-title) {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.dt-main > .dt-tool-title {
+		position: static;
+		width: auto;
+		height: auto;
+		margin: 0;
+		padding: 16px 16px 0;
+		overflow: visible;
+		clip-path: none;
+		font-size: 22px;
+		font-weight: 700;
+		line-height: 1.3;
+		white-space: normal;
+	}
+
+	.dt-main > .dt-tool-lede {
+		display: block;
+		margin: 4px 0 0;
+		padding: 0 16px 8px;
+		color: var(--canon-muted-foreground);
+		font-size: 14px;
+		line-height: 1.4;
+	}
+
+	.dt-main > .dt-canon-tool {
+		flex: 1;
+		min-height: 0;
+	}
+}

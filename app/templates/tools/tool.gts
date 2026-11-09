@@ -7,7 +7,8 @@ export default RouteTemplate<{ Args: { model: ToolModel } }>(
 	<template>
 		{{pageTitle @model.tool.name}}
 
-		<h1 class="dt-sr-only">{{@model.tool.name}}</h1>
+		<h1 class="dt-sr-only dt-tool-title">{{@model.tool.name}}</h1>
+		<p class="dt-tool-lede">{{@model.tool.description}}</p>
 		<CanonTool
 			@tool={{@model.tool}}
 			@component={{@model.component}}
