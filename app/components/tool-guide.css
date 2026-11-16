@@ -42,3 +42,8 @@
 	margin: 0 auto;
 	padding: 16px;
 }
+
+/* 이미지·PDF 편집기: 편집 화면을 조금 줄여 아래 사용법 머리가 보이게 한다 */
+.dt-main > .sub-editor-viewport:not(:fullscreen):has(~ .tp-guide-fallback) {
+	block-size: calc(100% - 56px);
+}

@@ -453,7 +453,7 @@ export default class GraphCalcTool extends Component {
 					</CanonGrid>
 				</CanonRows>
 				<CanonRows @framed={{true}}>
-					<CanonHeading @text="Trace" />
+					<CanonHeading @text="값 따라가기" />
 					<CanonStepper
 						class="graph-trace-stepper"
 						@onStep={{this.stepTrace}}
@@ -468,7 +468,7 @@ export default class GraphCalcTool extends Component {
 							autocomplete="off"
 							spellcheck="false"
 							enterkeyhint="done"
-							aria-label="Trace"
+							aria-label="값 따라가기 x 위치"
 							value={{this.traceText}}
 							{{on
 								"input"

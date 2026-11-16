@@ -15,6 +15,15 @@ const GuideBody: TOC<{ Args: { name: string; guide: ToolGuideData } }> =
 			<CanonHeading @text="{{@name}} 사용법" />
 			<div class="tp-guide">
 				<p>{{@guide.intro}}</p>
+				{{#if @guide.uses}}
+					<h3>이럴 때 쓰세요</h3>
+					<ul>
+						{{#each @guide.uses as |use|}}
+							<li>{{use}}</li>
+						{{/each}}
+					</ul>
+				{{/if}}
+				<h3>사용 방법</h3>
 				<ol>
 					{{#each @guide.steps as |step|}}
 						<li>{{step}}</li>
