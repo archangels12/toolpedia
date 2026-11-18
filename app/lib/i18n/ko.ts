@@ -2143,6 +2143,14 @@ const ko: Record<string, string> = {
 	text: '글자',
 	marked: '표시됨',
 	// 2026-11-18 화면 점검에서 찾은 번역 빠진 문구
+	'Letters, numbers, and symbols. Upload a text file with one item per line.':
+		'문자, 숫자, 기호. 한 줄에 하나씩 적은 텍스트 파일(.txt)을 올리세요.',
+	'Numbers only (11-12 digits). Upload a text file with one item per line.':
+		'숫자만 (11~12자리). 한 줄에 하나씩 적은 텍스트 파일(.txt)을 올리세요.',
+	'Numbers only (12-13 digits). Upload a text file with one item per line.':
+		'숫자만 (12~13자리). 한 줄에 하나씩 적은 텍스트 파일(.txt)을 올리세요.',
+	'A-Z (uppercase), 0-9, and - . $ / + % space. Upload a text file with one item per line.':
+		'대문자 A-Z, 숫자 0-9, - . $ / + % 와 공백. 한 줄에 하나씩 적은 텍스트 파일(.txt)을 올리세요.',
 	slides: '장',
 	slide: '장',
 	Streams: '스트림',
