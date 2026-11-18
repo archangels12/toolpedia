@@ -16,7 +16,11 @@ import CanonSegmented from 'delphicanon/components/canon-segmented';
 import CanonSlider from 'delphicanon/components/canon-slider';
 import CanonSplit from 'delphicanon/components/canon-split';
 import { IconSvg } from 'delphitools-v2/components/icon';
-import { decodeImage } from 'delphitools-v2/lib/decode-image';
+import {
+	decodeImage,
+	displayable,
+	HEIC_ACCEPT,
+} from 'delphitools-v2/lib/decode-image';
 import { downloadBlob } from 'delphitools-v2/lib/download';
 import { downloadIcon, passAlong } from 'delphitools-v2/lib/flow-hooks';
 import {
@@ -41,6 +45,8 @@ const FORMATS: { id: CompressFormat; label: string }[] = [
 const whole = (value: number) => String(Math.round(value));
 
 // the document paste (filePaste) would load a drop-zone paste a second time
+const ACCEPT = `image/*,${HEIC_ACCEPT}`;
+
 const keepPaste = (event: Event) => event.stopPropagation();
 
 const Trash = <template><IconSvg @name="trash-2" /></template>;
@@ -168,7 +174,7 @@ export default class ImageCompressor extends Component {
 	dropAnywhere = (event: DragEvent) => {
 		if (event.defaultPrevented) return;
 		const file = [...(event.dataTransfer?.files ?? [])].find((f) =>
-			matchesAccept(f, 'image/*'),
+			matchesAccept(f, ACCEPT),
 		);
 		if (!file) return;
 		event.preventDefault();
@@ -193,8 +199,15 @@ export default class ImageCompressor extends Component {
 			bitmap.close();
 			return;
 		}
+		// HEIC를 PNG로 풀어 쓴 경우 원본 미리보기도 그 PNG로 보여 준다
+		const shown = await displayable(file);
+		let url = source.url;
+		if (shown !== file) {
+			URL.revokeObjectURL(url);
+			url = URL.createObjectURL(shown);
+		}
 		this.decoding = false;
-		this.source = { ...source, bitmap };
+		this.source = { ...source, url, bitmap };
 		this.#compress();
 	};
 
@@ -294,7 +307,7 @@ export default class ImageCompressor extends Component {
 		<CanonSplit
 			class="image-compressor"
 			@mainLeadsStacked={{true}}
-			{{filePaste this.load accept="image/*"}}
+			{{filePaste this.load accept=ACCEPT}}
 			{{on "dragover" this.allowDrop}}
 			{{on "drop" this.dropAnywhere}}
 		>
@@ -425,6 +438,7 @@ export default class ImageCompressor extends Component {
 						<CanonDropZone
 							class="ic-drop"
 							@prompt="Drop an image"
+							@accept={{ACCEPT}}
 							@onFiles={{this.loadFiles}}
 							{{on "paste" keepPaste}}
 						/>

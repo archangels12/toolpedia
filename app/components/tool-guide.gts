@@ -9,59 +9,86 @@ import type { ToolGuideData } from 'delphitools-v2/lib/tool-guides';
 import type { Tool } from 'delphitools-v2/lib/tools';
 import './tool-guide.css';
 
-const GuideBody: TOC<{ Args: { name: string; guide: ToolGuideData } }> =
-	<template>
-		<CanonRows @framed={{true}}>
-			<CanonHeading @text="{{@name}} 사용법" />
-			<div class="tp-guide">
-				<p>{{@guide.intro}}</p>
-				{{#if @guide.uses}}
-					<h3>이럴 때 쓰세요</h3>
-					<ul>
-						{{#each @guide.uses as |use|}}
-							<li>{{use}}</li>
-						{{/each}}
-					</ul>
-				{{/if}}
-				<h3>사용 방법</h3>
-				<ol>
-					{{#each @guide.steps as |step|}}
-						<li>{{step}}</li>
+interface Related {
+	slug: string;
+	title: string;
+}
+
+const GuideBody: TOC<{
+	Args: { name: string; guide: ToolGuideData; related?: Related[] };
+}> = <template>
+	<CanonRows @framed={{true}}>
+		<CanonHeading @text="{{@name}} 사용법" />
+		<div class="tp-guide">
+			<p>{{@guide.intro}}</p>
+			{{#if @guide.uses}}
+				<h3>이럴 때 쓰세요</h3>
+				<ul>
+					{{#each @guide.uses as |use|}}
+						<li>{{use}}</li>
 					{{/each}}
-				</ol>
-				{{#if @guide.tips}}
-					<h3>알아 두면 좋은 점</h3>
-					<ul>
-						{{#each @guide.tips as |tip|}}
-							<li>{{tip}}</li>
-						{{/each}}
-					</ul>
-				{{/if}}
-				{{#if @guide.faq.length}}
-					<h3>자주 묻는 질문</h3>
-					{{#each @guide.faq as |item|}}
-						<details>
-							<summary
-							>{{item.q}}</summary>
-							<p>{{item.a}}</p>
-						</details>
+				</ul>
+			{{/if}}
+			<h3>사용 방법</h3>
+			<ol>
+				{{#each @guide.steps as |step|}}
+					<li>{{step}}</li>
+				{{/each}}
+			</ol>
+			{{#if @guide.tips}}
+				<h3>알아 두면 좋은 점</h3>
+				<ul>
+					{{#each @guide.tips as |tip|}}
+						<li>{{tip}}</li>
 					{{/each}}
-				{{/if}}
-			</div>
-		</CanonRows>
-	</template>;
+				</ul>
+			{{/if}}
+			{{#if @guide.faq.length}}
+				<h3>자주 묻는 질문</h3>
+				{{#each @guide.faq as |item|}}
+					<details>
+						<summary>{{item.q}}</summary>
+						<p>{{item.a}}</p>
+					</details>
+				{{/each}}
+			{{/if}}
+			{{#if @related.length}}
+				<h3>관련 가이드</h3>
+				<ul>
+					{{#each @related as |g|}}
+						<li><a
+								href="/guides/{{g.slug}}"
+							>{{g.title}}</a></li>
+					{{/each}}
+				</ul>
+			{{/if}}
+		</div>
+	</CanonRows>
+</template>;
 
 interface Signature {
 	Args: { tool: Tool };
 }
 
 // 사용법 데이터(약 80KB)는 도구 페이지에 들어올 때 한 번만 불러온다 (첫 로딩을 가볍게)
-let loaded: Record<string, ToolGuideData> | null = null;
-let loading: Promise<Record<string, ToolGuideData>> | null = null;
+// 관련 가이드 글(도구 id -> 그 도구를 쓰는 글)도 함께 불러온다
+interface Loaded {
+	guides: Record<string, ToolGuideData>;
+	related: Record<string, Related[]>;
+}
+let loaded: Loaded | null = null;
+let loading: Promise<Loaded> | null = null;
 function loadGuides() {
-	loading ??= import('delphitools-v2/lib/tool-guides').then(
-		(m) => (loaded = m.toolGuides),
-	);
+	loading ??= Promise.all([
+		import('delphitools-v2/lib/tool-guides'),
+		import('delphitools-v2/lib/guides'),
+	]).then(([t, g]) => {
+		const related: Record<string, Related[]> = {};
+		for (const { slug, title, tools } of g.guides)
+			for (const id of tools)
+				(related[id] ??= []).push({ slug, title });
+		return (loaded = { guides: t.toolGuides, related });
+	});
 	return loading;
 }
 
@@ -80,7 +107,11 @@ export default class ToolGuide extends Component<Signature> {
 	}
 
 	get guide() {
-		return this.guides?.[this.args.tool.id];
+		return this.guides?.guides[this.args.tool.id];
+	}
+
+	get related() {
+		return this.guides?.related[this.args.tool.id];
 	}
 
 	get target() {
@@ -121,6 +152,7 @@ export default class ToolGuide extends Component<Signature> {
 					<GuideBody
 						@name={{@tool.name}}
 						@guide={{this.guide}}
+						@related={{this.related}}
 					/>
 				{{/in-element}}
 			{{else if this.looked}}
@@ -128,6 +160,7 @@ export default class ToolGuide extends Component<Signature> {
 					<GuideBody
 						@name={{@tool.name}}
 						@guide={{this.guide}}
+						@related={{this.related}}
 					/>
 				</div>
 			{{/if}}

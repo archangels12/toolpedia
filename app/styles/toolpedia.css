@@ -180,3 +180,85 @@ body {
 	font-size: 14px;
 	color: var(--canon-muted-foreground);
 }
+
+/* 가이드 글 */
+.tp-article h3 {
+	margin: 24px 0 6px;
+	font-size: 17px;
+	font-weight: 800;
+}
+
+.tp-article ol,
+.tp-article ul {
+	margin: 0 0 12px;
+	padding-left: 22px;
+}
+
+.tp-article li {
+	margin-bottom: 6px;
+}
+
+.tp-article-note {
+	padding: 12px 16px;
+	border-left: 3px solid var(--tp-tab-img);
+	border-radius: var(--tp-radius-sm);
+	background: var(--tp-sheet);
+}
+
+.tp-article-table {
+	margin: 0 0 12px;
+	overflow-x: auto;
+}
+
+.tp-article-table table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 15px;
+}
+
+.tp-article-table th,
+.tp-article-table td {
+	padding: 8px 10px;
+	border-bottom: 1px solid var(--tp-rule);
+	text-align: left;
+	vertical-align: top;
+}
+
+.tp-article-table th {
+	font-weight: 800;
+	white-space: nowrap;
+}
+
+.tp-article-tools,
+.tp-guide-list {
+	padding-left: 0 !important;
+	list-style: none;
+}
+
+.tp-article-tools li,
+.tp-guide-list li {
+	padding: 12px 16px;
+	border-radius: var(--tp-radius-sm);
+	background: var(--tp-sheet);
+}
+
+.tp-article-tools a,
+.tp-guide-list a {
+	font-weight: 800;
+}
+
+.tp-article-tools span {
+	display: block;
+	color: var(--tp-ink-soft);
+	font-size: 14px;
+}
+
+.tp-guide-list p {
+	margin: 4px 0 0;
+	color: var(--tp-ink-soft);
+	font-size: 14px;
+}
+
+.tp-guide-list li + li {
+	margin-top: 8px;
+}

@@ -45,6 +45,7 @@ const dist = process.argv[2] ?? join(root, 'dist');
 // 한국어 전용 사이트라 allTools 는 한국어판 도구(이름·설명 한국어)만 담고 있다
 const { allTools, toolCategories } = await import('../app/lib/tools.ts');
 const { categoryPages } = await import('../app/lib/category-pages.ts');
+const { guides } = await import('../app/lib/guides.ts');
 
 const toolRoutes = allTools.filter(
 	(t) => !t.external && t.href.startsWith('/tools/'),
@@ -95,12 +96,12 @@ function toolBreadcrumb(tool) {
 	]);
 }
 
-function headFor({ title, description, url, image, imageAlt, ld }) {
+function headFor({ title, description, url, image, imageAlt, ld, ogType }) {
 	return [
 		`<title>${esc(title)}</title>`,
 		`<meta name="description" content="${esc(description)}">`,
 		`<link rel="canonical" href="${ORIGIN}${url}">`,
-		`<meta property="og:type" content="website">`,
+		`<meta property="og:type" content="${ogType ?? 'website'}">`,
 		`<meta property="og:site_name" content="${SITE}">`,
 		`<meta property="og:locale" content="ko_KR">`,
 		`<meta property="og:title" content="${esc(title)}">`,
@@ -236,6 +237,50 @@ const routes = [
 		card: toolCard('PDF 편집기'),
 		ld: toolBreadcrumb(allTools.find((t) => t.id === 'errata')),
 	},
+	{
+		url: '/guides',
+		title: `가이드 - 사진·파일·글자수 문제 해결 방법 | ${SITE}`,
+		description:
+			'사진 용량 줄이기, HEIC를 JPG로 바꾸기, 자기소개서 글자수 맞추기처럼 자주 막히는 일을 해결하는 순서를 정리한 툴피디아 가이드.',
+		image: '/guides/og.png',
+		imageAlt: `가이드 — ${SITE}`,
+		card: toolCard('가이드'),
+		ld: breadcrumb([{ name: '가이드', url: '/guides' }]),
+	},
+	...guides.map((g) => ({
+		url: `/guides/${g.slug}`,
+		title: `${g.title} | ${SITE}`,
+		description: g.description,
+		image: `/guides/${g.slug}/og.png`,
+		imageAlt: `${g.title} — ${SITE}`,
+		card: toolCard(g.title.split(':')[0].split(' (')[0]),
+		ogType: 'article',
+		ld:
+			breadcrumb([
+				{ name: '가이드', url: '/guides' },
+				{ name: g.title, url: `/guides/${g.slug}` },
+			]) +
+			ldScript({
+				'@type': 'Article',
+				headline: g.title,
+				description: g.description,
+				inLanguage: 'ko',
+				datePublished: g.published,
+				dateModified: g.updated,
+				image: `${ORIGIN}/guides/${g.slug}/og.png`,
+				mainEntityOfPage: `${ORIGIN}/guides/${g.slug}`,
+				author: {
+					'@type': 'Organization',
+					name: SITE,
+					url: `${ORIGIN}/`,
+				},
+				publisher: {
+					'@type': 'Organization',
+					name: SITE,
+					url: `${ORIGIN}/`,
+				},
+			}),
+	})),
 	{
 		url: '/about',
 		title: `툴피디아 소개 | ${SITE}`,

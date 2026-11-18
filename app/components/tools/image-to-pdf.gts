@@ -24,6 +24,7 @@ import CanonStatus from 'delphicanon/components/canon-status';
 import CanonSwitch from 'delphicanon/components/canon-switch';
 import { IconSvg } from 'delphitools-v2/components/icon';
 import filePaste, { matchesAccept } from 'delphitools-v2/modifiers/file-paste';
+import { displayable, HEIC_ACCEPT } from 'delphitools-v2/lib/decode-image';
 import { downloadBlob } from 'delphitools-v2/lib/download';
 import { passAlong } from 'delphitools-v2/lib/flow-hooks';
 import { formatBytes } from 'delphitools-v2/lib/image-compress';
@@ -59,7 +60,7 @@ import {
 import './media/media.css';
 import './image-to-pdf/image-to-pdf.css';
 
-const IMAGE_ACCEPT = 'image/*';
+const IMAGE_ACCEPT = `image/*,${HEIC_ACCEPT}`;
 const PDF_ACCEPT = '.pdf,application/pdf';
 const ACCEPT = `${IMAGE_ACCEPT},${PDF_ACCEPT}`;
 
@@ -106,10 +107,11 @@ interface Built {
 
 let nextId = 1;
 
-function loadItem(file: File): Promise<Item> {
+async function loadItem(file: File): Promise<Item> {
+	const shown = await displayable(file);
 	return new Promise((resolve, reject) => {
 		const image = new Image();
-		const url = URL.createObjectURL(file);
+		const url = URL.createObjectURL(shown);
 		const fail = () => {
 			URL.revokeObjectURL(url);
 			reject(new Error(`Could not read ${file.name}`));

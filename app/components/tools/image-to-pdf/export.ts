@@ -4,7 +4,7 @@ import {
 	layout,
 	type Options,
 } from 'delphitools-v2/components/tools/image-to-pdf/layout';
-import { decodeImage } from 'delphitools-v2/lib/decode-image';
+import { decodeImage, isHeic } from 'delphitools-v2/lib/decode-image';
 
 export interface Source {
 	file: File;
@@ -57,8 +57,10 @@ export async function buildPdf(
 	const doc = await PDFDocument.create();
 	for (const [index, source] of sources.entries()) {
 		const { file } = source;
-		const embedded =
-			file.type === 'image/jpeg'
+		// 아이폰 사진(HEIC)은 사진이라 PNG보다 훨씬 작은 JPEG로 넣는다
+		const embedded = (await isHeic(file))
+			? await doc.embedJpg(await redrawn(file, 'image/jpeg'))
+			: file.type === 'image/jpeg'
 				? await doc.embedJpg(
 						// viewers ignore exif orientation
 						((await exifr.orientation(

@@ -16,6 +16,8 @@ Router.map(function () {
 	this.route('workflows');
 	this.route('workflow', { path: '/w/:steps' });
 	this.route('experiments');
+	this.route('guides');
+	this.route('guide', { path: '/guides/:slug' });
 	// 원작 UI 키트 문서(/canon)는 툴피디아에서 공개하지 않는다
 	this.route('privacy');
 	this.route('about');

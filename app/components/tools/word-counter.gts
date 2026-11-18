@@ -76,6 +76,14 @@ export default class WordCounter extends Component {
 			},
 			{ label: 'Lines', value: stats.lines.toLocaleString() },
 			{
+				label: 'Bytes (UTF-8)',
+				value: stats.bytesUtf8.toLocaleString(),
+			},
+			{
+				label: 'Bytes (EUC-KR)',
+				value: stats.bytesEucKr.toLocaleString(),
+			},
+			{
 				label: 'Avg Word',
 				value: `${averageWordLength(stats)} chars`,
 			},

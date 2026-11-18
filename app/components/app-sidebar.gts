@@ -464,6 +464,13 @@ export default class AppSidebar extends Component {
 							@text={{t "Toolpedia"}}
 						/>
 						<NavRow
+							@name={{t
+								"Toolpedia guides"
+							}}
+							@icon="book-open"
+							@href="/guides"
+						/>
+						<NavRow
 							@name={{t "Privacy"}}
 							@icon="shield-check"
 							@href="/privacy"

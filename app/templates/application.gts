@@ -28,6 +28,8 @@ const PAGES: Record<string, { title: string; icon: string }> = {
 	about: { title: '툴피디아 소개', icon: 'info' },
 	contact: { title: '문의하기', icon: 'message-square' },
 	privacy: { title: '개인정보 처리방침', icon: 'shield-check' },
+	guides: { title: '가이드', icon: 'book-open' },
+	guide: { title: '가이드', icon: 'book-open' },
 	'not-found': { title: '페이지를 찾을 수 없어요', icon: 'search' },
 };
 

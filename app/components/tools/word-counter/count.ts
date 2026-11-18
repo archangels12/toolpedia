@@ -2,6 +2,8 @@ export interface TextStats {
 	words: number;
 	characters: number;
 	charactersNoSpaces: number;
+	bytesUtf8: number;
+	bytesEucKr: number;
 	sentences: number;
 	paragraphs: number;
 	lines: number;
@@ -18,6 +20,13 @@ function pace(words: number, wordsPerMinute: number): string {
 	return minutes < 1
 		? `${Math.ceil(minutes * 60)} sec`
 		: `${Math.ceil(minutes)} min`;
+}
+
+// 한글 사이트·문자 메시지가 쓰는 EUC-KR(CP949): 영문·숫자·공백 1바이트, 그 밖의 글자 2바이트
+function eucKrBytes(text: string): number {
+	let bytes = 0;
+	for (const ch of text) bytes += ch.codePointAt(0)! < 0x80 ? 1 : 2;
+	return bytes;
 }
 
 export function countText(text: string): TextStats {
@@ -37,6 +46,8 @@ export function countText(text: string): TextStats {
 		words,
 		characters: text.length,
 		charactersNoSpaces: text.replace(/\s/g, '').length,
+		bytesUtf8: new TextEncoder().encode(text).length,
+		bytesEucKr: eucKrBytes(text),
 		sentences,
 		paragraphs,
 		// empty text = 0 lines
@@ -50,6 +61,8 @@ export function statsReport(stats: TextStats): string {
 	return `Words: ${stats.words}
 Characters: ${stats.characters}
 Characters (no spaces): ${stats.charactersNoSpaces}
+Bytes (UTF-8): ${stats.bytesUtf8}
+Bytes (EUC-KR): ${stats.bytesEucKr}
 Sentences: ${stats.sentences}
 Paragraphs: ${stats.paragraphs}
 Lines: ${stats.lines}

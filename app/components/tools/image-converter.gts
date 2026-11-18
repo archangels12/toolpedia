@@ -23,7 +23,11 @@ import CanonSwitch from 'delphicanon/components/canon-switch';
 import { hex, parseHex, type Rgb } from 'delphicanon/lib/colour';
 import { IconSvg } from 'delphitools-v2/components/icon';
 import { clipboardImages } from 'delphitools-v2/lib/clipboard-images';
-import { decodeImage } from 'delphitools-v2/lib/decode-image';
+import {
+	decodeImage,
+	displayable,
+	HEIC_ACCEPT,
+} from 'delphitools-v2/lib/decode-image';
 import { downloadBlob } from 'delphitools-v2/lib/download';
 import { downloadIcon, passAlong } from 'delphitools-v2/lib/flow-hooks';
 import { formatBytes } from 'delphitools-v2/lib/image-compress';
@@ -55,7 +59,7 @@ import {
 } from 'delphitools-v2/components/tools/image-converter/encode';
 import './image-converter/image-converter.css';
 
-const ACCEPT = 'image/*,.jxl';
+const ACCEPT = `image/*,.jxl,${HEIC_ACCEPT}`;
 const FAILED = 'Conversion failed for this format.';
 
 const formatLabels = FORMATS.map((f) => f.label);
@@ -114,7 +118,7 @@ async function readSource(file: File): Promise<Source | string> {
 		image.close();
 		return {
 			file,
-			url: URL.createObjectURL(file),
+			url: URL.createObjectURL(await displayable(file)),
 			name,
 			natural,
 			alpha,
