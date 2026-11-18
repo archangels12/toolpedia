@@ -38,6 +38,13 @@ const flag = (code: string): ComponentLike => <template>
 	/>
 </template>;
 
+// 언어 이름은 브라우저가 아는 한국어 이름으로 보여 준다 (모르는 코드는 영어 이름)
+const KO_NAMES = new Intl.DisplayNames(['ko'], { type: 'language' });
+const koName = (code: string, name: string) => {
+	const ko = KO_NAMES.of(code === 'jw' ? 'jv' : code);
+	return ko && ko !== code ? ko : name;
+};
+
 const FLAGS = new Map(LANGUAGES.map(({ code }) => [code, flag(code)]));
 
 const item = (
@@ -47,9 +54,9 @@ const item = (
 	group?: string,
 ): CanonCommandItem => ({
 	id,
-	title: name,
+	title: koName(code, name),
 	group,
-	keywords: [code],
+	keywords: [code, name],
 	icon: FLAGS.get(code),
 	detail: group === 'All languages' ? code : undefined,
 });
@@ -64,7 +71,12 @@ const COMMON = LANGUAGES.slice(0, COMMON_COUNT).map((l) =>
 	item(`common-${l.code}`, l.code, l.name, 'Common'),
 );
 const ALL = [...LANGUAGES]
-	.sort((a, b) => a.name.localeCompare(b.name))
+	.sort((a, b) =>
+		koName(a.code, a.name).localeCompare(
+			koName(b.code, b.name),
+			'ko',
+		),
+	)
 	.map((l) => item(l.code, l.code, l.name, 'All languages'));
 
 /** The web tool's language combobox as a kit row: the pick opens a searchable dialog. */
@@ -77,7 +89,8 @@ export default class LanguagePick extends Component<LanguagePickSignature> {
 	}
 
 	get text() {
-		return this.current?.name ?? AUTO;
+		const lang = this.current;
+		return lang ? koName(lang.code, lang.name) : AUTO;
 	}
 
 	get icon() {
