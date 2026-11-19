@@ -1,3 +1,4 @@
+import iActivity from 'lucide-static/icons/activity.svg?raw';
 import iAlertCircle from 'lucide-static/icons/alert-circle.svg?raw';
 import iAlignCenter from 'lucide-static/icons/align-center.svg?raw';
 import iAlignCenterHorizontal from 'lucide-static/icons/align-center-horizontal.svg?raw';
@@ -31,6 +32,7 @@ import iArrowUpToLine from 'lucide-static/icons/arrow-up-to-line.svg?raw';
 import iAudioLines from 'lucide-static/icons/audio-lines.svg?raw';
 import iAudioWaveform from 'lucide-static/icons/audio-waveform.svg?raw';
 import iAxis3d from 'lucide-static/icons/axis-3d.svg?raw';
+import iBaby from 'lucide-static/icons/baby.svg?raw';
 import iBanana from 'lucide-static/icons/banana.svg?raw';
 import iBarcode from 'lucide-static/icons/barcode.svg?raw';
 import iBell from 'lucide-static/icons/bell.svg?raw';
@@ -42,8 +44,11 @@ import iBoxSelect from 'lucide-static/icons/box-select.svg?raw';
 import iBraces from 'lucide-static/icons/braces.svg?raw';
 import iBriefcase from 'lucide-static/icons/briefcase.svg?raw';
 import iBrush from 'lucide-static/icons/brush.svg?raw';
+import iCake from 'lucide-static/icons/cake.svg?raw';
 import iCalculator from 'lucide-static/icons/calculator.svg?raw';
 import iCalendarClock from 'lucide-static/icons/calendar-clock.svg?raw';
+import iCalendarDays from 'lucide-static/icons/calendar-days.svg?raw';
+import iCalendarHeart from 'lucide-static/icons/calendar-heart.svg?raw';
 import iCamera from 'lucide-static/icons/camera.svg?raw';
 import iCaptions from 'lucide-static/icons/captions.svg?raw';
 import iCarrot from 'lucide-static/icons/carrot.svg?raw';
@@ -177,6 +182,7 @@ import iPen from 'lucide-static/icons/pen.svg?raw';
 import iPenLine from 'lucide-static/icons/pen-line.svg?raw';
 import iPencil from 'lucide-static/icons/pencil.svg?raw';
 import iPentagon from 'lucide-static/icons/pentagon.svg?raw';
+import iPercent from 'lucide-static/icons/percent.svg?raw';
 import iPictureInPicture2 from 'lucide-static/icons/picture-in-picture-2.svg?raw';
 import iPin from 'lucide-static/icons/pin.svg?raw';
 import iPinOff from 'lucide-static/icons/pin-off.svg?raw';
@@ -253,6 +259,7 @@ import iVariable from 'lucide-static/icons/variable.svg?raw';
 import iVectorSquare from 'lucide-static/icons/vector-square.svg?raw';
 import iVolumeX from 'lucide-static/icons/volume-x.svg?raw';
 import iWandSparkles from 'lucide-static/icons/wand-sparkles.svg?raw';
+import iWholeWord from 'lucide-static/icons/whole-word.svg?raw';
 import iWind from 'lucide-static/icons/wind.svg?raw';
 import iWorkflow from 'lucide-static/icons/workflow.svg?raw';
 import iWrench from 'lucide-static/icons/wrench.svg?raw';
@@ -273,6 +280,7 @@ import iChartCandlestick from 'lucide-static/icons/chart-candlestick.svg?raw';
 import iChartLine from 'lucide-static/icons/chart-line.svg?raw';
 
 export const icons: Record<string, string> = {
+	activity: iActivity,
 	'alert-circle': iAlertCircle,
 	'align-center': iAlignCenter,
 	'align-center-horizontal': iAlignCenterHorizontal,
@@ -306,6 +314,7 @@ export const icons: Record<string, string> = {
 	'audio-lines': iAudioLines,
 	'audio-waveform': iAudioWaveform,
 	'axis-3d': iAxis3d,
+	baby: iBaby,
 	banana: iBanana,
 	barcode: iBarcode,
 	bell: iBell,
@@ -317,8 +326,11 @@ export const icons: Record<string, string> = {
 	braces: iBraces,
 	briefcase: iBriefcase,
 	brush: iBrush,
+	cake: iCake,
 	calculator: iCalculator,
 	'calendar-clock': iCalendarClock,
+	'calendar-days': iCalendarDays,
+	'calendar-heart': iCalendarHeart,
 	camera: iCamera,
 	captions: iCaptions,
 	carrot: iCarrot,
@@ -452,6 +464,7 @@ export const icons: Record<string, string> = {
 	'pen-line': iPenLine,
 	pencil: iPencil,
 	pentagon: iPentagon,
+	percent: iPercent,
 	'picture-in-picture-2': iPictureInPicture2,
 	pin: iPin,
 	'pin-off': iPinOff,
@@ -528,6 +541,7 @@ export const icons: Record<string, string> = {
 	'vector-square': iVectorSquare,
 	'volume-x': iVolumeX,
 	'wand-sparkles': iWandSparkles,
+	'whole-word': iWholeWord,
 	wind: iWind,
 	workflow: iWorkflow,
 	wrench: iWrench,

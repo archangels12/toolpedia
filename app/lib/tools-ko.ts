@@ -614,6 +614,108 @@ export const toolsKo: Record<string, ToolKo> = {
 			'시급 계산기',
 		],
 	},
+	// 생활 계산기
+	'age-calc': {
+		name: '만 나이 계산기',
+		description:
+			'생년월일로 만 나이·연 나이·세는 나이와 띠, 다음 생일까지 남은 날을 계산합니다',
+		keywords: [
+			'만나이 계산기',
+			'나이 계산',
+			'연 나이',
+			'한국 나이',
+			'띠 계산',
+		],
+	},
+	'dday-calc': {
+		name: 'D-day 날짜 계산기',
+		description:
+			'두 날짜 사이 일수, N일 뒤 날짜, 100일·1000일 기념일을 계산합니다',
+		keywords: [
+			'디데이 계산기',
+			'날짜 계산기',
+			'100일 계산',
+			'기념일 계산',
+			'일수 계산',
+		],
+	},
+	'percent-calc': {
+		name: '퍼센트 계산기',
+		description:
+			'A의 B%, 비율, 증감률, 할인가를 공식과 함께 바로 계산합니다',
+		keywords: [
+			'퍼센트 계산',
+			'백분율 계산',
+			'할인율 계산',
+			'증가율 계산',
+			'% 계산기',
+		],
+	},
+	'hangul-amount-calc': {
+		name: '금액 한글 변환',
+		description:
+			'숫자 금액을 계약서·영수증용 한글(일백만원정)과 한자 갖은자로 바꿉니다',
+		keywords: [
+			'숫자 한글 변환',
+			'금액 한글로',
+			'한글 금액',
+			'원정 쓰기',
+			'갖은자',
+		],
+	},
+	'sleep-calc': {
+		name: '수면 계산기',
+		description:
+			'90분 수면 주기에 맞춰 개운하게 일어날 기상 시각과 잠들 시각을 계산합니다',
+		keywords: [
+			'수면 주기 계산',
+			'기상 시간 계산',
+			'잠자는 시간',
+			'수면 시간 계산',
+		],
+	},
+	'bmi-calc': {
+		name: 'BMI 계산기',
+		description:
+			'키와 몸무게로 체질량지수를 계산하고 대한비만학회 기준으로 비만도를 판정합니다',
+		keywords: [
+			'비만도 계산',
+			'체질량지수',
+			'표준체중',
+			'bmi 계산',
+			'정상 체중',
+		],
+	},
+	'bmr-calc': {
+		name: '기초대사량 계산기',
+		description:
+			'기초대사량과 활동량별 하루 소비 칼로리, 다이어트 권장 칼로리를 계산합니다',
+		keywords: [
+			'기초대사량 계산',
+			'칼로리 계산기',
+			'하루 권장 칼로리',
+			'다이어트 칼로리',
+			'tdee',
+		],
+	},
+	'ovulation-calc': {
+		name: '배란일 계산기',
+		description:
+			'마지막 생리일과 주기로 배란 예정일·가임기·다음 생리 예정일을 계산합니다',
+		keywords: [
+			'가임기 계산',
+			'배란일',
+			'생리 주기 계산',
+			'생리 예정일',
+			'임신 가능 기간',
+		],
+	},
+	'due-date-calc': {
+		name: '출산 예정일 계산기',
+		description:
+			'마지막 생리 시작일로 출산 예정일과 오늘 임신 주수를 계산합니다',
+		keywords: ['출산예정일 계산', '임신 주수 계산', '분만 예정일'],
+	},
 	'algebra-calc': {
 		name: '방정식 계산기',
 		description: '식 정리·인수분해·방정식 풀이·미분을 합니다',
@@ -650,6 +752,7 @@ export const categoriesKo: Record<string, string> = {
 	pdf: 'PDF',
 	'other-tools': '기타 도구',
 	calculators: '계산기',
+	'life-calc': '생활 계산기',
 	'print-production': '인쇄',
 	'dev-tools': '개발 도구',
 	'turbo-nerd': '재미있는 변환',

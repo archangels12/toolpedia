@@ -15,6 +15,14 @@ import { averagePrice, investReturn } from '../../app/lib/krw/invest.ts';
 import { installment } from '../../app/lib/krw/installment.ts';
 import { freelanceTax, grossFromNet } from '../../app/lib/krw/freelance.ts';
 import { holidayPay } from '../../app/lib/krw/holiday-pay.ts';
+import { age } from '../../app/lib/life/age.ts';
+import { between, nthDay } from '../../app/lib/life/dday.ts';
+import { percentOf, ratio, change, discount } from '../../app/lib/life/percent.ts';
+import { bmi } from '../../app/lib/life/bmi.ts';
+import { bmr, tdee } from '../../app/lib/life/bmr.ts';
+import { formal, spoken, hanja } from '../../app/lib/life/hangul-number.ts';
+import { cycles, pregnancy } from '../../app/lib/life/cycle.ts';
+import { bedtimes, clock, toMin } from '../../app/lib/life/sleep.ts';
 
 let failed = 0;
 const check = (name, got, want) => {
@@ -93,6 +101,40 @@ check('주휴수당: 최저임금 주 40시간', holidayPay(10320, 40).holidayPa
 // 고용노동부 고시 월 환산액 (209시간)
 check('최저임금 월 환산 (2026 고시)', holidayPay(10320, 40).monthlyPay, 2156880);
 check('주휴수당: 주 14시간은 없음', holidayPay(10320, 14).holidayPay, 0);
+
+// 생활 계산기 (손으로 계산한 값)
+check('만 나이: 1990-05-15생, 2026-11-19 기준', age('1990-05-15', '2026-11-19').man, 36);
+check('만 나이: 생일 전이면 한 살 적음', age('1990-12-25', '2026-11-19').man, 35);
+check('세는 나이: 1990년생', age('1990-05-15', '2026-11-19').counting, 37);
+check('띠: 1990년생', age('1990-05-15', '2026-11-19').zodiac, '말');
+check('다음 생일까지: 1990-05-15생', age('1990-05-15', '2026-11-19').daysToBirthday, 177);
+check('2월 29일생: 평년 2월 28일', age('2000-02-29', '2026-02-28').man, 25);
+check('2월 29일생: 평년 3월 1일', age('2000-02-29', '2026-03-01').man, 26);
+check('날짜 사이: 2026-01-01 ~ 12-31', between('2026-01-01', '2026-12-31', false), 364);
+check('날짜 사이: 시작일 포함', between('2026-01-01', '2026-12-31', true), 365);
+check('100일: 2026-11-19 시작', nthDay('2026-11-19', 100), '2027-02-26');
+check('퍼센트: 5만 원의 15%', percentOf(50000, 15), 7500);
+check('퍼센트: 30은 120의', ratio(30, 120), 25);
+check('증감률: 80 → 100', change(80, 100), 25);
+check('할인: 39,900원 30% 할인가', discount(39900, 30).final, 27930);
+check('BMI: 170cm 65kg', bmi(170, 65).value, 22.5);
+check('BMI 판정: 170cm 65kg', bmi(170, 65).label, '정상');
+check('BMI 판정: 170cm 67kg (23.2)', bmi(170, 67).label, '비만 전 단계 (과체중)');
+check('BMI 정상 상한 몸무게: 170cm', bmi(170, 65).max, 66.2);
+check('기초대사량: 남 30세 175cm 70kg', bmr(true, 30, 175, 70), 1649);
+check('활동 대사량: 보통 활동', tdee(1649, 2), 2556);
+check('한글 금액: 1,234,567', formal(1234567), '일백이십삼만사천오백육십칠');
+check('한글 금액: 1억 1원', formal(100000001), '일억일');
+check('읽는 방식: 1,234,567', spoken(1234567), '백이십삼만 사천오백육십칠');
+check('읽는 방식: 1만', spoken(10000), '만');
+check('읽는 방식: 1억 1만', spoken(100010000), '일억 만');
+check('갖은자: 1,234,567', hanja(1234567), '壹佰貳拾參萬肆仟伍佰陸拾柒');
+check('배란일: 11-01 시작 28일 주기', cycles('2026-11-01', 28, 1)[0].ovulation, '2026-11-15');
+check('가임기 시작: 11-01 시작 28일 주기', cycles('2026-11-01', 28, 1)[0].fertileStart, '2026-11-10');
+check('출산예정일: 2026-03-01 마지막 생리', pregnancy('2026-03-01', 28, '2026-11-19').dueDate, '2026-12-06');
+check('임신 주수: 2026-11-19 기준', pregnancy('2026-03-01', 28, '2026-11-19').weeks, 37);
+check('출산예정일: 35일 주기는 7일 뒤', pregnancy('2026-03-01', 35, '2026-11-19').dueDate, '2026-12-13');
+check('수면: 7시 기상, 5주기, 잠들기 15분', clock(bedtimes(toMin('07:00'), 15)[1].time), '오후 11:15');
 
 if (failed) {
 	console.log(`${failed}건 실패`);

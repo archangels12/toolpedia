@@ -1258,6 +1258,93 @@ export const toolCategories: ToolCategory[] = [
 		],
 	},
 	{
+		// 생활 계산기 (툴피디아 추가, 한국어 전용)
+		id: 'life-calc',
+		name: 'Everyday Calculators',
+		tools: [
+			{
+				id: 'age-calc',
+				name: 'Age Calculator',
+				description:
+					'Korean age (man-nai), year age and zodiac',
+				icon: 'cake',
+				href: '/tools/age-calc',
+				canon: true,
+			},
+			{
+				id: 'dday-calc',
+				name: 'D-day Calculator',
+				description:
+					'Days between dates, D-day and anniversaries',
+				icon: 'calendar-days',
+				href: '/tools/dday-calc',
+				canon: true,
+			},
+			{
+				id: 'percent-calc',
+				name: 'Percentage Calculator',
+				description:
+					'Percent of, ratio, change and discount',
+				icon: 'percent',
+				href: '/tools/percent-calc',
+				canon: true,
+			},
+			{
+				id: 'hangul-amount-calc',
+				name: 'Amount in Korean Words',
+				description:
+					'Write a number as Korean words for contracts',
+				icon: 'whole-word',
+				href: '/tools/hangul-amount-calc',
+				canon: true,
+			},
+			{
+				id: 'sleep-calc',
+				name: 'Sleep Calculator',
+				description:
+					'Bed and wake times by 90-minute sleep cycles',
+				icon: 'moon',
+				href: '/tools/sleep-calc',
+				canon: true,
+			},
+			{
+				id: 'bmi-calc',
+				name: 'BMI Calculator',
+				description:
+					'Body mass index by Korean obesity criteria',
+				icon: 'activity',
+				href: '/tools/bmi-calc',
+				canon: true,
+			},
+			{
+				id: 'bmr-calc',
+				name: 'BMR Calculator',
+				description:
+					'Basal metabolic rate and daily calories',
+				icon: 'flame',
+				href: '/tools/bmr-calc',
+				canon: true,
+			},
+			{
+				id: 'ovulation-calc',
+				name: 'Ovulation Calculator',
+				description:
+					'Ovulation day, fertile window and next period',
+				icon: 'calendar-heart',
+				href: '/tools/ovulation-calc',
+				canon: true,
+			},
+			{
+				id: 'due-date-calc',
+				name: 'Due Date Calculator',
+				description: 'Due date and weeks of pregnancy',
+				icon: 'baby',
+				href: '/tools/due-date-calc',
+				canon: true,
+			},
+		],
+	},
+	{
 		id: 'turbo-nerd',
 		name: 'Turbo-nerd Shit',
 		tools: [

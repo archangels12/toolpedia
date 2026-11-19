@@ -21,7 +21,8 @@
 	--cat: var(--tp-tab-other);
 }
 
-[data-cat="calculators"] {
+[data-cat="calculators"],
+[data-cat="life-calc"] {
 	--cat: var(--tp-tab-calc);
 }
 

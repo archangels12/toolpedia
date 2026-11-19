@@ -224,3 +224,31 @@
 .krw-related a:hover {
 	background: var(--canon-accent-bg);
 }
+
+/* 금액 한글 변환: 결과 줄마다 복사 버튼 */
+.krw-amount-line {
+	padding: 12px 0;
+	border-bottom: 1px solid var(--canon-border);
+}
+
+.krw-amount-line dt {
+	color: var(--canon-muted-foreground);
+	font-size: 14px;
+}
+
+.krw-amount-line dd {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	margin: 4px 0 0;
+	font-size: 18px;
+	font-weight: 700;
+	overflow-wrap: anywhere;
+	word-break: keep-all;
+}
+
+.krw-field-box input[type="time"] {
+	font-size: 18px;
+	text-align: left;
+}
