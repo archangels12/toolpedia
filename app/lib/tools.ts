@@ -1507,6 +1507,12 @@ if (LOCALE === 'ko') {
 		)
 			toolCategories.splice(i, 1);
 	}
+	// 한국에만 있는 계산기(연봉·퇴직금·만 나이 등)를 홈·사이드바 맨 앞에 둔다
+	for (const id of ['life-calc', 'calculators']) {
+		const index = toolCategories.findIndex((c) => c.id === id);
+		if (index > 0)
+			toolCategories.unshift(...toolCategories.splice(index, 1));
+	}
 }
 
 export const experimentsCategory = toolCategories.find(

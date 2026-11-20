@@ -110,6 +110,10 @@ export default defineConfig({
 	define: {
 		__DT_COMMIT_SHA__: JSON.stringify(commitSha()),
 		__DT_PRIDE__: JSON.stringify(prideEnabled()),
+		// 빌드한 날(한국 시간). 발행일이 아직 안 된 가이드를 숨기는 데 쓴다
+		__DT_BUILD_DATE__: JSON.stringify(
+			new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 10),
+		),
 	},
 	optimizeDeps: {
 		// the html crawl misses worker entries; a dep found late re-bundles and 504s in-flight imports
