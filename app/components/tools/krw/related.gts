@@ -42,11 +42,27 @@ const GUIDES: Record<string, { href: string; label: string }[]> = {
 			href: '/guide/policy/didimdol/',
 			label: '디딤돌대출 조건과 금리',
 		},
+		{
+			href: '/guide/loan/withdrawal-right/',
+			label: '대출 청약철회권 (14일 내 취소)',
+		},
+		{
+			href: '/guide/loan/max-interest-rate/',
+			label: '법정 최고금리 연 20%',
+		},
 	],
 	'prepayment-calc': [
 		{
 			href: '/guide/loan-repayment-methods/',
 			label: '대출 상환 방식 3가지 차이',
+		},
+		{
+			href: '/guide/loan/prepayment-fee/',
+			label: '중도상환수수료',
+		},
+		{
+			href: '/guide/loan/withdrawal-right/',
+			label: '대출 청약철회권 (14일 내 취소)',
 		},
 	],
 	'rent-convert-calc': [
@@ -58,6 +74,10 @@ const GUIDES: Record<string, { href: string; label: string }[]> = {
 		{
 			href: '/guide/policy/beotimmok/',
 			label: '버팀목전세자금대출 조건',
+		},
+		{
+			href: '/guide/tax/jeonse-loan-deduction/',
+			label: '전세대출 연말정산 공제',
 		},
 	],
 	'savings-calc': [
