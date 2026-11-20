@@ -156,6 +156,13 @@ export default class AgeCalc extends Component {
 								사람을 한꺼번에
 								관리하기
 								위해서입니다.
+								자세한 내용은
+								<a
+									href="/guides/korean-age-exceptions"
+								>만 나이 통일 후에도
+									연 나이를 쓰는
+									경우</a>에
+								정리했습니다.
 							</p>
 						</details>
 						<details>

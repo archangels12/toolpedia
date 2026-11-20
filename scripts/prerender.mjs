@@ -129,9 +129,25 @@ function withBody(html, main) {
 	const clean = main.replace(/ id="ember\d+"/g, '');
 	return html.replace(
 		/<body([^>]*)>/,
-		`<body$1>\n    <div id="dt-prerender">${clean}</div>`,
+		`<body$1>\n    <div id="dt-prerender">${clean}${siteNav}</div>`,
 	);
 }
+
+// 미리 그린 본문 끝에 붙이는 사이트 메뉴: JS 없이 읽는 수집기도 홈·카테고리·가이드로 이어 가게.
+// 앱 화면에서는 사이드바가 같은 역할을 하므로, 이 블록은 앱이 시작되면 함께 지워진다.
+const siteNav = `<nav aria-label="사이트 메뉴"><ul>${[
+	{ name: `${SITE} 홈`, url: '/' },
+	...Object.entries(categoryPages).map(([id, page]) => ({
+		name: page.heading,
+		url: `/category/${id}`,
+	})),
+	{ name: '가이드', url: '/guides' },
+	{ name: '툴피디아 소개', url: '/about' },
+	{ name: '문의하기', url: '/contact' },
+	{ name: '개인정보처리방침', url: '/privacy' },
+]
+	.map((l) => `<li><a href="${l.url}">${esc(l.name)}</a></li>`)
+	.join('')}</ul></nav>`;
 
 function withHead(shell, head) {
 	return shell
@@ -255,6 +271,7 @@ const routes = [
 		imageAlt: `${g.title} — ${SITE}`,
 		card: toolCard(g.title.split(':')[0].split(' (')[0]),
 		ogType: 'article',
+		updated: g.updated,
 		ld:
 			breadcrumb([
 				{ name: '가이드', url: '/guides' },
@@ -363,12 +380,15 @@ for (const route of routes) {
 
 // 검색엔진용 사이트맵 (네이버 서치어드바이저·구글 서치콘솔에 제출)
 {
-	const today = new Date().toISOString().slice(0, 10);
+	// lastmod 는 실제 고친 날을 아는 가이드 글에만 넣는다.
+	// 배포 날짜를 모든 주소에 넣으면 구글이 lastmod 를 믿지 않게 된다.
 	const urls = routes
-		.map(
-			(route) =>
-				`  <url><loc>${ORIGIN}${route.url}</loc><lastmod>${today}</lastmod></url>`,
-		)
+		.map((route) => {
+			const lastmod = route.updated
+				? `<lastmod>${route.updated}</lastmod>`
+				: '';
+			return `  <url><loc>${ORIGIN}${route.url}</loc>${lastmod}</url>`;
+		})
 		.join('\n');
 	writeFileSync(
 		join(dist, 'sitemap.xml'),
