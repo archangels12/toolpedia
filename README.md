@@ -1,154 +1,37 @@
-![delphitools wordmark](public/heroes/delphi.webp)
+# 툴피디아 (Toolpedia)
 
-<h1 align="center">delphitools</h1>
-<p align="center">the open source toolkit for digital creatives</p>
+**세상의 모든 도구** — 설치·회원가입 없이 브라우저에서 바로 쓰는 무료 도구 모음
 
-# Overview
+👉 **https://toolpedia.app**
 
-delphitools is a collection of over 80 simple, local-only tools that run in your browser and all solve a problem that I, delphi, have personally had. It is implemented in [Ember.js](https://github.com/emberjs/ember.js) and [Crayon CSS](https://github.com/TeriyakiBomb/crayon) for styling.
+이미지·PDF·영상·글·색상·개발 도구와 한국 기준 계산기까지, 자주 필요한 도구 100여 가지를 한곳에 모았습니다.
 
-All tools are completely open source and transparent. They are componentised and modular, and more tools are added on a regular basis.
+## 파일을 서버에 올리지 않습니다
 
-delphitools is developed under the Zero-Clause BSD license and as such, is freely available for modification and distribution. If you are missing anything, please feel free to submit an issue or pull request.
+사진 용량 줄이기, PDF 합치기, 동영상 자르기처럼 파일을 다루는 도구는 모두 브라우저 안에서 처리합니다. 개인 사진이나 업무 문서가 기기 밖으로 나가지 않습니다.
 
-If you're on a different platform, try the [delphitools CLI](https://github.com/1612elphi/delphitools-cli), written in Rust, or the iOS version.
+## 자주 쓰는 도구
 
-# Rationale
+- **계산기:** [연봉 실수령액](https://toolpedia.app/tools/salary-calc) · [퇴직금](https://toolpedia.app/tools/severance-calc) · [4대보험](https://toolpedia.app/tools/insurance-calc) · [대출이자](https://toolpedia.app/tools/loan-calc) · [주휴수당](https://toolpedia.app/tools/holiday-pay-calc)
+- **생활 계산기:** [만 나이](https://toolpedia.app/tools/age-calc) · D-day · 퍼센트 · 금액 한글 변환 · BMI · 출산 예정일
+- **이미지:** 이미지 용량 줄이기 · 이미지 변환(WebP를 JPG로 등) · 배경 제거 · 기울어진 사진 바로잡기
+- **PDF:** PDF 합치기·나누기 · PDF 용량 줄이기 · PDF를 JPG로 · PDF 쪽번호 넣기
+- **영상·오디오:** 동영상 자르기 · 동영상 소리 추출 · 자막 변환 · 동영상 캡처 추출
+- **글·개발:** 글자수 세기 · 텍스트 비교 · QR코드 만들기 · JSON 정리
 
-delphitools exists as an answer to online tools that all do one thing, and not particularly well at that. It requires no logins, no paywalls, has no hidden features, no premium service, no social features, runs entirely in the browser and doesn't even require an internet connection to function.
+전체 목록과 사용법 가이드는 [toolpedia.app](https://toolpedia.app)과 [가이드](https://toolpedia.app/guides)에 있습니다.
 
-# Installation
+## 기반 프로젝트와 라이선스
 
-For local installation, please clone the repository to a destination of your choosing and run the following commands to start a local, Vite-based development server.
+툴피디아는 [delphitools](https://github.com/1612elphi/delphitools)(0BSD)를 바탕으로 한국어 사용자에 맞게 번역하고, 한국 법령·요율을 따르는 계산기와 가이드를 더해 만들었습니다. PDF 처리에 쓰는 [mupdf](https://mupdf.com/)는 AGPL 라이선스이며, 그에 따라 이 저장소의 소스 코드를 공개합니다.
+
+## 직접 실행하기
 
 ```bash
-bun install
-bun start
+npm install
+npm start
 ```
 
-# Included Tools
+## 문의
 
-## Audio & Video (16)
-
-- Audio Atlas
-- Audio Extractor
-- Audio Normaliser
-- Audio Trimmer
-- Auto Subtitle
-- Frame Extractor
-- Screen Recorder
-- Subtitle Converter
-- Subtitle Studio
-- Timecode Calculator
-- Video Atlas
-- Video Muter
-- Video to GIF
-- Video Trimmer
-- Voice Recorder
-- Waveform Generator
-
-## Calculators (7)
-
-- Algebra Calculator
-- Base Converter
-- Encoding Tools
-- Graph Calculator
-- Scientific Calculator
-- Time Calculator
-- Unit Converter
-
-## Colour (11)
-
-- Colour Atlas
-- Colour Blindness Simulator
-- Colour Converter
-- Contrast Checker
-- Gradient Generator
-- Harmony Generator
-- Palette Collection
-- Palette Extractor
-- Palette Generator
-- Pixel Picker
-- Tailwind Shade Generator
-
-## Dev Tools (9)
-
-- Cron Builder
-- HTTP Status
-- JSON Formatter
-- JWT Decoder
-- Meta Tag Generator
-- Regex Tester
-- Request Builder
-- Tailwind Cheat Sheet
-- UUID Generator
-
-## Images & Assets (16)
-
-- Artwork Enhancer
-- Background Remover
-- Base64 Image Encoder
-- Favicon Generator
-- Image Clipper
-- Image Compressor
-- Image Converter
-- Image De-skewer
-- Image Splitter
-- Image Stitcher
-- Image Tracer
-- Metadata Stripper
-- Paste Image
-- Placeholder Generator
-- Substrata
-- SVG Optimiser
-
-## Other Tools (5)
-
-- Barcode Generator
-- Cipher Decoder
-- Password Generator
-- QR Generator
-- Text Scratchpad
-
-## PDF (6)
-
-- Images to PDF
-- PDF Compressor
-- PDF Organiser
-- PDF Page Numbers
-- PDF Preflight
-- PDF Rotate & Crop
-
-## Print & Production (2)
-
-- Print Imposer
-- Zine Imposer
-
-## Social Media (4)
-
-- Matte Generator
-- Seamless Scroll Generator
-- Social Media Cropper
-- Watermarker
-
-## Turbo-nerd Shit (5)
-
-- Braille Converter
-- IPA Transcription
-- Morse Code
-- NATO Phonetic
-- Shavian Transliterator
-
-## Typography & Text (11)
-
-- Document Converter
-- Font File Explorer
-- Glyph Browser
-- Large Type
-- Line Height Calculator
-- Paper Sizes
-- PX to REM
-- Text Diff
-- Text Editor
-- Typography Calculator
-- Word Counter
+사이트의 [문의하기](https://toolpedia.app/contact) 페이지를 이용해 주세요.
