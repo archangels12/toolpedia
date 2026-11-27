@@ -66,3 +66,5 @@ CLAUDE.md
 # assets/og tracked, scripts/og.mjs 
 /assets/heroes/
 /assets/art/
+.auto-deploy-last
+auto-deploy.log
