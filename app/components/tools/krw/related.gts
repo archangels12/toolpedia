@@ -53,6 +53,10 @@ const GUIDES: Record<string, { href: string; label: string }[]> = {
 	],
 	'prepayment-calc': [
 		{
+			href: '/calc/prepayment-fee/',
+			label: '대출일·상환일로 중도상환수수료 계산하기',
+		},
+		{
 			href: '/guide/loan-repayment-methods/',
 			label: '대출 상환 방식 3가지 차이',
 		},
